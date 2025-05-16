@@ -9,7 +9,7 @@ Trabajo Final de programación orientada a Objetos 2 (UNQ)
 5. [Integrantes](#Integrantes)
 <br> </br>
 
-![Imagen]()
+![Imagen](https://github.com/Eduardo73Martinez/TpFinalPo2-Vinchucas2025/blob/main/imagenVinchuca.png)
 
 ## Objetivo
 EL objetivo de este proyecto consite en diseñar y desarrollar completamente el funcionamiento de un sistema de deteccion de vinchucas. El proyecto es evaluado por docentes de la universidad nacional de Quilmes (UNQ). Para más información 
