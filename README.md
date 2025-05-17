@@ -31,5 +31,5 @@ Link a la documentación [Doc]().
 ## Integrantes 
 
 - Martinez Quimey
-- Cristofanetti Lucio
+- Cristofanetti Lucio     - luciocristofanetti@gmail.com
 - Martinez Eduardo        - mm7735608@gmail.com
