@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="scr"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/marti/Documents/archivosMockito-main/byte-buddy-1.14.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/marti/Documents/archivosMockito-main/byte-buddy-agent-1.14.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/marti/Documents/archivosMockito-main/mockito-core-5.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/marti/Documents/archivosMockito-main/mockito-inline-3.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/marti/Documents/archivosMockito-main/objenesis-3.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
