@@ -1,6 +1,6 @@
 package web_vinchucas;
 
-public class NoVerificada {
+public class NoVerificada extends Verificacion {
 	
 	abstract boolean esVerificada();
 	abstract boolean puedeVotar (Usuario usuario);

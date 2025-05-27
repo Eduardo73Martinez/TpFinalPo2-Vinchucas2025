@@ -2,6 +2,7 @@ package web_vinchucas;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class VerificadaTest {
 	Verificada verificada = new Verificada (muestraMock);
 	@BeforeEach
 	void setUp () {
-		verificada = new NoVerificada (muestraMock); //en realidad no es necesario hacer setUp en
+		verificada = new Verificada (muestraMock); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
 		when (basicoMock.esBasico()).thenReturn (true);
