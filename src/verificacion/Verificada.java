@@ -3,7 +3,7 @@ package verificacion;
 import web_vinchucas.Muestra;
 import web_vinchucas.Usuario;
 
-public class Verificada {
+public class Verificada extends Verificacion{
 	public boolean esVerificada() {
 		return true;
 	}

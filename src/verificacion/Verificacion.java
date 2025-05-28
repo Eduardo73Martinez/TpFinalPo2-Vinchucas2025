@@ -1,7 +1,7 @@
 package verificacion;
 import web_vinchucas.Muestra;
 import web_vinchucas.Usuario;
-public class Verificacion {
+public abstract class Verificacion {
 
 
 

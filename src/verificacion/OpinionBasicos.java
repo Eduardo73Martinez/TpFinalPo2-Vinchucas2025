@@ -6,7 +6,7 @@ import web_vinchucas.Muestra;
 import web_vinchucas.Opinion;
 import web_vinchucas.Usuario;
 
-public class OpinionBasicos {
+public class OpinionBasicos extends NoVerificada {
 	public boolean esVerificada() {
 		return false;
 	}
