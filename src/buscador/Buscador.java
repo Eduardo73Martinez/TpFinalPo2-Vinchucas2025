@@ -1,5 +1,7 @@
 package web_vinchucas;
 
+import web_vinchucas.Web;
+
 public abstract class Buscador {
 	
 	Web web;

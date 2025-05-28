@@ -1,14 +1,15 @@
-package web_vinchucas;
+package verificacion;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class VerificadaTest {
 
+
+public class VerificadaTest {
 	Muestra muestraMock = mock(Muestra.class);
 	Usuario basicoMock = mock (Usuario.class);
 	Usuario especialistaMock = mock (Usuario.class); //como especialista y experto responden lo mismo
@@ -37,4 +38,5 @@ class VerificadaTest {
 		verificada.verificar();
 		assertEquals(verificada.esVerificada(),true);
 	}
+}
 }

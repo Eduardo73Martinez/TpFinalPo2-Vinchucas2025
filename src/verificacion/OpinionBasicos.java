@@ -1,11 +1,12 @@
-package web_vinchucas;
-
+package verificacion;
 
 import java.util.List;
 
+import web_vinchucas.Muestra;
+import web_vinchucas.Opinion;
+import web_vinchucas.Usuario;
 
-
-public class OpinionBasicos extends NoVerificada {
+public class OpinionBasicos {
 	public boolean esVerificada() {
 		return false;
 	}

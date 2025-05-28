@@ -1,6 +1,9 @@
-package web_vinchucas;
+package verificacion;
 
-public class Verificada extends Verificacion {
+import web_vinchucas.Muestra;
+import web_vinchucas.Usuario;
+
+public class Verificada {
 	public boolean esVerificada() {
 		return true;
 	}

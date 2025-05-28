@@ -1,6 +1,10 @@
-package web_vinchucas;
+package verificacion;
+import web_vinchucas.Muestra;
+import web_vinchucas.Usuario;
+public class Verificacion {
 
-public abstract class  Verificacion {
+
+
 
 	protected Muestra muestra;
 	abstract boolean esVerificada();
@@ -12,5 +16,7 @@ public abstract class  Verificacion {
 	public Verificacion (Muestra muestra) {
 		setMuestra (muestra);
 	}
+		
 	
+
 }

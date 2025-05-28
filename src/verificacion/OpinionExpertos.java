@@ -1,6 +1,9 @@
-package web_vinchucas;
+package verificacion;
 
-public class OpinionExpertos extends NoVerificada {
+import web_vinchucas.Muestra;
+import web_vinchucas.Usuario;
+
+public class OpinionExpertos {
 	public boolean esVerificada() {
 		return false;
 	}
