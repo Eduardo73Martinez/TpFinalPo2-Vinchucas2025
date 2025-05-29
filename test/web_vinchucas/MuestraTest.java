@@ -4,13 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 class MuestraTest {
 	
@@ -18,7 +17,9 @@ class MuestraTest {
 	
 	Usuario miUsuario;
 	Foto miFoto;
-	Ubicación miUbicación;
+	Ubicacion miUbicacion;
+	
+	float distancia;
 	
 	Web miWeb;
 	
@@ -27,22 +28,31 @@ class MuestraTest {
 	Muestra muestra_3;
 	
 	List<Muestra> listaDeMuestras;
+	List<Muestra> misMuestrasCercanas;
 	
-	Ubicación ubicación_1;
-	Ubicación ubicación_2;
-	Ubicación ubicación_3;
 	
-	Map<Ubicación, Muestra> mapUM;
-	Map<Ubicación, Muestra> miMap;
+	Ubicacion ubicacion_1;
+	Ubicacion ubicacion_2;
+	Ubicacion ubicacion_3;
+	
+	List<Ubicacion> listaDeUbicaciones;
+	List<Ubicacion> miLista;
+	List<Ubicacion> misUbicacionesCercanas;
+	
+	
+	Map<Ubicacion, Muestra> mapUM;
+	Map<Ubicacion, Muestra> miMap;
 	
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		miUsuario = new Usuario();
-		miFoto = new Foto();
-		miUbicación = new Ubicación();
+		miUsuario = mock(Usuario.class);
+		miFoto = mock(Foto.class);
+		miUbicacion = mock(Ubicacion.class);
 		
-		miMuestra = new Muestra(miUsuario, miFoto, miUbicación);
+		miMuestra = new Muestra(miUsuario, miFoto, miUbicacion);
+		
+		distancia = 15;
 		
 		miWeb = mock(Web.class);
 		
@@ -55,10 +65,31 @@ class MuestraTest {
 		listaDeMuestras.add(muestra_2);
 		listaDeMuestras.add(muestra_3);
 		
-		mapUM = new HashMap<Ubicación,Muestra>();
-		mapUM.put(ubicación_1, muestra_1);
-		mapUM.put(ubicación_2, muestra_2);
-		mapUM.put(ubicación_3, muestra_3);
+		misMuestrasCercanas = new ArrayList<Muestra>();
+		misMuestrasCercanas.add(muestra_1);
+		misMuestrasCercanas.add(muestra_3);
+		
+		listaDeUbicaciones = new ArrayList<Ubicacion>();
+		listaDeUbicaciones.add(ubicacion_1);
+		listaDeUbicaciones.add(ubicacion_2);
+		listaDeUbicaciones.add(ubicacion_3);
+		
+		misUbicacionesCercanas = new ArrayList<Ubicacion>();
+		misUbicacionesCercanas.add(ubicacion_1);
+		misUbicacionesCercanas.add(ubicacion_3);
+		
+		mapUM = new HashMap<Ubicacion,Muestra>();
+		mapUM.put(ubicacion_1, muestra_1);
+		mapUM.put(ubicacion_2, muestra_2);
+		mapUM.put(ubicacion_3, muestra_3);
+		
+		when(miWeb.todasLasMuestras()).thenReturn(listaDeMuestras);
+		
+		when(muestra_1.getUbicacion()).thenReturn(ubicacion_1);
+		when(muestra_2.getUbicacion()).thenReturn(ubicacion_2);
+		when(muestra_3.getUbicacion()).thenReturn(ubicacion_3);
+		
+		when(miUbicacion.ubicacionesCercanas(listaDeUbicaciones,distancia)).thenReturn(misUbicacionesCercanas);
 		
 	}
 
@@ -74,18 +105,24 @@ class MuestraTest {
 	
 	@Test
 	void testGetUbicacion() {
-		assertEquals(miUbicación,miMuestra.getUbicacion());
+		assertEquals(miUbicacion,miMuestra.getUbicacion());
 	}
+	
+    /*
+    @Test
+	void testTodasLasUbicaciones() {
+		//Exercise
+		miLista = miMuestra.todasLasUbicaciones(mapUM);
+		
+		//verify
+		assertEquals (miLista,listaDeUbicaciones);		
+	}
+	
 	
 	@Test
 	void testMuestrasPorUbicacion() {
-		//SetUp
-		when(miWeb.todasLasMuestras()).thenReturn(listaDeMuestras);
-		when(muestra_1.getUbicacion()).thenReturn(ubicación_1);
-		when(muestra_2.getUbicacion()).thenReturn(ubicación_2);
-		when(muestra_3.getUbicacion()).thenReturn(ubicación_3);
 		
-		//Excercise
+		//Exercise
 		miMap = miMuestra.muestrasPorUbicacion(miWeb);
 		
 		//Verify
@@ -97,6 +134,16 @@ class MuestraTest {
 		assertEquals(miMap, mapUM);
 	}
 	
+	void testMuestrasCercanas() {
+		
+		//Exercise
+		List<Muestra> resultado = miMuestra.muestrasCercanas(miWeb, distancia);
+		
+		//Verify
+		assertEquals (misUbicacionesCercanas, resultado);
+	}
 	
-
+     */
+	
+	
 }

@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 public class Muestra {
 	Usuario autor;
 	Foto foto;
-	Ubicación ubicacion;
+	Ubicacion ubicacion;
 	Verificacion estado; 
 	
 	List<Opinion> opiniones = new ArrayList<Opinion>();
 	
-	public Muestra(Usuario u, Foto f, Ubicación ub) {
+	public Muestra(Usuario u, Foto f, Ubicacion ub) {
 		this.autor = u;
 		this.foto = f;
-		this.estado = new OpinionBasicos();
+		this.estado = new OpinionBasicos(this);
 		this.ubicacion = ub;
 		
 		
@@ -24,7 +24,7 @@ public class Muestra {
 	public Foto getFoto() {
 		return this.foto;
 	}
-	public Ubicación getUbicacion() {
+	public Ubicacion getUbicacion() {
 		return this.ubicacion;
 	}
 	public Usuario getPersona() {
@@ -32,26 +32,26 @@ public class Muestra {
 	} 
 	public List<Muestra> muestrasCercanas(Web w, float f){
 		// Se convierte la lista de muestras de la web en un Map con clave Ubicacion y valor Muestra:
-		Map<Ubicación, Muestra> mapUM = this.muestrasPorUbicacion(w);
+		Map<Ubicacion, Muestra> mapUM = this.muestrasPorUbicacion(w);
 		
 		// Se genera una lista con todas las ubicaciones a partir del Map:
-		List<Ubicación> todasLasUb = this.todasLasUbicaciones(mapUM);
+		List<Ubicacion> todasLasUb = this.todasLasUbicaciones(mapUM);
 		
 		// Se obtienen las ubicaciones cercanas
-		List<Ubicación> ubCercanas = ubicacion.ubicacionesCercanas(todasLasUb,f);
+		List<Ubicacion> ubCercanas = ubicacion.ubicacionesCercanas(todasLasUb,f);
 		
 		// Se recorre la lista de ubicaciones cercanas y se genera una lista de las muestras
 		// obteniendo el valor de muestra asociado a cada clave ubicacion en el primer Map
 		List<Muestra> muestrasCercanas = new ArrayList<Muestra>();
-		for(Ubicación ub:ubCercanas) {
+		for(Ubicacion ub:ubCercanas) {
 			muestrasCercanas.add(mapUM.get(ub));
 		}
 		
 		return muestrasCercanas; 
 	}
 	
-	protected Map<Ubicación,Muestra> muestrasPorUbicacion(Web w){
-		Map<Ubicación,Muestra> map = 
+	protected Map<Ubicacion,Muestra> muestrasPorUbicacion(Web w){
+		Map<Ubicacion,Muestra> map = 
 				w.todasLasMuestras().stream().collect(
 						Collectors.toMap(
 								m -> m.getUbicacion(), 
@@ -60,8 +60,8 @@ public class Muestra {
 		return map;
 	}
 	
-	protected List<Ubicación> todasLasUbicaciones(Map<Ubicación,Muestra> map){
-		List<Ubicación> lista = new ArrayList<>();
+	protected List<Ubicacion> todasLasUbicaciones(Map<Ubicacion,Muestra> map){
+		List<Ubicacion> lista = new ArrayList<>();
 		lista.addAll(map.keySet());
 		return lista;
 	}
