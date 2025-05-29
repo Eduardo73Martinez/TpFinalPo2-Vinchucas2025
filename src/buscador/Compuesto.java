@@ -1,6 +1,6 @@
 package buscador;
 
-public class Compuesto extends Filtro{
+public abstract class Compuesto extends Filtro{
 	Filtro primerFiltro;
 	Filtro segundoFiltro;
 	
@@ -10,7 +10,7 @@ public class Compuesto extends Filtro{
 	public void setSegundoFiltro (Filtro filt) {
 		this.segundoFiltro = filt;
 	}
-	public void buscar
+	abstract void buscar();
 	public Compuesto (Filtro filt1, Filtro filt2) {
 		setPrimerFiltro (filt1);
 		setSegundoFiltro (filt2);
