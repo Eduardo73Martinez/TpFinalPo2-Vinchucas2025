@@ -18,11 +18,14 @@ public class OpinionExpertos extends NoVerificada{
 			return true;
 		}
 	}
-	public boolean verificar() {
+	public void verificar() {
 		//debo agregar algo que compruebe si dos expertos opinan igual,en caso de que sea asi
 		//se comprueba el que tenga mas experto que opinen igual, si hay empate no se cambia la clase asi
 		//verifica de nuevo al agregarse una opinion
-		
+	
+		if (hayMayoriaDeUnaOpinion()) {
+			Verificada verif = new Verificada (muestra,opinionMayoritaria());
+		} 
 	}
 	private List<Opinion> getOpinionesExpertos(){
 		//devuelve las opiniones de expertos y especialistas pero no otras

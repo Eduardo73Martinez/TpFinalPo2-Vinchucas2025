@@ -4,6 +4,7 @@ import web_vinchucas.Muestra;
 import web_vinchucas.Usuario;
 
 public class Verificada extends Verificacion{
+	TipoOpinion tipo;
 	public boolean esVerificada() {
 		return true;
 	}
@@ -13,7 +14,14 @@ public class Verificada extends Verificacion{
 	public boolean verificar() {
 		//si ya esta verificada es definitivo y no recalcula
 	}
-	public Verificada (Muestra muestra) {
+	public void getVincucha () {
+		return tipo;
+	}
+	private void setTipoVincucha (TipoOpinion tipo) {
+		this.tipo = tipo;
+	}
+	public Verificada (Muestra muestra,TipoOpinion tipo) {
 		super (muestra);
+		setTipoVincucha (tipo);
 	}
 }

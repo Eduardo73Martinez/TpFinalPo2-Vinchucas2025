@@ -15,10 +15,10 @@ public class VerificadaTest {
 	Usuario especialistaMock = mock (Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
 	Usuario Mock = mock (Usuario.class);
-	Verificada verificada = new Verificada (muestraMock);
+	Verificada verificada = new Verificada (muestraMock,TipoOpinion INFESTANS);
 	@BeforeEach
 	void setUp () {
-		verificada = new Verificada (muestraMock); //en realidad no es necesario hacer setUp en
+		verificada = new Verificada (muestraMock,TipoOpinion INFESTANS); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
 		when (basicoMock.esBasico()).thenReturn (true);

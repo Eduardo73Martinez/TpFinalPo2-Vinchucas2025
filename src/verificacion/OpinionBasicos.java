@@ -17,12 +17,16 @@ public class OpinionBasicos extends NoVerificada {
 			return true;
 		}
 	}
-	public boolean verificar() {
+	public void verificar() {
 		//hago que pase a ser OpinionExpertos al haber al menos una opinon de experto o especialista
+		OpinionExperto opinionExperto = new OpinionExperto (muestra);
+		muestra.setTipoDeVerificacion (opinionExperto);
+		
+	}
+	private boolean algunExpertoOEspecialistaOpino() {
 		return getOpiniones().anyMatch(elemento->elemento.getUsuarioQueDejoOpinionEsExperto() || getUsuarioQueDejoOpinonEsEspecialista());
 		//esto devuelve true si algun elemento de la lista de opiniones de muestra fue dejado por 
 		//alguien que es experto o especialista
-		
 	}
 	private List<Opinion> getOpiniones(){
 		return muestra.getOpiniones();
