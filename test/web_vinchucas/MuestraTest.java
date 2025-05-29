@@ -29,8 +29,7 @@ class MuestraTest {
 	
 	List<Muestra> listaDeMuestras;
 	List<Muestra> misMuestrasCercanas;
-	
-	
+		
 	Ubicacion ubicacion_1;
 	Ubicacion ubicacion_2;
 	Ubicacion ubicacion_3;
@@ -38,7 +37,6 @@ class MuestraTest {
 	List<Ubicacion> listaDeUbicaciones;
 	List<Ubicacion> miLista;
 	List<Ubicacion> misUbicacionesCercanas;
-	
 	
 	Map<Ubicacion, Muestra> mapUM;
 	Map<Ubicacion, Muestra> miMap;
@@ -59,6 +57,10 @@ class MuestraTest {
 		muestra_1 = mock(Muestra.class);
 		muestra_2 = mock(Muestra.class);
 		muestra_3 = mock(Muestra.class);
+		
+		ubicacion_1 = mock(Ubicacion.class);
+		ubicacion_2 = mock(Ubicacion.class);
+		ubicacion_3 = mock(Ubicacion.class);
 		
 		listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra_1);
@@ -108,17 +110,19 @@ class MuestraTest {
 		assertEquals(miUbicacion,miMuestra.getUbicacion());
 	}
 	
-    /*
+    
     @Test
 	void testTodasLasUbicaciones() {
+    	
 		//Exercise
 		miLista = miMuestra.todasLasUbicaciones(mapUM);
 		
 		//verify
-		assertEquals (miLista,listaDeUbicaciones);		
+		assertTrue(miLista.contains(ubicacion_1));
+		assertTrue(miLista.contains(ubicacion_2));
+		assertTrue(miLista.contains(ubicacion_3));
 	}
-	
-	
+		
 	@Test
 	void testMuestrasPorUbicacion() {
 		
@@ -133,17 +137,21 @@ class MuestraTest {
 		
 		assertEquals(miMap, mapUM);
 	}
-	
+		
+	@Test
 	void testMuestrasCercanas() {
 		
 		//Exercise
 		List<Muestra> resultado = miMuestra.muestrasCercanas(miWeb, distancia);
 		
 		//Verify
-		assertEquals (misUbicacionesCercanas, resultado);
+		assertTrue(resultado.contains(muestra_1));
+		assertFalse(resultado.contains(muestra_2));
+		assertTrue(resultado.contains(muestra_3));
+		
 	}
 	
-     */
+    
 	
 	
 }

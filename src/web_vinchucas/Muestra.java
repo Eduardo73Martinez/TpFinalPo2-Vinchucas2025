@@ -1,5 +1,6 @@
 package web_vinchucas;
 
+import verificacion.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,6 @@ public class Muestra {
 		this.foto = f;
 		this.estado = new OpinionBasicos(this);
 		this.ubicacion = ub;
-		
-		
 	}
 	public Foto getFoto() {
 		return this.foto;
