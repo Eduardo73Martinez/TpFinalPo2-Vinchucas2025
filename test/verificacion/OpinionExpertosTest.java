@@ -16,42 +16,62 @@ class OpinionExpertosTest {
 	Usuario especialistaMock = mock (Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
 	Usuario Mock = mock (Usuario.class);
-	Verificada verificada = new Verificada (muestraMock);
+	OpinionExpertos verificacionExp = new OpinionExpertos (muestraMock);
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
+	Experto tipoExperto= new Experto (Experto.class);
+	
+	
 	@BeforeEach
 	void setUp () {
-		verificada = new Verificada (muestraMock); //en realidad no es necesario hacer setUp en
+		verificacionExp = new Verificada (muestraMock); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
 		when (basicoMock.esBasico()).thenReturn (true);
 		when (especialistaMock.esBasico()).thenReturn (false);
 		
+		Opinion opinionGuasayana = new Opinion (tipoExperto,Guasayana);
+		Opinion opinionGuasayanaDos = new Opinion (tipoExperto,Guasayana);
+		Opinion opinionInfestans = new Opinion (tipoExperto,Infestans);
+		Opinion opinionInfestansDos= new Opinion (tipoExperto,Infestans);
 		
+		listaDeOpinionesQueCambianEstado.add(opinionGuasayana);
+		listaDeOpinionesQueCambianEstado.add(opinionGuasayanaDos);
+		listaDeOpinionesQueCambianEstado.add(opinionInfestans);
+		
+		listaDeOpinionesQueNoCambianEstado.add(opinionInfestans);
+		listaDeOpinionesQueNoCambianEstado.add(opinionInfestansDos);
+		listaDeOpinionesQueNoCambianEstado.add(opinionGuasayana);
+		listaDeOpinionesQueNoCambianEstado.add(opinionGuasayanaDos);
 		
 	}
 	@Test
 	void esVerificadaTest() {
-		assertEquals(verificada.esVerificada(),false);
+		assertEquals(verificacionExp.esVerificada(),false);
 	}
 	@Test
 	void puedeVotarTest(){
-		assertEquals(verificada.puedeVotar(basicoMock),false);
-		assertEquals(verificada.puedeVotar(especialistaMock),true);
+		assertEquals(verificacionExp.puedeVotar(basicoMock),false);
+		assertEquals(verificacionExp.puedeVotar(especialistaMock),true);
 	}
 	@Test
 	void verificarTestCambiaEstado() {
-		when (muestraMock.getOpiniones().thenReturn ())
-		//debo hacer que al pedirle a muestra opiniones el resultado llegue a una conclusion
-		verificada.verificar();
-		assertEquals(verificada.esVerificada(),true);
+		when (muestraMock.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado));
+		//debo hacer que al pedirle a muestra opiniones el resultado llegue a una conclusion (Guasayana)
+		verificacionExp.verificar();
+		assertEquals(verificacionExp.esVerificada(),true);
 	}
 	@Test
-	void verificarTestCambiaEstado() {
-		when (muestraMock.getOpiniones().thenReturn ())
+	void verificarTestNoCambiaEstado() {
+		when (muestraMock.getOpiniones().thenReturn (listaDeOpinionesQueNoCambianEstado));
 		//debo hacer que al pedirle a muestra opiniones el resultado llegue a un empate
 		//ya que en caso de empate no cambia el estado
-		verificada.verificar();
-		assertEquals(verificada.esVerificada(),true);
+		verificacionExp.verificar();
+		assertEquals(verificacionExp.esVerificada(),false);
+	}
+	@Test
+	void opinionMayoritariaTest() {
+		when (muestraMock.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado)); //la opinion mayoritaria es Guasayana
+		assertEquals (verificacionExp.opinionMayoritaria() ,Guasayana);
 	}
 }

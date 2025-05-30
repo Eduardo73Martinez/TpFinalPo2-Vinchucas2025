@@ -27,6 +27,22 @@ public class OpinionExpertos extends NoVerificada{
 			Verificada verif = new Verificada (muestra,opinionMayoritaria());
 		} 
 	}
+	private boolean hayMayoriaDeUnaOpinion () {
+		//PROPOSITO:devuelve true hay una opinion compartida por al menos 2 personas y
+		//fue dejada por expertos (eran expertos cuando la dejaron)
+		cantidadDeOpinionesDeInfestans
+		cantidadDeOpinionesDeSordida=
+		cantidadDeOpinionesDeGuasayana=
+		cantidadDeOpinionesDePocoClara=
+		cantidadDeOpinionesDeNinguna=
+		cantidadDeOpinionesChincheFoliada=
+		cantidadDeOpinionessDePhtiaChinche=
+		
+		List<Opinion> opiniones = getOpinionesExpertos().stream 
+				.filter (opinion->)
+		if ()
+	}
+
 	private List<Opinion> getOpinionesExpertos(){
 		//devuelve las opiniones de expertos y especialistas pero no otras
 		return (

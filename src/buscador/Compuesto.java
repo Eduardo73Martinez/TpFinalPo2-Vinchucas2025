@@ -11,7 +11,8 @@ public abstract class Compuesto extends Filtro{
 		this.segundoFiltro = filt;
 	}
 	abstract void buscar();
-	public Compuesto (Filtro filt1, Filtro filt2) {
+	public Compuesto (Filtro filt1, Filtro filt2,Web web) {
+		super (web);
 		setPrimerFiltro (filt1);
 		setSegundoFiltro (filt2);
 		
