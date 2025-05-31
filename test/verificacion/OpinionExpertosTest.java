@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 
 class OpinionExpertosTest {
 
-	Muestra muestraMock = mock(Muestra.class);
-	Usuario basicoMock = mock (Usuario.class);
-	Usuario especialistaMock = mock (Usuario.class); //como especialista y experto responden lo mismo
+	Muestra muestraStub = mock(Muestra.class);
+	Usuario basicoStub = mock (Usuario.class);
+	Usuario especialistaStub = mock (Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
 	Usuario Mock = mock (Usuario.class);
-	OpinionExpertos verificacionExp = new OpinionExpertos (muestraMock);
+	OpinionExpertos verificacionExp = new OpinionExpertos (muestraStub);
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
 	Experto tipoExperto= new Experto (Experto.class);
@@ -27,8 +27,8 @@ class OpinionExpertosTest {
 		verificacionExp = new Verificada (muestraMock); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
-		when (basicoMock.esBasico()).thenReturn (true);
-		when (especialistaMock.esBasico()).thenReturn (false);
+		when (basicoStub.esBasico()).thenReturn (true);
+		when (especialistaStub.esBasico()).thenReturn (false);
 		
 		Opinion opinionGuasayana = new Opinion (tipoExperto,Guasayana);
 		Opinion opinionGuasayanaDos = new Opinion (tipoExperto,Guasayana);
@@ -56,7 +56,7 @@ class OpinionExpertosTest {
 	}
 	@Test
 	void verificarTestCambiaEstado() {
-		when (muestraMock.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado));
+		when (muestraStub.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado));
 		//debo hacer que al pedirle a muestra opiniones el resultado llegue a una conclusion (Guasayana)
 		verificacionExp.verificar();
 		assertEquals(verificacionExp.esVerificada(),true);
