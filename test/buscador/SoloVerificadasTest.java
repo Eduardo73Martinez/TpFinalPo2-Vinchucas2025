@@ -10,10 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import verificacion.OpinionBasicos;
-import verificacion.OpinionExpertos;
-import verificacion.Verificada;
-import web_vinchucas.Muestra;
+import ClasesDescartablesParaHacerFuncionarMockito.Web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,9 +33,9 @@ class SoloVerificadasTest {
 		when (opinionExpertosStub.esVerificada()).thenReturn (false);
 		when (verificadaStub.esVerificada()).thenReturn (false);
 		
-		when (muestra1Stub.getVerificacion().thenReturn (opinionBasicosStub));
-		when (muestra2Stub.getVerificacion().thenReturn (opinionExpertosStub));
-		when (muestra3Stub.getVerificacion().thenReturn (verificadaStub));
+		when (muestra1Stub.getVerificacion()).thenReturn (opinionBasicosStub);
+		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosStub);
+		when (muestra3Stub.getVerificacion()).thenReturn (verificadaStub);
 		
 		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra1Stub);

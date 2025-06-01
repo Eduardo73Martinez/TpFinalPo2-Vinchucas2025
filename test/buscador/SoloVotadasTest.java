@@ -10,10 +10,13 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import verificacion.OpinionBasicos;
-import verificacion.OpinionExpertos;
-import verificacion.Verificada;
-import web_vinchucas.Muestra;
+import ClasesDescartablesParaHacerFuncionarMockito.Muestra;
+import ClasesDescartablesParaHacerFuncionarMockito.OpinionBasicos;
+import ClasesDescartablesParaHacerFuncionarMockito.OpinionExpertos;
+import ClasesDescartablesParaHacerFuncionarMockito.Web;
+
+
+
 
 class SoloVotadasTest {
 
@@ -30,13 +33,15 @@ class SoloVotadasTest {
 	@BeforeEach
 	void setUp () {
 		
+
+		
 		when (opinionBasicosStub.esVotada()).thenReturn (false);
 		when (opinionExpertosStub.esVotada()).thenReturn (false);
 		when (verificadaStub.esVotada()).thenReturn (false);
 		
-		when (muestra1Stub.getVerificacion().thenReturn (opinionBasicosStub));
-		when (muestra2Stub.getVerificacion().thenReturn (opinionExpertosStub));
-		when (muestra3Stub.getVerificacion().thenReturn (verificadaStub));
+		when (muestra1Stub.getVerificacion()).thenReturn (opinionBasicosStub);
+		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosStub);
+		when (muestra3Stub.getVerificacion()).thenReturn (verificadaStub);
 		
 		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra1Stub);

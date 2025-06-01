@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.mockito.stubbing.OngoingStubbing;
+
 public class Muestra {
 	Usuario autor;
 	Foto foto;
@@ -65,5 +67,7 @@ public class Muestra {
 		lista.addAll(map.keySet());
 		return lista;
 	}
+
+	
 	
 }	
