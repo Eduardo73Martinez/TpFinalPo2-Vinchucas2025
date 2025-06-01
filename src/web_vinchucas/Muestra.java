@@ -29,6 +29,15 @@ public class Muestra {
 	public Usuario getPersona() {
 		return this.autor;
 	} 
+	public List<Opinion> getOpiniones(){
+		return this.opiniones;
+	}
+	public void agregarOpinion(Opinion o) {
+		this.opiniones.add(o);
+	}
+	public void setVerificacion(Verificacion v) {
+		this.estado = v;
+	}
 	public List<Muestra> muestrasCercanas(Web w, float f){
 		// Se convierte la lista de muestras de la web en un Map con clave Ubicacion y valor Muestra:
 		Map<Ubicacion, Muestra> mapUM = this.muestrasPorUbicacion(w);
@@ -41,12 +50,7 @@ public class Muestra {
 		
 		// Se recorre la lista de ubicaciones cercanas y se genera una lista de las muestras
 		// obteniendo el valor de muestra asociado a cada clave ubicacion en el primer Map
-		List<Muestra> muestrasCercanas = new ArrayList<Muestra>();
-		for(Ubicacion ub:ubCercanas) {
-			muestrasCercanas.add(mapUM.get(ub));
-		}
-		
-		return muestrasCercanas; 
+		return this.obtenerMuestrasCercanas(ubCercanas, mapUM); 
 	}
 	
 	protected Map<Ubicacion,Muestra> muestrasPorUbicacion(Web w){
@@ -65,4 +69,13 @@ public class Muestra {
 		return lista;
 	}
 	
+	protected List<Muestra> obtenerMuestrasCercanas(List<Ubicacion> ubs, Map<Ubicacion,Muestra> map){
+		List<Muestra> muestrasCercanas = new ArrayList<Muestra>();
+		for(Ubicacion ub:ubs) {
+			muestrasCercanas.add(map.get(ub));
+		}
+		return muestrasCercanas;
+	}
+	
+	 
 }	
