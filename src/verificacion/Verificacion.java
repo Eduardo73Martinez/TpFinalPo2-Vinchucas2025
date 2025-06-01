@@ -10,6 +10,7 @@ public abstract class Verificacion {
 	abstract boolean esVerificada();
 	abstract boolean puedeVotar (Usuario usuario);
 	abstract void verificar(); //recalcula el tipo de verificacion
+	abstract boolean esVotada;
 	private void setMuestra (Muestra muestra){
 		this.muestra = muestra;
 	}

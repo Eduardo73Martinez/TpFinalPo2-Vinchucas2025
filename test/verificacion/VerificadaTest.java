@@ -28,6 +28,9 @@ public class VerificadaTest {
 	void esVerificadaTest() {
 		assertEquals(verificada.esVerificada(),true);
 	}
+	void esVotadaTest() {
+		assertEquals (verificada.esVotada(),true);
+	}
 	@Test
 	void puedeVotarTest(){
 		assertEquals(verificada.puedeVotar(basicoStub),false);

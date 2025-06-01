@@ -54,6 +54,9 @@ class OpinionExpertosTest {
 		assertEquals(verificacionExp.puedeVotar(basicoMock),false);
 		assertEquals(verificacionExp.puedeVotar(especialistaMock),true);
 	}
+	void esVotadaTest() {
+		assertEquals (verificacionExp.esVotada(),true);
+	}
 	@Test
 	void verificarTestCambiaEstado() {
 		when (muestraStub.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado));

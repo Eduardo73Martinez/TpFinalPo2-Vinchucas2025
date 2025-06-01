@@ -11,6 +11,9 @@ public class Verificada extends Verificacion{
 	public boolean puedeVotar (Usuario usuario) {
 		return false;
 	}
+	public boolean esVotada () {
+		return true;
+	}
 	public boolean verificar() {
 		//si ya esta verificada es definitivo y no recalcula
 	}

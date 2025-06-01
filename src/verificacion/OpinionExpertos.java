@@ -57,6 +57,9 @@ public class OpinionExpertos extends NoVerificada{
 			   
 
 	}
+	public boolean esVotada() {
+		return true;
+	}
 	
 	
 	public OpinionExpertos (Muestra muestra) {
