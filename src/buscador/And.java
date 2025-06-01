@@ -1,16 +1,21 @@
 package buscador;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import web_vinchucas.Muestra;
+
+
+
 public class And extends Compuesto {
 	
 	
-	public void buscar() {
-		Set<Muestra> setConFiltros= new HashSet<>(filt1.buscar());
-		//el set es para evitar repetidos
-		setConFiltros.addAll (filt2); //uno lo que esta en una u otra lista
-		List<Muestra> listaConFiltros = new ArrayList<>(setConFiltros);
-		return  listaConFiltros;
-		List<Muestra> lista1 = filt1.buscar();
-		List<Muestra> lista2 = filt2.buscar();
+	public List<Muestra> buscar() {
+
+		List<Muestra> lista1 = primerFiltro.buscar();
+		List<Muestra> lista2 = segundoFiltro.buscar();
 		lista1.retainAll(lista2); //hace una interseccion
 		return lista1;
 	}

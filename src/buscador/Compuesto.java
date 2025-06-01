@@ -1,5 +1,9 @@
 package buscador;
 
+import java.util.List;
+
+import web_vinchucas.Muestra;
+
 public abstract class Compuesto extends Filtro{
 	Filtro primerFiltro;
 	Filtro segundoFiltro;
@@ -10,7 +14,7 @@ public abstract class Compuesto extends Filtro{
 	public void setSegundoFiltro (Filtro filt) {
 		this.segundoFiltro = filt;
 	}
-	abstract void buscar();
+	abstract List<Muestra> buscar();
 	public Compuesto (Filtro filt1, Filtro filt2,Web web) {
 		super (web);
 		setPrimerFiltro (filt1);
