@@ -4,6 +4,7 @@ import verificacion.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ class MuestraTest {
 	Muestra miMuestra;
 	
 	Usuario miUsuario;
+	TipoVinchuca miVinchuca;
 	Foto miFoto;
 	Ubicacion miUbicacion;
 	Verificacion nuevaVerificacion;
@@ -58,11 +60,12 @@ class MuestraTest {
 		
 		//DOC:
 		miUsuario = mock(Usuario.class);
+		miVinchuca = mock(TipoVinchuca.class);
 		miFoto = mock(Foto.class);
 		miUbicacion = mock(Ubicacion.class);
 		
 		//SUT:
-		miMuestra = new Muestra(miUsuario, miFoto, miUbicacion);
+		miMuestra = new Muestra(miUsuario, miVinchuca, miFoto, miUbicacion);
 		
 		
 		//DOC: 
@@ -123,6 +126,16 @@ class MuestraTest {
 	@Test
 	void testGetFoto() {
 		assertEquals(miFoto,miMuestra.getFoto());
+	}
+	
+	@Test
+	void testGetVinchuca() {
+		assertEquals(miVinchuca,miMuestra.getVinchuca());
+	}
+	
+	@Test
+	void testGetFechaCreacion() {
+		assertEquals(LocalDate.now(),miMuestra.getFechaCreacion());
 	}
 	
 	@Test
