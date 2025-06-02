@@ -26,6 +26,9 @@ public class Muestra {
 		this.ubicacion = ub;
 		this.fechaCreacion = LocalDate.now();
 	}
+	public String resultadoActual() {
+		return this.estado.resultadoActual();
+	}
 	public Foto getFoto() {
 		return this.foto;
 	}
@@ -88,9 +91,8 @@ public class Muestra {
 		}
 		return muestrasCercanas;
 	}
-	public boolean puedeOpinar(EstadoParticipante estado2) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean puedeOpinar(Nivel estado2) {
+		return estado.puedeVotar(autor);
 	}
 	
 	 

@@ -247,5 +247,31 @@ class MuestraTest {
 		assertFalse(resultado.contains(muestra_1));
 	}
 	
+	@Test
+	void testResultadoActual() {
+		//SetUp
+		when(nuevaVerificacion.resultadoActual()).thenReturn("Resultado Actual");
+		miMuestra.setVerificacion(nuevaVerificacion);
+		
+		//Exercise
+		String resultado = miMuestra.resultadoActual();
+		
+		//Verify
+		verify(nuevaVerificacion).resultadoActual();
+		assertEquals(resultado, "Resultado Actual");
+		}
+	
+	@Test
+	void testPuedeOpinar() {
+		//SetUp
+		when(nuevaVerificacion.puedeVotar(miUsuario)).thenReturn(true);
+		
+		//Exercise
+		Boolean resultado = miMuestra.puedeOpinar(miUsuario.getNivel());
+		
+		//Verify
+		verify(nuevaVerificacion).puedeVotar(miUsuario);
+		assertEquals(resultado,true);
+	}
 	
 }
