@@ -6,16 +6,14 @@ public abstract class Verificacion {
 
 
 
-	protected Muestra muestra;
-	abstract boolean esVerificada();
-	abstract boolean puedeVotar (Usuario usuario);
-	abstract void verificar(); //recalcula el tipo de verificacion
-	abstract boolean esVotada;
-	private void setMuestra (Muestra muestra){
-		this.muestra = muestra;
-	}
-	public Verificacion (Muestra muestra) {
-		setMuestra (muestra);
+	
+	abstract boolean esVerificada(); //devuelve true si es verificada
+	abstract boolean puedeVotar (Usuario usuario,Muestra muestra); //devuelve true si el usuario puede votar
+	abstract void verificar(Muestra muestra); //recalcula el tipo de verificacion
+	abstract boolean esVotada(); //devuelve true si ya fue votada por un experto o especialista
+	
+	public Verificacion () {
+		
 	}
 		
 	

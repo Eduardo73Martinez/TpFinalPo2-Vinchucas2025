@@ -1,5 +1,6 @@
 package buscador;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,7 @@ public class OrTest {
 		when (filtro2Stub.buscar()).thenReturn (listaFiltrada2);
 		//al hacer un or de listas deberia quedar lo de ambas listas que seria las 3 muestras
 	}
+	@Test
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra1Dummy);
@@ -42,4 +44,9 @@ public class OrTest {
 		listaFinal.add(muestra3Dummy);
 		assertEquals(or.buscar(),listaFinal);
 	}
+	
+	
+	
 }
+
+
