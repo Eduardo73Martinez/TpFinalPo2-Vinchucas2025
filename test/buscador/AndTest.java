@@ -1,9 +1,9 @@
 package buscador;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import web_vinchucas.Muestra;
-import web_vinchucas.Opinion;
+import web_vinchucas.*;
+
 
 class AndTest {
 
@@ -23,6 +23,7 @@ class AndTest {
 	Muestra muestra3Dummy = mock (Muestra.class);
 	Web webDummy = mock (Web.class);
 	And and = new And (filtro1Stub,filtro2Stub,webDummy);
+	
 	@BeforeEach
 	void setUp () {
 		
@@ -36,6 +37,7 @@ class AndTest {
 		when (filtro2Stub.buscar()).thenReturn(listaFiltrada2);
 		//al hacer un or de listas deberia quedar lo que este en ambas listas que seria la muestra 3
 	}
+	@Test
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Dummy);

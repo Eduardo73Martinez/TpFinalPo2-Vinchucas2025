@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
 class OpinionExpertosTest {
 
 	Muestra muestraStub = mock(Muestra.class);
-	Usuario basicoStub = mock (Usuario.class);
-	Usuario especialistaStub = mock (Usuario.class); //como especialista y experto responden lo mismo
+	Usuario basicoStub = mock(Usuario.class);
+	Usuario especialistaStub = mock(Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
-	Usuario Mock = mock (Usuario.class);
+	Usuario Mock = mock(Usuario.class);
 	OpinionExpertos verificacionExp = new OpinionExpertos (muestraStub);
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
@@ -53,6 +53,9 @@ class OpinionExpertosTest {
 	void puedeVotarTest(){
 		assertEquals(verificacionExp.puedeVotar(basicoMock),false);
 		assertEquals(verificacionExp.puedeVotar(especialistaMock),true);
+	}
+	void esVotadaTest() {
+		assertEquals (verificacionExp.esVotada(),true);
 	}
 	@Test
 	void verificarTestCambiaEstado() {

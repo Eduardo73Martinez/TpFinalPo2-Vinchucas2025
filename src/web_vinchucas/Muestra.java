@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.mockito.stubbing.OngoingStubbing;
+
 public class Muestra {
 	Usuario autor;
 	TipoVinchuca vinchuca;
@@ -83,6 +85,8 @@ public class Muestra {
 		lista.addAll(map.keySet());
 		return lista;
 	}
+
+	
 	
 	protected List<Muestra> obtenerMuestrasCercanas(List<Ubicacion> ubs, Map<Ubicacion,Muestra> map){
 		List<Muestra> muestrasCercanas = new ArrayList<Muestra>();

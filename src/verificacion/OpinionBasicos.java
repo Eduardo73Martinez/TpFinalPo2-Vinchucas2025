@@ -31,6 +31,9 @@ public class OpinionBasicos extends NoVerificada {
 	private List<Opinion> getOpiniones(){
 		return muestra.getOpiniones();
 	}
+	public boolean esVotada() {
+		return false;
+	}
 	
 	public OpinionBasicos (Muestra muestra) {
 		super (muestra);
