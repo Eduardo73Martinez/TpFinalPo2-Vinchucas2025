@@ -20,13 +20,13 @@ public class VerificadaTest {
 													 //en esBasico() no es necesario probar con ambos
 	Usuario Mock = mock(Usuario.class);
 	
-	Verificada verificada = new Verificada (muestraStub,TipoOpinion INFESTANS);
+	Verificada verificada = new Verificada (muestraStub,TipoOpinion.INFESTANS);
 	@BeforeEach
 	void setUp () {
-		verificada = new Verificada (muestraStub,TipoOpinion INFESTANS); //en realidad no es necesario hacer setUp en
+		verificada = new Verificada (muestraStub,TipoOpinion.INFESTANS); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
-		when (basicoStub.getNivel()).thenReturn (BASICO);
+		when (basicoStub.getNivel()).thenReturn (Nivel.BASICO);
 	}
 	@Test
 	void esVerificadaTest() {

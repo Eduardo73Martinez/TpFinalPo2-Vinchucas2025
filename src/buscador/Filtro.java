@@ -5,7 +5,7 @@ import java.util.List;
 
 import web_vinchucas.Muestra;
 
-public class Filtro {
+abstract class Filtro {
 	Web web;
 	abstract List<Muestra> buscar();
 	private void setWeb (Web web) {

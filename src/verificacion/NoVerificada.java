@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 
 public abstract  class NoVerificada extends Verificacion {
 	abstract boolean esVerificada();
-	abstract boolean puedeVotar (Usuario usuario);
-	abstract void verificar(); //recalcula el tipo de verificacion
+	abstract boolean puedeVotar (Usuario usuario,Muestra muestra);
+	abstract void verificar(Muestra muestra); //recalcula el tipo de verificacion
 	abstract boolean esVotada();
 	private List<Opinion> getOpinionesExpertos(Muestra muestra){
 		//devuelve las opiniones de expertos y especialistas pero no otras
 		return (
 				muestra.getOpiniones().stream()
-		.filter (opinion->opinion.getUsuarioQueDejoOpinionEsExperto()
-				||opinion.getUsuarioQueDejoOpinionEsEspecialista())
+		.filter (opinion-> opinion.getNivelUsuarioQueDejoOpinion() == Nivel.EXPERTO
+				||opinion.getUsuarioQueDejoOpinionEsEspecialista() == Nivel.ESPECIALISTA)
 		.collect(Collectors.toList())
 		);
 		
@@ -40,7 +40,7 @@ public abstract  class NoVerificada extends Verificacion {
 				);
 	}
 	public TipoOpinion opinionMayoritaria(Muestra muestra) {
-		//devuelve la opinion que mas se repite
+		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos)
 		//PRECONDICION:hay una opinion mayoritaria
 		Map<TipoOpinion,Long> mapRepetidoMasVeces = getOpinionesDeExpertos(muestra).stream()
 		.collect(Collectors.groupingBy (c->c, Collectors.counting())); //convierto en un map
@@ -65,7 +65,7 @@ public abstract  class NoVerificada extends Verificacion {
 		return (keyDelMayor);
 		
 	}
-	public NoVerificada (Muestra muestra){
-		super (muestra);
+	public NoVerificada (){
+		
 	}
 }
