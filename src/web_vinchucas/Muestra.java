@@ -52,7 +52,7 @@ public class Muestra {
 	}
 	public void setVerificacion(Verificacion v) {
 		this.estado = v;
-	}
+	}/*
 	public List<Muestra> muestrasCercanas(Web w, float f){
 		// Se convierte la lista de muestras de la web en un Map con clave Ubicacion y valor Muestra:
 		Map<Ubicacion, Muestra> mapUM = this.muestrasPorUbicacion(w);
@@ -66,8 +66,8 @@ public class Muestra {
 		// Se recorre la lista de ubicaciones cercanas y se genera una lista de las muestras
 		// obteniendo el valor de muestra asociado a cada clave ubicacion en el primer Map
 		return this.obtenerMuestrasCercanas(ubCercanas, mapUM); 
-	}
-	
+	}*/
+	/*
 	protected Map<Ubicacion,Muestra> muestrasPorUbicacion(Web w){
 		Map<Ubicacion,Muestra> map = 
 				w.todasLasMuestras().stream().collect(
@@ -76,7 +76,7 @@ public class Muestra {
 								m -> m)
 						);
 		return map;
-	}
+	}*/
 	
 	protected List<Ubicacion> todasLasUbicaciones(Map<Ubicacion,Muestra> map){
 		List<Ubicacion> lista = new ArrayList<>();
@@ -91,9 +91,10 @@ public class Muestra {
 		}
 		return muestrasCercanas;
 	}
+	/*
 	public boolean puedeOpinar(Nivel estado2) {
 		return estado.puedeVotar(autor);
 	}
-	
+	*/
 	 
 }	

@@ -1,63 +1,78 @@
 package web_vinchucas;
 
+
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class UbicacionTest {
 	private Ubicacion ubicacion;
-	private Muestra muestra;
-	private ArrayList<Muestra> arrayMuestras;
+	private Ubicacion ubicacion2;
+	private Muestra muestra1;
+	private Muestra muestra2;
+	private Muestra muestra3;
+	private Muestra[] arrayMuestras = { muestra1, muestra2, muestra3 };
 
 	@BeforeEach
 	void setUp() throws Exception {
 		ubicacion = new Ubicacion(45.9, 45.5);
-		muestra = mock(Muestra.class);
-		
+		ubicacion2 = new Ubicacion(66.5, 46.4);
+		muestra1 = mock(Muestra.class);
+		muestra2 = mock(Muestra.class);
+		muestra3 = mock(Muestra.class);
+
 	}
+
 	@Test
 	void testUbicacion() {
-		fail("Not yet implemented");
+
+		assertEquals(Ubicacion.class, ubicacion.getClass());
 	}
 
 	@Test
 	void testDistanciaEntreDosUbicaciones() {
-		fail("Not yet implemented");
+		// assertEquals(null, null);
 	}
+
 	@Test
 	void testListaUbicacionesConDistanciaMenorA() {
+
 		fail("Not yet implemented");
 	}
-	
+
 	@Test
 	void testListaMuestrasObtenidasAMenosDeTalDistancia() {
 		fail("Not yet implemented");
 	}
-	
-	//setters y getters 
-	
+
+	// setters y getters
+
 	@Test
 	void testGetLatitud() {
-		fail("Not yet implemented");
+		assertEquals(45.9, ubicacion.getLatidud());
 	}
+
 	@Test
 	void testGetLongitud() {
-		fail("Not yet implemented");
+		assertEquals(45.5, ubicacion.getLongitud());
 	}
-	
+
 	@Test
 	void testSetLatitud() {
-		fail("Not yet implemented");
+		double nuevoValor = 43.4;
+		ubicacion.setLatitud(43.4);
+		assertEquals(nuevoValor, ubicacion.getLatidud());
 	}
+
 	@Test
 	void testSetLongitud() {
-		fail("Not yet implemented");
+		double nuevoValor = 23.3;
+		ubicacion.setLongitud(23.3);
+		assertEquals(nuevoValor, ubicacion.getLongitud());
 	}
-
-
-
-
 
 }
