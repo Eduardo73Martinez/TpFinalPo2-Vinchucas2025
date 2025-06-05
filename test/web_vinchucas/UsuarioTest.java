@@ -91,8 +91,7 @@ public class UsuarioTest {
 	@Test
 	void testOpinarCuandoPuedeOpinar() {
 		//SetUp
-		when(muestra_1.puedeOpinar(Nivel.BASICO)).thenReturn(true);
-		
+		when(muestra_1.puedeOpinar(miUsuario)).thenReturn(true);
 		
 		//Exercise
 		miUsuario.opinar(muestra_1,opinable_1);
@@ -104,7 +103,7 @@ public class UsuarioTest {
 	@Test
 	void testOpinarCuandoNoPuedeOpinar() {
 		//SetUp
-		when(muestra_1.puedeOpinar(Nivel.BASICO)).thenReturn(false);
+		when(muestra_1.puedeOpinar(miUsuario)).thenReturn(false);
 		
 		
 		//Exercise
@@ -146,7 +145,7 @@ public class UsuarioTest {
 	@Test
 	void testGetFechasRevisiones() {
 		//SetUp
-		when(muestra_1.puedeOpinar(Nivel.BASICO)).thenReturn(true);
+		when(muestra_1.puedeOpinar(miUsuario)).thenReturn(true);
 		miUsuario.opinar(muestra_1, opinable_1);
 		
 		//Exercise
