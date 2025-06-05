@@ -15,7 +15,7 @@ public class OpinionExpertos extends NoVerificada{
 		return false;
 	}
 	public boolean puedeVotar (Usuario usuario) {
-		if (usuario.esBasico()) {
+		if (usuario.getNivel() == Nivel.BASICO ) {
 			return false;
 		} else {
 			return true;
