@@ -273,5 +273,6 @@ class MuestraTest {
 		verify(nuevaVerificacion).puedeVotar(miUsuario);
 		assertEquals(resultado,true);
 	}
+    // comentario	
 	
 }
