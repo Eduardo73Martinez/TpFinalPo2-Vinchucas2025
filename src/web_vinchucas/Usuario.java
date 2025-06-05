@@ -39,7 +39,7 @@ public class Usuario {
 	}
 
 	public void opinar(Muestra m, IOpinable vo) {
-		if (m.puedeOpinar(this.nivel)) {
+		if (m.puedeOpinar(this)) {
 			Opinion miOpinion = new Opinion(this.nivel, vo);
 			m.agregarOpinion(miOpinion);
 			this.opiniones.add(miOpinion);
@@ -61,20 +61,15 @@ public class Usuario {
 	}
 	
 	public List<LocalDate> getFechasRevisiones(){
-		List<LocalDate> revisiones = new ArrayList<LocalDate>();
-		for (Opinion o : this.opiniones) {
-			revisiones.add(o.getFecha());
-		}
+		List<LocalDate> revisiones = this.opiniones.stream().map(o -> o.getFecha()).toList();
+		
 		return revisiones;
 	}
 	
 	public List<LocalDate> getFechasEnvios(){
-		List<LocalDate> envios = new ArrayList<LocalDate>();
-		for (Muestra m : this.muestras) {
-			envios.add(m.getFechaCreacion());
-		}
+		List<LocalDate> envios = this.muestras.stream().map(m -> m.getFechaCreacion()).toList();
+		
 		return envios;
 	}
-	
 	
 }
