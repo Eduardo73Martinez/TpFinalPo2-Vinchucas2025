@@ -20,13 +20,21 @@ public class Ubicacion {
 		return nuevaLista;
 	}
 
-	public Double getLatitud() {
+	public void setLatitud(double latitud) {
 		// TODO Auto-generated method stub
-		return this.latitud;
+		this.latidud = latitud;
+	}
+
+	public void setLongitud(double longitud) {
+		// TODO Auto-generated method stub
+		this.longitud = longitud;
+	}
+
+	public Double getLatidud() {
+		return latidud;
 	}
 
 	public Double getLongitud() {
-		// TODO Auto-generated method stub
-		return this.longitud;
+		return longitud;
 	}
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.mockito.stubbing.OngoingStubbing;
+
 public class Muestra {
 	Usuario autor;
 	IOpinable vinchuca;
@@ -86,7 +88,6 @@ public class Muestra {
 		lista.addAll(map.keySet());
 		return lista;
 	}
-	
 	protected List<Muestra> obtenerMuestrasCercanas(List<Ubicacion> ubs, Map<Ubicacion,Muestra> map){
 		List<Muestra> muestrasCercanas = new ArrayList<Muestra>();
 		for(Ubicacion ub:ubs) {
@@ -94,9 +95,8 @@ public class Muestra {
 		}
 		return muestrasCercanas;
 	}
+  
 	public boolean puedeOpinar(Usuario u) {
 		return estado.puedeVotar(u, this);
-	}
-	
-	 
+  }
 }	
