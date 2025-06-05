@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Web;
 
 abstract class Filtro {
 	Web web;

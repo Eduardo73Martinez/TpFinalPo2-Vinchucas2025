@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Web;
 
 abstract class PorVerificacion extends Simple {
 	
