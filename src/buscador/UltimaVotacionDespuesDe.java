@@ -6,7 +6,7 @@ import java.util.List;
 import web_vinchucas.Muestra;
 import web_vinchucas.Web;
 
-public class UltimaVotacionAntesDe extends FechaUltimaVotacion {
+public class UltimaVotacionDespuesDe extends FechaUltimaVotacion {
 	LocalDate fechaIngresada;
 	
 	public List<Muestra> buscar(){
@@ -15,9 +15,8 @@ public class UltimaVotacionAntesDe extends FechaUltimaVotacion {
 		.filter (muestra->muestra.getFechaUltimaVotacion()<fechaIngresada);
 	}
 	
-	public UltimaVotacionAntesDe (Web web,LocalDate fechaIngresada){
+	public UltimaVotacionDespuesDe (Web web,LocalDate fechaIngresada){
 		super (web,fechaIngresada);
 		
 	}
-	
 }

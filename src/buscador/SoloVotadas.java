@@ -3,6 +3,7 @@ package buscador;
 import java.util.List;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Web;
 
 public class SoloVotadas extends PorVerificacion{
 

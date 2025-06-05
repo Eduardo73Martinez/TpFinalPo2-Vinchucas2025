@@ -1,6 +1,8 @@
 package buscador;
-
+import web_vinchucas.*;
+import verificacion.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -10,10 +12,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ClasesDescartablesParaHacerFuncionarMockito.Muestra;
-import ClasesDescartablesParaHacerFuncionarMockito.OpinionBasicos;
-import ClasesDescartablesParaHacerFuncionarMockito.OpinionExpertos;
-import ClasesDescartablesParaHacerFuncionarMockito.Web;
 
 
 
