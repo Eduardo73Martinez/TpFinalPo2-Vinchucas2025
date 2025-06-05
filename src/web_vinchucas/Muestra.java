@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Muestra {
 	Usuario autor;
-	TipoVinchuca vinchuca;
+	IOpinable vinchuca;
 	Foto foto;
 	Ubicacion ubicacion;
 	LocalDate fechaCreacion;
@@ -32,7 +32,7 @@ public class Muestra {
 	public Foto getFoto() {
 		return this.foto;
 	}
-	public TipoVinchuca getVinchuca() {
+	public IOpinable getVinchuca() {
 		return this.vinchuca;
 	}
 	public Ubicacion getUbicacion() {
@@ -52,6 +52,9 @@ public class Muestra {
 	}
 	public void setVerificacion(Verificacion v) {
 		this.estado = v;
+	}
+	public void actualizarVinchuca(IOpinable o) {
+		this.vinchuca = o;
 	}
 	public List<Muestra> muestrasCercanas(Web w, float f){
 		// Se convierte la lista de muestras de la web en un Map con clave Ubicacion y valor Muestra:
@@ -91,8 +94,8 @@ public class Muestra {
 		}
 		return muestrasCercanas;
 	}
-	public boolean puedeOpinar(Nivel estado2) {
-		return estado.puedeVotar(autor);
+	public boolean puedeOpinar(Usuario u) {
+		return estado.puedeVotar(u, this);
 	}
 	
 	 
