@@ -1,13 +1,21 @@
 package verificacion;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import web_vinchucas.Muestra;
+import web_vinchucas.Nivel;
+import web_vinchucas.Opinion;
+import web_vinchucas.TipoVinchuca;
+import web_vinchucas.Usuario;
 
 class OpinionExpertosTest {
 
@@ -16,24 +24,30 @@ class OpinionExpertosTest {
 	Usuario especialistaStub = mock(Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
 	Usuario Mock = mock(Usuario.class);
-	OpinionExpertos verificacionExp = new OpinionExpertos (muestraStub);
+	OpinionExpertos verificacionExp = new OpinionExpertos ();
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
-	Experto tipoExperto= new Experto (Experto.class);
+	
+	
+	Opinion opinionGuasayana = mock(Opinion.class);
+	Opinion opinionGuasayanaDos = mock (Opinion.class);
+	Opinion opinionInfestans = mock (Opinion.class);
+	Opinion opinionInfestansDos= mock (Opinion.class);
 	
 	
 	@BeforeEach
 	void setUp () {
-		verificacionExp = new Verificada (muestraMock); //en realidad no es necesario hacer setUp en
+		verificacionExp = new OpinionExpertos (); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
-		when (basicoStub.esBasico()).thenReturn (true);
-		when (especialistaStub.esBasico()).thenReturn (false);
+		when (basicoStub.getNivel()).thenReturn (Nivel.BASICO);
+		when (especialistaStub.getNivel()).thenReturn (Nivel.ESPECIALISTA);
+	
+		when (opinionGuasayana.getValorOpinion()).thenReturn (TipoVinchuca.VINCHUCA_GUASAYANA);
+		when (opinionGuasayanaDos.getValorOpinion()).thenReturn (TipoVinchuca.VINCHUCA_GUASAYANA);
+		when (opinionInfestans.getValorOpinion()).thenReturn (TipoVinchuca.VINCHUCA_INFESTANS);
+		when (opinionInfestansDos.getValorOpinion()).thenReturn (TipoVinchuca.VINCHUCA_INFESTANS);
 		
-		Opinion opinionGuasayana = new Opinion (tipoExperto,Guasayana);
-		Opinion opinionGuasayanaDos = new Opinion (tipoExperto,Guasayana);
-		Opinion opinionInfestans = new Opinion (tipoExperto,Infestans);
-		Opinion opinionInfestansDos= new Opinion (tipoExperto,Infestans);
 		
 		listaDeOpinionesQueCambianEstado.add(opinionGuasayana);
 		listaDeOpinionesQueCambianEstado.add(opinionGuasayanaDos);
@@ -51,30 +65,30 @@ class OpinionExpertosTest {
 	}
 	@Test
 	void puedeVotarTest(){
-		assertEquals(verificacionExp.puedeVotar(basicoMock),false);
-		assertEquals(verificacionExp.puedeVotar(especialistaMock),true);
+		assertEquals(verificacionExp.puedeVotar(basicoStub),false);
+		assertEquals(verificacionExp.puedeVotar(especialistaStub),true);
 	}
 	void esVotadaTest() {
 		assertEquals (verificacionExp.esVotada(),true);
 	}
 	@Test
 	void verificarTestCambiaEstado() {
-		when (muestraStub.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado));
+		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesQueCambianEstado);
 		//debo hacer que al pedirle a muestra opiniones el resultado llegue a una conclusion (Guasayana)
-		verificacionExp.verificar();
+		verificacionExp.verificar(muestraStub);
 		assertEquals(verificacionExp.esVerificada(),true);
 	}
 	@Test
 	void verificarTestNoCambiaEstado() {
-		when (muestraMock.getOpiniones().thenReturn (listaDeOpinionesQueNoCambianEstado));
+		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueNoCambianEstado);
 		//debo hacer que al pedirle a muestra opiniones el resultado llegue a un empate
 		//ya que en caso de empate no cambia el estado
-		verificacionExp.verificar();
+		verificacionExp.verificar(muestraStub);
 		assertEquals(verificacionExp.esVerificada(),false);
-	}
+	
 	@Test
-	void opinionMayoritariaTest() {
-		when (muestraMock.getOpiniones().thenReturn (listaDeOpinionesQueCambianEstado)); //la opinion mayoritaria es Guasayana
-		assertEquals (verificacionExp.opinionMayoritaria() ,Guasayana);
+	void resultadoActual() {
+		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueCambianEstado); //la opinion mayoritaria es Guasayana
+		assertEquals (verificacionExp.resultadoActual() ,TipoVinchuca.VINCHUCA_GUASAYANA);
 	}
 }

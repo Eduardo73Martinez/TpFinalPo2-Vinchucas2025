@@ -1,15 +1,16 @@
 package verificacion;
 
+import web_vinchucas.IOpinable;
 import web_vinchucas.Muestra;
 import web_vinchucas.Usuario;
 
 public class Verificada extends Verificacion{
 	
-	TipoOpinion tipo;
+	IOpinable tipo;
 	public boolean esVerificada() {
 		return true;
 	}
-	public boolean puedeVotar (Usuario usuario,Muestra muestra) {
+	public boolean puedeVotar (Usuario usuario) {
 		return false;
 	}
 	public boolean esVotada () {
@@ -18,13 +19,16 @@ public class Verificada extends Verificacion{
 	public void verificar(Muestra muestra) {
 		//si ya esta verificada es definitivo y no recalcula
 	}
-	public TipoOpinion getVincucha () {
-		return tipo;
+	
+	public String resultadoActual (Muestra muestra) {
+		return tipo.getValor();
+		
 	}
-	private void setTipoVincucha (TipoOpinion tipo) {
+	
+	private void setTipoVincucha (IOpinable tipo) {
 		this.tipo = tipo;
 	}
-	public Verificada (TipoOpinion tipo) {
+	public Verificada (IOpinable tipo) {
 		
 		setTipoVincucha (tipo);
 	}

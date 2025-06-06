@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Nivel;
 import web_vinchucas.Usuario;
 
 
@@ -44,6 +45,11 @@ public class VerificadaTest {
 	void verificarTest() {
 		verificada.verificar(muestraStub);
 		assertEquals(verificada.esVerificada(),true);
+	}
+	@Test
+	void resultadoActualTest() {
+		
+		assertEquals(verificada.respuestaActual(),"Vinchuca Infestans");
 	}
 
 }
