@@ -10,5 +10,27 @@ public class Ubicacion {
 		this.latidud = latitud;
 		this.longitud = longitud;
 	}
+	
+	
+	/*
+	 * 
+	 * 
+	 * java doc 
+	 * 
+	 * estoy probando agregar lineas 
+	 * paraa ver si estan 
+	 * en el grafico de
+	 * github
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
