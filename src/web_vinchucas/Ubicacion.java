@@ -29,6 +29,28 @@ public class Ubicacion {
 		// TODO Auto-generated method stub
 		this.longitud = longitud;
 	}
+	
+	
+	/*
+	 * 
+	 * 
+	 * java doc 
+	 * 
+	 * estoy probando agregar lineas 
+	 * paraa ver si estan 
+	 * en el grafico de
+	 * github
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public Double getLatidud() {
 		return latidud;
