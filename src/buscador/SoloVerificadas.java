@@ -1,8 +1,10 @@
 package buscador;
 
-import java.util.List;
-
-import web_vinchucas.Muestra;
+import static org.mockito.Mockito.*;
+import java.util.*;
+import org.junit.jupiter.api.*;
+import verificacion.*;
+import web_vinchucas.*;
 
 public class SoloVerificadas extends PorVerificacion {
 
