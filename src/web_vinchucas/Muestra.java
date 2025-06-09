@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.mockito.stubbing.OngoingStubbing;
 
+import ZonaOrganizanizacionUbicacion.Ubicacion;
+
 public class Muestra {
 	Usuario autor;
 	IOpinable vinchuca;

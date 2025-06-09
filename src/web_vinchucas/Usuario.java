@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ZonaOrganizanizacionUbicacion.Ubicacion;
+
 public class Usuario {
 	
 	Web web;
