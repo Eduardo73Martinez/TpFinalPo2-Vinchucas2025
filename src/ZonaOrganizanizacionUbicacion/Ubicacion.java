@@ -1,4 +1,4 @@
-package web_vinchucas;
+package ZonaOrganizanizacionUbicacion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Ubicacion {
 
 	public void setLatitud(double latitud) {
 		// TODO Auto-generated method stub
-		this.latidud = latitud;
+		this.latitud = latitud;
 	}
 
 	public void setLongitud(double longitud) {

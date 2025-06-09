@@ -1,9 +1,12 @@
-package web_vinchucas;
+package ZonaOrganizanizacionUbicacion;
 
 
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+
+import web_vinchucas.Muestra;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;

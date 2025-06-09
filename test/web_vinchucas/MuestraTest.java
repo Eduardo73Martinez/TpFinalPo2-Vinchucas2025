@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ZonaOrganizanizacionUbicacion.Ubicacion;
+
 class MuestraTest {
 	
 	Muestra miMuestra;
