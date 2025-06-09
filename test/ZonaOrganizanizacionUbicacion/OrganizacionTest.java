@@ -1,4 +1,4 @@
-package web_vinchucas;
+package ZonaOrganizanizacionUbicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
 
