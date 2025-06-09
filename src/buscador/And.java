@@ -1,5 +1,4 @@
 package buscador;
-
 import java.util.*;
 import web_vinchucas.*;
 
