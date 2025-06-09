@@ -1,8 +1,7 @@
 package buscador;
 
 import java.util.List;
-
-import web_vinchucas.Muestra;
+import web_vinchucas.*;
 
 public class TipoDeInsecto extends Simple {
 
@@ -13,12 +12,17 @@ public class TipoDeInsecto extends Simple {
 		List<Muestra> listVerificadas = verificadas.buscar();
 		
 		return
-		listVerificadas.stream
+		listVerificadas.stream().
 		filter (muestra-> getVerificacion().getVinchuca() == vinchuca)
 		.collect (collectors.toList());
 
 	}
 	public TipoDeInsecto (Web web) {
 		super (web);
+	}
+	@Override
+	List<Muestra> buscar() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

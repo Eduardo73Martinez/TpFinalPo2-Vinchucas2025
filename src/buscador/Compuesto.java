@@ -1,8 +1,7 @@
 package buscador;
-
 import java.util.List;
-
 import web_vinchucas.*;
+
 
 public abstract class Compuesto extends Filtro{
 	Filtro primerFiltro;
