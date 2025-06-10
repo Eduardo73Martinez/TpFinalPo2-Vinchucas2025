@@ -20,14 +20,15 @@ import web_vinchucas.Usuario;
 class OpinionExpertosTest {
 
 	Muestra muestraStub = mock(Muestra.class);
-	Usuario basicoStub = mock(Usuario.class);
-	Usuario especialistaStub = mock(Usuario.class); //como especialista y experto responden lo mismo
-													 //en esBasico() no es necesario probar con ambos
+	
 	Usuario Mock = mock(Usuario.class);
 	OpinionExpertos verificacionExp = new OpinionExpertos ();
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
 	
+	Usuario basicoStub = mock(Usuario.class);
+	Usuario especialistaStub = mock(Usuario.class); //como especialista y experto responden lo mismo
+													 //en esBasico() no es necesario probar con ambos
 	
 	Opinion opinionGuasayana = mock(Opinion.class);
 	Opinion opinionGuasayanaDos = mock (Opinion.class);
@@ -40,8 +41,7 @@ class OpinionExpertosTest {
 		verificacionExp = new OpinionExpertos (); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
-		when (basicoStub.getNivel()).thenReturn (Nivel.BASICO);
-		when (especialistaStub.getNivel()).thenReturn (Nivel.ESPECIALISTA);
+		
 	
 		when (opinionGuasayana.getValorOpinion()).thenReturn (TipoVinchuca.VINCHUCA_GUASAYANA);
 		when (opinionGuasayanaDos.getValorOpinion()).thenReturn (TipoVinchuca.VINCHUCA_GUASAYANA);
@@ -85,10 +85,17 @@ class OpinionExpertosTest {
 		//ya que en caso de empate no cambia el estado
 		verificacionExp.verificar(muestraStub);
 		assertEquals(verificacionExp.esVerificada(),false);
+	}
 	
 	@Test
 	void resultadoActual() {
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueCambianEstado); //la opinion mayoritaria es Guasayana
-		assertEquals (verificacionExp.resultadoActual() ,TipoVinchuca.VINCHUCA_GUASAYANA);
+		assertEquals (verificacionExp.resultadoActual() ,"Vinchuca Guasayana");
 	}
+	@Test
+	void resultadoActualSinDefinirTest(){
+		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueNoCambianEstado); //hay empate
+		assertEquals (verificacionExp.resultadoActual() ,"No definido");
+	}
+
 }

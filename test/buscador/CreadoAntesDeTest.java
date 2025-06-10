@@ -12,22 +12,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
-import web_vinchucas.Web;
 
-class UltimaVotacionDespuesDeTest {
+class CreadoAntesDeTest {
 
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
 	
-	UltimaVotacionDespuesDe filtro = new UltimaVotacionDespuesDe(webStub, LocalDate.of(2000,11,26));
+	CreadoAntesDe filtro = new CreadoAntesDe(webStub, LocalDate.of(2000,11,26));
 	@BeforeEach
 	void setUp () {
 		
-		when (muestra1Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,11,26));
-		when (muestra2Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2001,11,26));
-		when (muestra3Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,01,01));
+		when (muestra1Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,11,26));
+		when (muestra2Stub.getFechaCreacion()).thenReturn (LocalDate.of(2001,11,26));
+		when (muestra3Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,01,01));
 		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra1Stub);
 		listaDeMuestras.add(muestra2Stub);
@@ -38,9 +37,8 @@ class UltimaVotacionDespuesDeTest {
 	@Test
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
-		listaFinal.add(muestra2Stub); //solo debe ser la lista 2 al ser la unica que va despues
+		listaFinal.add(muestra3Stub); //solo debe ser la lista 2 al ser la unica que va antes
 		assertEquals(filtro.buscar(),listaFinal);
 		
 	}
-
 }
