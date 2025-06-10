@@ -1,11 +1,6 @@
 package buscador;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import web_vinchucas.Muestra;
+import java.util.*;
+import web_vinchucas.*;
 
 
 

@@ -1,11 +1,11 @@
-package web_vinchucas;
+package ZonaOrganizanizacionUbicacion;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ZonaCoberturaTest {
+class OrganizacionTest {
 
 	@BeforeEach
 	void setUp() throws Exception {

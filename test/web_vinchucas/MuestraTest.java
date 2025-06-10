@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ZonaOrganizanizacionUbicacion.Ubicacion;
+
 class MuestraTest {
 	
 	Muestra miMuestra;
@@ -55,6 +57,8 @@ class MuestraTest {
 	List<Opinion> misOpiniones;
 	List<Opinion> listaDeOpiniones;
 	
+	IOpinable resultadoVerificacion;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		
@@ -85,6 +89,7 @@ class MuestraTest {
 		opinion_2 = mock(Opinion.class);
 		
 		nuevaVerificacion = mock(Verificacion.class);
+		resultadoVerificacion = mock(IOpinable.class);
 		
 		listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra_1);
@@ -173,7 +178,14 @@ class MuestraTest {
     	//Verify
     	assertEquals(miMuestra.estado,nuevaVerificacion);
     }
-	
+	@Test
+	void testActualizarVinchuca() {
+		//Exercise
+		miMuestra.actualizarVinchuca(resultadoVerificacion);
+		
+		//Verify
+		assertEquals(miMuestra.getVinchuca(),resultadoVerificacion);
+	}
 	@Test
 	void testMuestrasPorUbicacion() {
 		
@@ -261,18 +273,14 @@ class MuestraTest {
 		assertEquals(resultado, "Resultado Actual");
 		}
 	
-	@Test
+	
+	@Test 
 	void testPuedeOpinar() {
-		//SetUp
-		when(nuevaVerificacion.puedeVotar(miUsuario)).thenReturn(true);
-		
 		//Exercise
-		Boolean resultado = miMuestra.puedeOpinar(miUsuario.getNivel());
+		Boolean resultado = miMuestra.puedeOpinar(miUsuario);
 		
 		//Verify
-		verify(nuevaVerificacion).puedeVotar(miUsuario);
 		assertEquals(resultado,true);
 	}
-    // comentario	
-	
+    	
 }

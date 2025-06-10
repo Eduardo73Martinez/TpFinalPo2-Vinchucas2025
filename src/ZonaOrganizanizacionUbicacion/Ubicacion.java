@@ -1,38 +1,39 @@
-package web_vinchucas;
+package ZonaOrganizanizacionUbicacion;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ubicacion {
-	private Double latidud;
+	private Double latitud;
 	private Double longitud;
-	
 
 	public Ubicacion(Double latitud, Double longitud) {
 		// TODO Auto-generated constructor stub
-		this.latidud = latitud;
+		this.latitud = latitud;
 		this.longitud = longitud;
 	}
 
+	public List<Ubicacion> ubicacionesCercanas(List<Ubicacion> listaUbicaciones, float distancia) {
+		List<Ubicacion> nuevaLista = new ArrayList<Ubicacion>();
+		// TODO: hacer metodo
+		return nuevaLista;
+	}
 
 	public void setLatitud(double latitud) {
 		// TODO Auto-generated method stub
-		this.latidud = latitud;
+		this.latitud = latitud;
 	}
-
 
 	public void setLongitud(double longitud) {
 		// TODO Auto-generated method stub
 		this.longitud = longitud;
 	}
 
-
 	public Double getLatidud() {
-		return latidud;
+		return this.latitud;
 	}
-
-
 
 	public Double getLongitud() {
 		return longitud;
 	}
-
-
 }

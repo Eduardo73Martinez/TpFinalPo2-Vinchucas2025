@@ -1,21 +1,15 @@
 package verificacion;
 
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import web_vinchucas.Muestra;
-import web_vinchucas.Nivel;
-import web_vinchucas.Opinion;
-import web_vinchucas.TipoVinchuca;
-import web_vinchucas.Usuario;
+import static org.mockito.Mockito.*;
+import verificacion.*;
+import web_vinchucas.*;
 
 class OpinionExpertosTest {
 
