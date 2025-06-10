@@ -1,28 +1,36 @@
 package buscador;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.List;
+import java.util.stream.Collectors;
+
 import web_vinchucas.*;
 
 public class TipoDeInsecto extends Simple {
 
-	public List<Muestra> buscar(IOpinable vinchuca){
-		//solo devuelve verificadas del tipo de insecto asumido
+	
+	Muestra muestraDummy = mock(Muestra.class);
+	IOpinable vinchuca;
+	
+	public List<Muestra> buscar(){
 		
-		SoloVerificadas verificadas = new SoloVerificadas (web);
-		List<Muestra> listVerificadas = verificadas.buscar();
+		return todasLasMuestras().stream()
+		.filter(muestra-> muestra.resultadoActual() == vinchuca.getValor() )
+		.collect (Collectors.toList());
 		
-		return
-		listVerificadas.stream().
-		filter (muestra-> getVerificacion().getVinchuca() == vinchuca)
-		.collect (collectors.toList());
-
+		
+		
 	}
-	public TipoDeInsecto (Web web) {
+	
+	private void setOpinable (IOpinable vinchuca) {
+		this.vinchuca = vinchuca;
+	}
+	
+	public TipoDeInsecto (Web web,IOpinable vinchuca) {
 		super (web);
+		setOpinable(vinchuca);
 	}
-	@Override
-	List<Muestra> buscar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
 }
