@@ -7,7 +7,7 @@ import web_vinchucas.Muestra;
 import web_vinchucas.Web;
 
 public class UltimaVotacionDespuesDe extends FechaUltimaVotacion {
-	LocalDate fechaIngresada;
+	
 	
 	public List<Muestra> buscar(){
 		

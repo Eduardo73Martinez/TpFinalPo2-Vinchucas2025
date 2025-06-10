@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import web_vinchucas.IOpinable;
 import web_vinchucas.Muestra;
 import web_vinchucas.Opinion;
 import web_vinchucas.Usuario;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 
 public abstract  class NoVerificada extends Verificacion {
 	abstract boolean esVerificada();
-	abstract boolean puedeVotar (Usuario usuario,Muestra muestra);
+	abstract boolean puedeVotar (Usuario usuario);
 	abstract void verificar(Muestra muestra); //recalcula el tipo de verificacion
 	abstract boolean esVotada();
+	abstract String resultadoActual (Muestra muestra);
+	
 	private List<Opinion> getOpinionesExpertos(Muestra muestra){
 		//devuelve las opiniones de expertos y especialistas pero no otras
 		return (
@@ -31,7 +34,8 @@ public abstract  class NoVerificada extends Verificacion {
 			   
 
 	}
-	protected List<TipoOpinion> getOpinionesDeExpertos(Muestra muestra){
+	protected List<IOpinable> getOpinionesDeExpertos(Muestra muestra){
+		//devuelve los enums de las opiniones de los expertos
 		return (
 				getOpinionesExpertos(muestra)
 				.stream()
@@ -39,10 +43,10 @@ public abstract  class NoVerificada extends Verificacion {
 				.collect(Collectors.toList())
 				);
 	}
-	public TipoOpinion opinionMayoritaria(Muestra muestra) {
-		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos)
+	protected IOpinable opinionMayoritariaDeExpertosOEspecialistas(Muestra muestra) {
+		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos o especialistas)
 		//PRECONDICION:hay una opinion mayoritaria
-		Map<TipoOpinion,Long> mapRepetidoMasVeces = getOpinionesDeExpertos(muestra).stream()
+		Map<IOpinable,Long> mapRepetidoMasVeces = getOpinionesDeExpertos(muestra).stream()
 		.collect(Collectors.groupingBy (c->c, Collectors.counting())); //convierto en un map
 		
 		
@@ -50,9 +54,9 @@ public abstract  class NoVerificada extends Verificacion {
 				.map(s->s.getValue()) //reemplazo todo por una lista de valores
 				.max(Comparator.naturalOrder()).get();
 				
-		TipoOpinion keyDelMayor = null;
-		Iterator<Map.Entry<TipoOpinion, Long>> iterator = mapRepetidoMasVeces.entrySet().iterator(); //el iterator todavia no tiene elemento
-		Map.Entry<TipoOpinion, Long> entry = iterator.next();
+		IOpinable keyDelMayor = null;
+		Iterator<Map.Entry<IOpinable, Long>> iterator = mapRepetidoMasVeces.entrySet().iterator(); //el iterator todavia no tiene elemento
+		Map.Entry<IOpinable, Long> entry = iterator.next();
 		while (!(entry.getValue()).equals (valorDelMayor)) {
 		    
 		    

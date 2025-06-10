@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Nivel;
 import web_vinchucas.Usuario;
 
 
@@ -18,7 +19,7 @@ public class VerificadaTest {
 	Usuario basicoStub = mock(Usuario.class);
 	Usuario especialistaStub = mock(Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
-	Usuario Mock = mock(Usuario.class);
+	
 	
 	Verificada verificada = new Verificada (muestraStub,TipoOpinion.INFESTANS);
 	@BeforeEach
@@ -44,6 +45,11 @@ public class VerificadaTest {
 	void verificarTest() {
 		verificada.verificar(muestraStub);
 		assertEquals(verificada.esVerificada(),true);
+	}
+	@Test
+	void resultadoActualTest() {
+		
+		assertEquals(verificada.respuestaActual(),"Vinchuca Infestans");
 	}
 
 }
