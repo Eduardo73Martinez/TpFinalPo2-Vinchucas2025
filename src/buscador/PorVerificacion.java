@@ -10,7 +10,7 @@ abstract class PorVerificacion extends Simple {
 	
 	public List<Muestra> buscar(){
 		return (
-				web.todasLasMuestras().stream()
+				todasLasMuestras().stream()
 		.filter (muestra->this.esDelTipoEsperado(muestra)
 				)
 		.collect(Collectors.toList())

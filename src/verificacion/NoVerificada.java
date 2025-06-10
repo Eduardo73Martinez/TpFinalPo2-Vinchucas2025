@@ -24,8 +24,8 @@ public abstract  class NoVerificada extends Verificacion {
 		//devuelve las opiniones de expertos y especialistas pero no otras
 		return (
 				muestra.getOpiniones().stream()
-		.filter (opinion-> opinion.getNivelUsuarioQueDejoOpinion() == Nivel.EXPERTO
-				||opinion.getUsuarioQueDejoOpinionEsEspecialista() == Nivel.ESPECIALISTA)
+		.filter (opinion-> opinion.getNivelOpinion() == Nivel.EXPERTO
+				||opinion.getNivelOpinion() == Nivel.ESPECIALISTA)
 		.collect(Collectors.toList())
 		);
 		
@@ -36,12 +36,10 @@ public abstract  class NoVerificada extends Verificacion {
 	}
 	protected List<IOpinable> getOpinionesDeExpertos(Muestra muestra){
 		//devuelve los enums de las opiniones de los expertos
-		return (
-				getOpinionesExpertos(muestra)
-				.stream()
+		return 
+				getOpinionesExpertos(muestra).stream()
 				.map(opinion->opinion.getQueVinchucaEs())
-				.collect(Collectors.toList())
-				);
+				.collect(Collectors.toList());
 	}
 	protected IOpinable opinionMayoritariaDeExpertosOEspecialistas(Muestra muestra) {
 		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos o especialistas)

@@ -8,11 +8,11 @@ public abstract class Verificacion {
 
 
 	
-	abstract boolean esVerificada(); //devuelve true si es verificada
-	abstract boolean puedeVotar (Usuario usuario); //devuelve true si el usuario puede votar
-	abstract void verificar(Muestra muestra); //recalcula el tipo de verificacion
-	abstract boolean esVotada(); //devuelve true si ya fue votada por un experto o especialista
-	abstract String resultadoActual (Muestra muestra);
+	public abstract boolean esVerificada(); //devuelve true si es verificada
+	public abstract boolean puedeVotar (Usuario usuario); //devuelve true si el usuario puede votar
+	public abstract void verificar(Muestra muestra); //recalcula el tipo de verificacion
+	public abstract boolean esVotada(); //devuelve true si ya fue votada por un experto o especialista
+	public abstract String resultadoActual (Muestra muestra);
 	
 	
 	public Verificacion () {
