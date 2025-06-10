@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.mockito.stubbing.OngoingStubbing;
+//import org.mockito.stubbing.OngoingStubbing;
 
 import ZonaOrganizanizacionUbicacion.Ubicacion;
 
@@ -18,7 +18,9 @@ public class Muestra {
 	Foto foto;
 	Ubicacion ubicacion;
 	LocalDate fechaCreacion;
+	LocalDate fechaUltimaVotacion;
 	Verificacion estado; 
+	
 	
 	List<Opinion> opiniones = new ArrayList<Opinion>();
 	
@@ -26,12 +28,14 @@ public class Muestra {
 		this.autor = u;
 		this.vinchuca = t;
 		this.foto = f;
-		this.estado = new OpinionBasicos(this);
+		this.estado = new OpinionBasicos();
 		this.ubicacion = ub;
 		this.fechaCreacion = LocalDate.now();
+		this.fechaUltimaVotacion = null;
 	}
+	
 	public String resultadoActual() {
-		return this.estado.resultadoActual();
+		return this.estado.resultadoActual(this);
 	}
 	public Foto getFoto() {
 		return this.foto;
@@ -51,8 +55,15 @@ public class Muestra {
 	public LocalDate getFechaCreacion() {
 		return this.fechaCreacion;
 	}
+	public LocalDate getFechaUltimaVotacion() {
+		return fechaUltimaVotacion;
+	}
 	public void agregarOpinion(Opinion o) {
 		this.opiniones.add(o);
+		this.fechaUltimaVotacion = LocalDate.now();
+	}
+	public Verificacion getVerificacion() {
+		return this.estado;
 	}
 	public void setVerificacion(Verificacion v) {
 		this.estado = v;
@@ -100,5 +111,7 @@ public class Muestra {
   
 	public boolean puedeOpinar(Usuario u) {
 		return estado.puedeVotar(u, this);
-  }
+	}
+	
+	
 }	
