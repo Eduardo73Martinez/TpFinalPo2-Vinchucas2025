@@ -18,7 +18,7 @@ public class Opinion {
 		return this.valorOpinion;
 	}
 	
-	public Nivel getNivelOpinon() {
+	public Nivel getNivelOpinion() {
 		return this.nivelUsuario;
 	}
 	
