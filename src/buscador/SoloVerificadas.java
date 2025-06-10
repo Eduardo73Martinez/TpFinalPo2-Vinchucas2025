@@ -8,7 +8,7 @@ import web_vinchucas.*;
 
 public class SoloVerificadas extends PorVerificacion {
 
-	public List<Muestra> esDelTipoEsperado (Muestra muestra){
+	public  boolean esDelTipoEsperado (Muestra muestra){
 		return muestra.getVerificacion().esVerificada();
 	}
 	public SoloVerificadas (Web web){
