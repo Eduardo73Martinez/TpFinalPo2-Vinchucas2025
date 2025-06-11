@@ -22,9 +22,9 @@ class TipoDeInsectoTest {
 	@BeforeEach
 	void setUp () {
 		
-		when (verificadaInfestansStub.getVinchuca()).thenReturn (TipoVinchuca.INFESTANS);
-		when (verificadaSordidaStub.getVinchuca()).thenReturn (TipoVinchuca.SORDIDA);
-		when (verificadaGuasayanaStub.getVinchuca()).thenReturn (TipoVinchuca.GUASAYANA);
+		when (verificadaInfestansStub.resultadoActual()).thenReturn (TipoVinchuca.VINCHUCA_INFESTANS);
+		when (verificadaSordidaStub.resultadoActual()).thenReturn (TipoVinchuca.VINCHUCA_SORDIDA);
+		when (verificadaGuasayanaStub.resultadoActual()).thenReturn (TipoVinchuca.VINCHUCA_GUASAYANA);
 		
 		when (muestra1Stub.getVerificacion()).thenReturn (verificadaInfestansStub);
 		when (muestra2Stub.getVerificacion()).thenReturn (verificadaSordidaStub);
@@ -42,7 +42,7 @@ class TipoDeInsectoTest {
 		
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub);
-		assertEquals(filtro.buscar(GUASAYANA),listaFinal);
+		assertEquals(filtro.buscar(TipoVinchuca.VINCHUCA_GUASAYANA),listaFinal);
 	}
 
 }
