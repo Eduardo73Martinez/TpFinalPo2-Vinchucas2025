@@ -1,6 +1,7 @@
 package ZonaOrganizanizacionUbicacion;
 
-import java.util.ArrayList;
+import java.lang.Math;
+
 import java.util.List;
 
 public class Ubicacion {
@@ -13,10 +14,24 @@ public class Ubicacion {
 		this.longitud = longitud;
 	}
 
-	public List<Ubicacion> ubicacionesCercanas(List<Ubicacion> listaUbicaciones, float distancia) {
-		List<Ubicacion> nuevaLista = new ArrayList<Ubicacion>();
-		// TODO: hacer metodo
-		return nuevaLista;
+	public List<Ubicacion> ubicacionesCercanas(List<Ubicacion> listaUbicaciones, double distancia) {
+		return listaUbicaciones.stream().filter(s -> s.distanciaCon(this) < distancia).toList();
+	}
+
+	/**
+	 * d = √( (x₂ - x₁)² + (y₂ - y₁)²)
+	 * 
+	 * @param distancia entre dos puntos en el plano.
+	 * @return
+	 */
+	public double distanciaCon(Ubicacion distancia2) {
+		// TODO Auto-generated method stub
+		return Math.sqrt(Math.pow(this.getLatidud() - distancia2.getLatidud(), 2)
+				+ Math.pow(this.getLongitud() - distancia2.getLongitud(), 2));
+	}
+
+	public double raizCuadrada(double numero) {
+		return 0;
 	}
 
 	public void setLatitud(double latitud) {
@@ -36,4 +51,5 @@ public class Ubicacion {
 	public Double getLongitud() {
 		return longitud;
 	}
+
 }
