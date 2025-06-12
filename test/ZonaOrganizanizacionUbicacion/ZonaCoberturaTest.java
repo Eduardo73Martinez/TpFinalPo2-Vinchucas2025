@@ -79,6 +79,7 @@ class ZonaCoberturaTest {
 	void testValidacionMuestra() {
 		fail("Not yet implemented");
 	}
+
 	@Test
 	void testSuscribirOrganizacion() {
 		fail("Not yet implemented");
