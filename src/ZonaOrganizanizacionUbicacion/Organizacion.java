@@ -1,24 +1,30 @@
 package ZonaOrganizanizacionUbicacion;
 
 import java.util.*;
+import web_vinchucas.*;
 
 public class Organizacion {
 	private String tipoOrganizacion;
 	private int cantidadDeEmpleados;
-	private FuncionalidadExterna funcionalidad;
+	private FuncionalidadExterna funcionalidadCargaMuestra;
+	private FuncionalidadExterna funcionalidadValidacionMuestra;
 	private Ubicacion ubicacion;
+	/**
+	 * NO LO PIDE EL ENUCIADO PERO YO REGISTRO IGUALMENTE DONDE ESPERO RECIBIR
+	 * INFORMACION. SOLAMENTE COMO INFORMACION, NO HACE NADA.
+	 */
 	private List<ZonaCobertura> zonasSubscriptas;
 
 	public List<ZonaCobertura> getZonasSubscriptas() {
 		return zonasSubscriptas;
 	}
 
-	public FuncionalidadExterna getFuncionalidadExterna() {
-		return this.funcionalidad;
+	public FuncionalidadExterna getFuncionalidadExternaCarga() {
+		return this.funcionalidadCargaMuestra;
 	}
 
-	public void setFuncionalidadExterna(FuncionalidadExterna funcionalidad) {
-		this.funcionalidad = funcionalidad;
+	public FuncionalidadExterna getFuncionalidadExternaValidacion() {
+		return this.funcionalidadValidacionMuestra;
 	}
 
 	public void subscribe(ZonaCobertura zona) {
@@ -30,8 +36,6 @@ public class Organizacion {
 		zona.unsubscribeOrganizacion(this);
 		if (this.zonasSubscriptas.contains(zona))
 			this.zonasSubscriptas.remove(zona);
-		else
-			new RuntimeException("No esta en la lista");
 	}
 
 	public String getTipoOrganizacion() {
@@ -46,17 +50,25 @@ public class Organizacion {
 		return ubicacion;
 	}
 
-	public Organizacion(String tipoOrganizacion, int cantidadDeEmpleados, FuncionalidadExterna funcionalidad,
-			Ubicacion ubicacion, List<ZonaCobertura> zonasSubscriptas) {
+	public Organizacion(String tipoOrganizacion, int cantidadDeEmpleados, FuncionalidadExterna carga,
+			FuncionalidadExterna validacion, Ubicacion ubicacion, List<ZonaCobertura> zonasSubscriptas) {
 		super();
 		this.tipoOrganizacion = tipoOrganizacion;
 		this.cantidadDeEmpleados = cantidadDeEmpleados;
-		this.funcionalidad = funcionalidad;
+		this.funcionalidadCargaMuestra = carga;
+		this.funcionalidadValidacionMuestra = validacion;
 		this.ubicacion = ubicacion;
 		this.zonasSubscriptas = zonasSubscriptas;
 	}
 
-	public void notifyMe() {
+	public void notifyMeValidation(ZonaCobertura zona, Muestra muestra) {
+		this.getFuncionalidadExternaValidacion().nuevoEvento(this, zona, muestra);
+		;
 
+	}
+
+	public void notifyMeCarga(ZonaCobertura zona, Muestra muestra) {
+		this.getFuncionalidadExternaCarga().nuevoEvento(this, zona, muestra);
+		;
 	}
 }
