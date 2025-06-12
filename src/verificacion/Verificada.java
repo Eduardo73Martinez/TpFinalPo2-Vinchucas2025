@@ -13,7 +13,7 @@ public class Verificada extends Verificacion{
 	public boolean puedeVotar (Usuario usuario) {
 		return false;
 	}
-	public boolean esVotada () {
+	public boolean esVotada () { 
 		return true;
 	}
 	public void verificar(Muestra muestra) {
