@@ -26,12 +26,19 @@ public class Ubicacion {
 	 */
 	public double distanciaCon(Ubicacion distancia2) {
 		// TODO Auto-generated method stub
-		return Math.sqrt(Math.pow(this.getLatidud() - distancia2.getLatidud(), 2)
-				+ Math.pow(this.getLongitud() - distancia2.getLongitud(), 2));
+		return this.raizCuadrada(this.potencia(this.getLatidud() - distancia2.getLatidud())
+				+ this.potencia(this.getLongitud() - distancia2.getLongitud()));
 	}
 
 	public double raizCuadrada(double numero) {
-		return 0;
+		return Math.sqrt(numero);
+	}
+
+	/*
+	 * n^2
+	 */
+	public double potencia(double numero) {
+		return Math.pow(numero, 2);
 	}
 
 	public void setLatitud(double latitud) {
