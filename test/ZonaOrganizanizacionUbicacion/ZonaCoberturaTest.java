@@ -1,12 +1,12 @@
 package ZonaOrganizanizacionUbicacion;
+import web_vinchucas.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class ZonaCoberturaTest {
 	private ZonaCobertura zonaDeCobertura;
@@ -16,14 +16,28 @@ class ZonaCoberturaTest {
 	private Organizacion organizacion2;
 	private Organizacion organizacion3;
 	private Organizacion organizacion4;
-	private ArrayList<Organizacion> organizaciones = new ArrayList<Organizacion>();
+	private List<Organizacion> organizaciones = new ArrayList<Organizacion>();
+	private List<Muestra> muestras = new ArrayList<Muestra>();
+	
+	Muestra muestra1;
+	Muestra muestra2;
+	Muestra muestra3;
 
+	
+	
 	@BeforeEach
 	void setUp() throws Exception {
+		organizaciones.add(organizacion1);
+		organizaciones.add(organizacion2);
+		organizaciones.add(organizacion3);
+		
+		muestras.add(muestra1);
+		muestras.add(muestra2);
+		
 		epicentro = mock(Ubicacion.class);
-		zonaDeCobertura = new ZonaCobertura("Area 1", epicentro, radioEnKilometros);
+		zonaDeCobertura = new ZonaCobertura("Area 1", epicentro, radioEnKilometros,muestras, organizaciones);
 
-	}
+	} 
 
 	@Test
 	void test() {
@@ -32,37 +46,43 @@ class ZonaCoberturaTest {
 
 	@Test
 	void testGetNombre() {
-		fail("Not yet implemented");
+		
+		assertEquals("Area 1", zonaDeCobertura.getNombre());
 	}
 
 	@Test
 	void testSetNombre() {
-		fail("Not yet implemented");
+		zonaDeCobertura.setNombre("Area 2");
+		assertEquals("Area 2", zonaDeCobertura.getNombre());
 	}
 
 	@Test
 	void testGetEpicentro() {
-		fail("Not yet implemented");
+		assertEquals(epicentro, zonaDeCobertura.getEpicentro());
 	}
 
 	@Test
 	void testSetEpicentro() {
-		fail("Not yet implemented");
+		Ubicacion nuevoEpicentro = mock(Ubicacion.class); 
+		assertEquals(nuevoEpicentro, zonaDeCobertura.getEpicentro());
 	}
 
 	@Test
 	void testGetRadio() {
-		fail("Not yet implemented");
+		assertEquals(300.4, zonaDeCobertura.getRadio());
 	}
 
 	@Test
 	void testSetRadio() {
-		fail("Not yet implemented");
+		zonaDeCobertura.setRadio(10.4);
+		assertEquals(10.4, zonaDeCobertura.getRadio());
 	}
 
 	@Test
-	void testMuestrasReportadas() {
-		fail("Not yet implemented");
+	void testGetMuestrasReportadas() {
+		muestras.add(muestra3);
+		zonaDeCobertura.cargarMuestra(muestra3);
+		assertEquals(muestras.size(), zonaDeCobertura.getMuestras().size());
 	}
 
 	@Test
@@ -72,11 +92,14 @@ class ZonaCoberturaTest {
 
 	@Test
 	void testCargaMuestra() {
-		fail("Not yet implemented");
+		zonaDeCobertura.cargarMuestra(muestra3);
+		assertTrue(zonaDeCobertura.getMuestras().contains(muestra3) );
 	}
 
 	@Test
 	void testValidacionMuestra() {
+		//VALIDAR ES EQUIVALENTE A RESULTADO ACTUAL EN EL CODIGO DE LUCIO.
+		when(muestra1.resultadoActual()).thenReturn("SORDIDA");
 		fail("Not yet implemented");
 	}
 

@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class OrganizacionTest {
 	private Organizacion organizacion;
-	private FuncionalidadExterna funcionalidad;
-	private FuncionalidadExterna nuevafuncionalidad;
+	private FuncionalidadExterna carga;
+	private FuncionalidadExterna validacion;
 	private Ubicacion ubicacion;
 	private ZonaCobertura zona1;
 	private ZonaCobertura zona2; 
@@ -28,15 +28,15 @@ class OrganizacionTest {
 		zona2 = mock(ZonaCobertura.class);
 		zona3 = mock(ZonaCobertura.class);
 		zona4 = mock(ZonaCobertura.class);
-		funcionalidad= mock(FuncionalidadExterna.class);
-		nuevafuncionalidad = mock(FuncionalidadExterna.class);
+		carga= mock(FuncionalidadExterna.class);
+		validacion = mock(FuncionalidadExterna.class);
 		
 		
 		this.listaZonas.add(zona1);
 		this.listaZonas.add(zona2); 
 		this.listaZonas.add(zona3);
 		
-		organizacion = new Organizacion("Medica", 556, funcionalidad, ubicacion,this.listaZonas);
+		organizacion = new Organizacion("Medica", 556, carga,validacion, ubicacion,this.listaZonas);
 		
 	}
 	/**
@@ -48,15 +48,15 @@ class OrganizacionTest {
 	}
 
 	@Test
-	void testGetFuncionalidadExtera() {
+	void testGetFuncionalidadExteraCarga() {
 		
-		assertEquals(funcionalidad, organizacion.getFuncionalidadExterna());
+		assertEquals(carga, organizacion.getFuncionalidadExternaCarga());
 	}
 
 	@Test
-	void testSetFuncionalidadExterna() {
-		organizacion.setFuncionalidadExterna(nuevafuncionalidad);
-		assertEquals(nuevafuncionalidad, organizacion.getFuncionalidadExterna());
+	void testGetFuncionalidadExteraValidacion() {
+		
+		assertEquals(validacion, organizacion.getFuncionalidadExternaValidacion());
 	}
 
 	@Test
@@ -89,9 +89,18 @@ class OrganizacionTest {
 	void testGetUbicacion() {
 		assertEquals(ubicacion, organizacion.getUbicacion());
 	}
+	/*
+	 * FALTAN LOS DOS ULTIMOS MENSAJES.
+	 * LOS IMPLEMENTE DESPUES DE RELEER EL ENUNCIADO.
+	 * 
+	 */
 
 	@Test
-	void testNotifyMe() {
+	void testNotifyMenotifyMeValidation() {
+		fail("Not yet implemented");
+	}
+	@Test
+	void testNotifyMeCarga() {
 		fail("Not yet implemented");
 	}
 
