@@ -89,6 +89,11 @@ class OrganizacionTest {
 	void testGetUbicacion() {
 		assertEquals(ubicacion, organizacion.getUbicacion());
 	}
+	/*
+	 * FALTAN LOS DOS ULTIMOS MENSAJES.
+	 * LOS IMPLEMENTE DESPUES DE RELEER EL ENUNCIADO.
+	 * 
+	 */
 
 	@Test
 	void testNotifyMenotifyMeValidation() {

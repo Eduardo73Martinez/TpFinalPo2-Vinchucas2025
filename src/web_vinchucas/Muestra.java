@@ -22,7 +22,7 @@ public class Muestra {
 	Verificacion estado; 
 	
 	
-	List<Opinion> opiniones = new ArrayList<Opinion>();
+	List<Opinion> opiniones = new ArrayList<Opinion>(); 
 	
 	public Muestra(Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
 		this.autor = u;
@@ -30,10 +30,27 @@ public class Muestra {
 		this.foto = f;
 		this.estado = new OpinionBasicos();
 		this.ubicacion = ub;
-		this.fechaCreacion = LocalDate.now();
+		this.fechaCreacion = LocalDate.now(); 
 		this.fechaUltimaVotacion = null;
 	}
+	/**
+	 *  
+	 * 	COMENTO ACÁ LUCIO, SOY MARTIN,....ME PARECE QUE  ESTA PARTE NO ESTA DEL TODO BIEN. LA PARTE DEL ESTADO 
+	 *  DEBERIA LLAMAR EN EL ESTADO A VERIFICAR. ME ACUERDO QUE LO CAMBIAMOS Y DEVOLVIA UN STRING PORQUE APLICABA UN IOPINABLE, PERO NO SE SI ELLOS LO VAN A ACEPTAR
+	 *  (PARA MI NO ESTÁ MAL) PERO DEBERIAMOS PREGUNTARLE SI PODEMOS HACERLO PORQUE NOS PUEDEN MARCAR COMO ERROR ESTO. 
+	 *  
+	 *  
+	 *  TENEMOS QUE ORDENAR EL ESTADO. ME PARECE QUE VOY A TENER QUE AYUDAR A QUIMEY EN ESA PARTE QUE ES MAS IMPORTANTE
+	 *  PARA EL GRUPO. SU CODIGO NO FUNCIONA.
+	 *  
+	 *  EJEMPLO 
+	 *  THIS.ESTADO.VERIFICAR(THIS) O THIS.GETESTADO().VERIFICAR(THIS)
+	 *  
+	 * 
+	 * @return
+	 */
 	
+	//YO NECESITO VERIFICAR() EN LA CLASE ZONASCOBERTURA CAMBIO POR RESULTADOACTUAL(). DESPUES BORRA ESTE COMENTARIO.
 	public String resultadoActual() {
 		return this.estado.resultadoActual(this);
 	}
@@ -68,6 +85,13 @@ public class Muestra {
 	public void setVerificacion(Verificacion v) {
 		this.estado = v;
 	}
+	/*
+	 * COMENTO ACÁ TAMBIEN... ¿EL RESULTADO ACTUAL NO TE COMBIENE PEDIRSELO AL ESTADO?
+	 * ME PARECE UN POCO INNECESARIO TENER SETEADOS DOS ESTADOS.
+	 * 
+	 * YA SE ENTENDI... VOS TENES SETTEADO POR DEFAULT NULL EN THIS.VINCHUCA Y CUANDO LA VERIFICAS LE ASIGNAS UNA, PERO
+	 * ESTÁ POR FUERA DEL PROPIO ESTADO.
+	 */
 	public void actualizarVinchuca(IOpinable o) {
 		this.vinchuca = o;
 	}
