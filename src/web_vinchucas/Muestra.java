@@ -31,7 +31,7 @@ public class Muestra {
 		this.ubicacion = ub;
 		this.fechaCreacion = LocalDate.now(); 
 		this.fechaUltimaVotacion = null;
-		this.opiniones.add(new Opinion(Nivel.BASICO,t));
+		this.opiniones.add(new Opinion(u.getNivel(),t));
 	}
 	/**
 	 *  
@@ -78,6 +78,7 @@ public class Muestra {
 	public void agregarOpinion(Opinion o) {
 		this.opiniones.add(o);
 		this.fechaUltimaVotacion = LocalDate.now();
+		this.estado.verificar(this);
 	}
 	public Verificacion getVerificacion() {
 		return this.estado;
