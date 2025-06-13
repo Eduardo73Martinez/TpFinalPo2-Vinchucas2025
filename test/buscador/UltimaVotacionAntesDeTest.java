@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Web;
 
 class UltimaVotacionAntesDeTest {
 
@@ -26,7 +27,7 @@ class UltimaVotacionAntesDeTest {
 		
 		when (muestra1Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,11,26));
 		when (muestra2Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2001,11,26));
-		when (muestra3Stub.getFechaUltimaVotacion)).thenReturn (LocalDate.of(2000,01,01));
+		when (muestra3Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,01,01));
 		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra1Stub);
 		listaDeMuestras.add(muestra2Stub);
@@ -38,7 +39,7 @@ class UltimaVotacionAntesDeTest {
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub); //solo debe ser la lista 2 al ser la unica que va antes
-		assertEquals(filtro.buscar(),listaFinal);
+		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 		
 	}
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Web;
 
 class CreadoAntesDeTest {
 
@@ -38,7 +39,8 @@ class CreadoAntesDeTest {
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub); //solo debe ser la lista 2 al ser la unica que va antes
-		assertEquals(filtro.buscar(),listaFinal);
+		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
+	
 		
 	}
 }

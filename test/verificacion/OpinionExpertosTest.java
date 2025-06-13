@@ -36,7 +36,7 @@ class OpinionExpertosTest {
 	Opinion opinionInfestansTres= mock (Opinion.class);
 
 	
-	//Este es el seteo de los objetos necesarios
+	
 	@BeforeEach
 	void setUp () {
 		verificacionExp = new OpinionExpertos (); //en realidad no es necesario hacer setUp en
@@ -72,7 +72,7 @@ class OpinionExpertosTest {
 		ArgumentCaptor<Muestra> capto = ArgumentCaptor.forClass(Muestra.class); // para espiar que objeto recibe muestra
 	}
 	
-		//establezco lo necesario (exercise)
+		
 		
 	
 	@Test

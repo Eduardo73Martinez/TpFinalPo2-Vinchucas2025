@@ -15,6 +15,7 @@ public class TipoDeInsecto extends Simple {
 	
 	public List<Muestra> buscar(){
 		
+		
 		return todasLasMuestras().stream()
 		.filter(muestra-> muestra.resultadoActual() == vinchuca.getValor() )
 		.collect (Collectors.toList());

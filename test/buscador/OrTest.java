@@ -1,6 +1,7 @@
 package buscador;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import java.util.*;
 import org.junit.jupiter.api.*;
@@ -38,7 +39,7 @@ public class OrTest {
 		listaFinal.add(muestra1Dummy);
 		listaFinal.add(muestra2Dummy);
 		listaFinal.add(muestra3Dummy);
-		assertEquals(or.buscar(),listaFinal);
+		assertTrue(or.buscar().containsAll(listaFinal) && listaFinal.containsAll(or.buscar()));
 	}
 	
 	

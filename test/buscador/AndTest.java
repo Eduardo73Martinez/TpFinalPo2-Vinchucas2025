@@ -36,6 +36,7 @@ class AndTest {
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Dummy);
-		assertEquals(and.buscar(),listaFinal);
+		assertTrue(and.buscar().containsAll(listaFinal) && listaFinal.containsAll(and.buscar()));
+		
 	}
 }

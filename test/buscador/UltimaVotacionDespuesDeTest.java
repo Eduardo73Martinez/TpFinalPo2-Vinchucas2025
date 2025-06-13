@@ -2,6 +2,8 @@ package buscador;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import java.time.LocalDate;
 import java.util.*;
 import org.junit.jupiter.api.*;
 import verificacion.*;
@@ -32,7 +34,7 @@ class UltimaVotacionDespuesDeTest {
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra2Stub); //solo debe ser la lista 2 al ser la unica que va despues
-		assertEquals(filtro.buscar(),listaFinal);
+		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 		
 	}
 

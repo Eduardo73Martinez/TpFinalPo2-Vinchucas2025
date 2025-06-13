@@ -34,8 +34,8 @@ class SoloVotadasTest {
 
 		
 		when (opinionBasicosStub.esVotada()).thenReturn (false);
-		when (opinionExpertosStub.esVotada()).thenReturn (false);
-		when (verificadaStub.esVotada()).thenReturn (false);
+		when (opinionExpertosStub.esVotada()).thenReturn (true);
+		when (verificadaStub.esVotada()).thenReturn (true);
 		
 		when (muestra1Stub.getVerificacion()).thenReturn (opinionBasicosStub);
 		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosStub);

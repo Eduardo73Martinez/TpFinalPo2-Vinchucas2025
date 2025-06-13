@@ -6,29 +6,24 @@ import java.util.*;
 import org.junit.jupiter.api.*;
 import verificacion.*;
 import web_vinchucas.*;
-
+import buscador.*;
 class TipoDeInsectoTest {
 
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
-	Verificada verificadaInfestansStub = mock (Verificada.class);
-	Verificada verificadaSordidaStub = mock (Verificada.class);
-	Verificada verificadaGuasayanaStub = mock (Verificada.class);
 	
-	SoloVerificadas filtro = new SoloVerificadas (webStub);
+	
+	TipoDeInsecto filtro = new TipoDeInsecto (webStub,TipoVinchuca.VINCHUCA_GUASAYANA);
 	
 	@BeforeEach
 	void setUp () {
 		
-		when (verificadaInfestansStub.resultadoActual()).thenReturn (TipoVinchuca.VINCHUCA_INFESTANS);
-		when (verificadaSordidaStub.resultadoActual()).thenReturn (TipoVinchuca.VINCHUCA_SORDIDA);
-		when (verificadaGuasayanaStub.resultadoActual()).thenReturn (TipoVinchuca.VINCHUCA_GUASAYANA);
 		
-		when (muestra1Stub.getVerificacion()).thenReturn (verificadaInfestansStub);
-		when (muestra2Stub.getVerificacion()).thenReturn (verificadaSordidaStub);
-		when (muestra3Stub.getVerificacion()).thenReturn (verificadaGuasayanaStub);
+		when (muestra1Stub.resultadoActual()).thenReturn ("Vinchuca Infestans");
+		when (muestra2Stub.resultadoActual()).thenReturn ("Vinchuca Sordida");
+		when (muestra3Stub.resultadoActual()).thenReturn ("Vinchuca Guasayana");
 		
 		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra1Stub);
@@ -42,7 +37,8 @@ class TipoDeInsectoTest {
 		
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub);
-		assertEquals(filtro.buscar(TipoVinchuca.VINCHUCA_GUASAYANA),listaFinal);
+		System.out.println("el resultado de busqueda es" + filtro.buscar());
+		assertEquals(filtro.buscar(),listaFinal);
 	}
 
 }

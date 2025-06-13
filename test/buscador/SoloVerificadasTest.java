@@ -28,7 +28,7 @@ class SoloVerificadasTest {
 		
 		when (opinionBasicosStub.esVerificada()).thenReturn (false);
 		when (opinionExpertosStub.esVerificada()).thenReturn (false);
-		when (verificadaStub.esVerificada()).thenReturn (false);
+		when (verificadaStub.esVerificada()).thenReturn (true);
 		
 		when (muestra1Stub.getVerificacion()).thenReturn (opinionBasicosStub);
 		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosStub);
@@ -54,5 +54,6 @@ class SoloVerificadasTest {
 		assertEquals(filtro.esDelTipoEsperado(muestra1Stub),false);
 		assertEquals(filtro.esDelTipoEsperado(muestra2Stub),false);
 		assertEquals(filtro.esDelTipoEsperado(muestra3Stub),true);
+		
 	}
 }

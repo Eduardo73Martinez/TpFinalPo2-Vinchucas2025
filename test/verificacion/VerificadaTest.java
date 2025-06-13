@@ -31,11 +31,10 @@ public class VerificadaTest {
 		verificada = new Verificada (TipoVinchuca.VINCHUCA_INFESTANS); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
-		//Termino de setear (SetUp)
+		
 		
 		when (basicoStub.getNivel()).thenReturn (Nivel.BASICO);
-		//establezco valores de retorno que aplicaran a todos los metodos (exercise)
-		
+	
 		
 	}
 	@Test

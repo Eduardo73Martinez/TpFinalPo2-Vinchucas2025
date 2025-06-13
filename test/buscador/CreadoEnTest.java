@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
+import web_vinchucas.Web;
 
 class CreadoEnTest {
 
@@ -38,7 +39,7 @@ class CreadoEnTest {
 	void buscarTest() {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra1Stub); //solo debe ser la muestra 1 al ser la unica que es igual en fecha de ultima votacion a la fecha ingresada
-		assertEquals(filtro.buscar(),listaFinal);
+		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 		
 	}
 

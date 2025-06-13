@@ -33,6 +33,7 @@ class OpinionBasicosTest {
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
 	
+	
 	@BeforeEach
 	void setUp () {
 		when (opinionGuasayana.getNivelOpinion()).thenReturn( Nivel.BASICO );
@@ -49,7 +50,7 @@ class OpinionBasicosTest {
 		
 		listaDeOpinionesQueNoCambianEstado.add(opinionInfestans);
 		listaDeOpinionesQueNoCambianEstado.add(opinionGuasayana);
-		
+	
 	}
 	@Test
 	void verificarCambiaEstadoTest(){
@@ -80,12 +81,12 @@ class OpinionBasicosTest {
 	@Test
 	void resultadoActualTest(){
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueCambianEstado); //la opinion mayoritaria es Guasayana
-		assertEquals (verificacionBasic.resultadoActual() ,"Vinchuca Guasayana");
+		assertEquals (verificacionBasic.resultadoActual(muestraStub)  ,"Vinchuca Guasayana");
 	}
 	@Test
 	void resultadoActualSinDefinirTest(){
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueNoCambianEstado); //hay empate
-		assertEquals (verificacionBasic.resultadoActual() ,"No definido");
+		assertEquals (verificacionBasic.resultadoActual(muestraStub) ,"No definido");
 	}
 
 }
