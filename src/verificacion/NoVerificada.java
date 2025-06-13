@@ -55,19 +55,11 @@ public abstract  class NoVerificada extends Verificacion {
 		Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream
 				.map(s->s.getValue()) //reemplazo todo por una lista de valores
 				.max(Comparator.naturalOrder()).get();
-				
-		IOpinable keyDelMayor = null;
-		Iterator<Map.Entry<IOpinable, Long>> iterator = mapRepetidoMasVeces.entrySet().iterator(); //el iterator todavia no tiene elemento
-		Map.Entry<IOpinable, Long> entry = iterator.next();
-		while (!(entry.getValue()).equals (valorDelMayor)) {
-		    
-		    
-		     entry = iterator.next();
-		    }
-		keyDelMayor = entry.getKey(); //en caso de que el valor del inicio sea correcto se salta el while y key del mayor se
-									 //establece, si no recorre el while hasta llegar al correcto
-		
-		
+		IOpinable keyDelMayor = mapRepetidoMasVeces.entrySet().stream()
+		.filter(i->i.getValue()==valorDelMayor)
+		.findFirst()
+		.get()
+		.getKey();
 		return (keyDelMayor);
 		
 	}

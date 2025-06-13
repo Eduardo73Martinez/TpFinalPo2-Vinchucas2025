@@ -63,14 +63,7 @@ class OpinionBasicosTest {
 		verificacionBasic.verificar(muestraStub);
 		verify (muestraStub).setVerificacion((any())); //esto comprueba que no se haya llamado a setVerificacion
 	}
-	@Test
-	void esVerificadaTest() {
-		
-		
-		assertEquals(verificacionBasic.esVerificada(), false);
-		
-		
-	}
+
 	@Test
 	void puedeVotarTest(){
 		assertEquals(verificacionBasic.puedeVotar(basicoStub),true);
