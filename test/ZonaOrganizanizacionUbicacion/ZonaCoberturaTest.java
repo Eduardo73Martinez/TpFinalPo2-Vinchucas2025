@@ -100,9 +100,9 @@ class ZonaCoberturaTest {
 	void testValidacionMuestra() {
 		//VALIDAR ES EQUIVALENTE A RESULTADO ACTUAL EN EL CODIGO DE LUCIO.
 		when(muestra1.resultadoActual()).thenReturn("SORDIDA");
-		fail("Not yet implemented");
+		zonaDeCobertura.resultadoActual()
 	}
-
+ 
 	@Test
 	void testSuscribirOrganizacion() {
 		fail("Not yet implemented");
