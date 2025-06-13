@@ -3,7 +3,7 @@ package ZonaOrganizanizacionUbicacion;
 import java.util.*;
 import web_vinchucas.*;
 
-public class Organizacion {
+public class Organizacion implements OrganizacionNoGubernamental {
 	private String tipoOrganizacion;
 	private int cantidadDeEmpleados;
 	private FuncionalidadExterna funcionalidadCargaMuestra;
@@ -50,6 +50,17 @@ public class Organizacion {
 		return ubicacion;
 	}
 
+	/**
+	 * 
+	 * @param tipoOrganizacion    EL TIPO DE ORGANIZACION BENFICA, SALUD, ONG, EC
+	 * @param cantidadDeEmpleados CANTIDAD DE EMPLEADO QUE TRABAJAN EN ESTA
+	 *                            ORGANIZACION
+	 * @param carga               LA FUNCIONALIDAD EXTERNA QUE FUNCIONA EN LA CARGA
+	 * @param validacion          LA FUNCIONALIDAD EXTERNA QUE FUNCIONA EN LA
+	 *                            VALIDACION
+	 * @param ubicacion           LA UBICACION DONDE SE ENCUENTRA LA ORGANIZACION
+	 * @param zonasSubscriptas    LA ZONA A LAS CUALES SE SUBSCRIBIO
+	 */
 	public Organizacion(String tipoOrganizacion, int cantidadDeEmpleados, FuncionalidadExterna carga,
 			FuncionalidadExterna validacion, Ubicacion ubicacion, List<ZonaCobertura> zonasSubscriptas) {
 		super();
