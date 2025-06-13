@@ -262,14 +262,14 @@ class MuestraTest {
 	@Test
 	void testResultadoActual() {
 		//SetUp
-		when(nuevaVerificacion.resultadoActual()).thenReturn("Resultado Actual");
+		when(nuevaVerificacion.resultadoActual(miMuestra)).thenReturn("Resultado Actual");
 		miMuestra.setVerificacion(nuevaVerificacion);
 		
 		//Exercise
 		String resultado = miMuestra.resultadoActual();
 		
 		//Verify
-		verify(nuevaVerificacion).resultadoActual();
+		verify(nuevaVerificacion).resultadoActual(miMuestra);
 		assertEquals(resultado, "Resultado Actual");
 		}
 	
