@@ -1,9 +1,12 @@
 package ZonaOrganizanizacionUbicacion;
 
 import java.util.List;
-
 import web_vinchucas.*;
 
+/*
+ * 
+ * ZONA DE COBERTURA... ESTA CLASE IMPLEMENTA UN ESTRATEGY 
+ */
 public class ZonaCobertura {
 	private String nombre;
 	private Ubicacion epicentro;
@@ -75,14 +78,15 @@ public class ZonaCobertura {
 		this.radio = radioN;
 	}
 
-	public void cargarMuestra(Muestra muestra3) {
+	public void cargarMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
-		
+		this.muestras.add(muestra);
+
 	}
 
-	public List<Organizacion> getMuestras() {
+	public List<Muestra> getMuestras() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.muestras;
 	}
 
 }

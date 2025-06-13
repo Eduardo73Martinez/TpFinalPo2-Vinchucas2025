@@ -30,7 +30,7 @@ class UbicacionTest {
 		muestra2 = mock(Muestra.class);
 		muestra3 = mock(Muestra.class);
 		
-
+ 
 		ubicacionesCercanas.add(ubicacion2);
 		ubicacionesCercanas.add(ubicacion3);
 
