@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import web_vinchucas.IOpinable;
 import web_vinchucas.Muestra;
+import web_vinchucas.Nivel;
 import web_vinchucas.Opinion;
 import web_vinchucas.Usuario;
 
@@ -30,12 +31,14 @@ public class OpinionBasicos extends NoVerificada {
 	public void verificar(Muestra muestra) {
 		//hago que pase a ser OpinionExpertos al haber al menos una opinon de experto o especialista
 		if (algunExpertoOEspecialistaOpino (muestra)) {
-		OpinionExpertos opinionExperto = new OpinionExpertos (muestra);
+		OpinionExpertos opinionExperto = new OpinionExpertos ();
 		muestra.setVerificacion (opinionExperto);
 		}
 	}
 	private boolean algunExpertoOEspecialistaOpino(Muestra muestra) {
-		return getOpiniones(muestra).anyMatch(elemento->elemento.getUsuarioQueDejoOpinionEsExperto() || getUsuarioQueDejoOpinonEsEspecialista());
+		return getOpiniones(muestra).stream().anyMatch(
+				elemento->elemento.getNivelOpinion() == Nivel.EXPERTO ||
+				elemento.getNivelOpinion() == Nivel.ESPECIALISTA);
 		//esto devuelve true si algun elemento de la lista de opiniones de muestra fue dejado por 
 		//alguien que es experto o especialista
 	}
@@ -45,12 +48,11 @@ public class OpinionBasicos extends NoVerificada {
 	public boolean esVotada() {
 		return false;
 	}
-	
-	private boolean hayOpinionMayoritaria (Muestra muestra) {
+	protected boolean hayOpinionMayoritaria (Muestra muestra) {
 		//PROPOSITO:devuelve true si hay una opinion que supera a todas las demas sin empate y fue dejada por expertos o especialistas
 		
-		Map<IOpinable,Long> mapRepetidoMasVeces = muestra.getOpiniones().stream()
-				.collect(Collectors.groupingBy (c->c, Collectors.counting())); //convierto en un map
+		Map<IOpinable,Long> mapRepetidoMasVeces = (Map<IOpinable, Long>) muestra.getOpiniones().stream()
+				.collect(Collectors.groupingBy (c-> c.getValorOpinion(), Collectors.counting())); //convierto en un map
 				
 				
 				Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream
@@ -83,11 +85,12 @@ public class OpinionBasicos extends NoVerificada {
 				return (entry.getValue()>entry2.getValue());
 				
 	}
+	
 	protected IOpinable opinionMayoritaria(Muestra muestra) {
 		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos o especialistas)
 		//PRECONDICION:hay una opinion mayoritaria
-		Map<IOpinable,Long> mapRepetidoMasVeces = muestra.getOpiniones().stream()
-		.collect(Collectors.groupingBy (c->c, Collectors.counting())); //convierto en un map
+		Map<IOpinable, Long> mapRepetidoMasVeces = (Map<IOpinable, Long>) muestra.getOpiniones().stream()
+		.collect(Collectors.groupingBy (c->c.getValorOpinion(), Collectors.counting())); //convierto en un map
 		
 		
 		Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream

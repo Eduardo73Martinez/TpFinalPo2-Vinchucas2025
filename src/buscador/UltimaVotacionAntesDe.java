@@ -13,7 +13,7 @@ public class UltimaVotacionAntesDe extends FechaUltimaVotacion {
 	public List<Muestra> buscar(){
 		
 		return todasLasMuestras().stream()
-		.filter (muestra->muestra.getFechaUltimaVotacion().ifBefore(fechaIngresada))
+		.filter (muestra->muestra.getFechaUltimaVotacion().isBefore(fechaIngresada))
 		.collect(Collectors.toList());
 	}
 	
