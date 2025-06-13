@@ -1,7 +1,9 @@
 package verificacion;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -53,11 +55,15 @@ class OpinionBasicosTest {
 	void verificarCambiaEstadoTest(){
 		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesQueCambianEstado);
 		verificacionBasic.verificar(muestraStub);
+		verify (muestraStub).setVerificacion((any(OpinionExpertos.class))); //esto comprueba que se haya mandado una instancia de OpinionExpertos
+		
 	}
 	void verificarNoCambiaEstadoTest(){
 		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesQueNoCambianEstado);
 		verificacionBasic.verificar(muestraStub);
+		verify (muestraStub).setVerificacion((any())); //esto comprueba que no se haya llamado a setVerificacion
 	}
+
 	@Test
 	void puedeVotarTest(){
 		assertEquals(verificacionBasic.puedeVotar(basicoStub),true);

@@ -9,25 +9,34 @@ import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
 import web_vinchucas.Nivel;
+import web_vinchucas.TipoOpinion;
+import web_vinchucas.TipoVinchuca;
 import web_vinchucas.Usuario;
 
 
 
 public class VerificadaTest {
 	
-	Muestra muestraStub = mock(Muestra.class);
+	Muestra muestraDummy = mock(Muestra.class);
 	Usuario basicoStub = mock(Usuario.class);
 	Usuario especialistaStub = mock(Usuario.class); //como especialista y experto responden lo mismo
 													 //en esBasico() no es necesario probar con ambos
 	
 	
-	Verificada verificada = new Verificada (muestraStub,TipoOpinion.INFESTANS);
+	Verificada verificada = new Verificada (TipoVinchuca.VINCHUCA_INFESTANS);
+	
+	//creo los mock y la verificada a testear
 	@BeforeEach
 	void setUp () {
-		verificada = new Verificada (muestraStub,TipoOpinion.INFESTANS); //en realidad no es necesario hacer setUp en
+		verificada = new Verificada (TipoVinchuca.VINCHUCA_INFESTANS); //en realidad no es necesario hacer setUp en
 													   //esta clase especifica, pero para no cambiar 
 													   //tanto el test si la cambio aun asi lo hago
+		//Termino de setear (SetUp)
+		
 		when (basicoStub.getNivel()).thenReturn (Nivel.BASICO);
+		//establezco valores de retorno que aplicaran a todos los metodos (exercise)
+		
+		
 	}
 	@Test
 	void esVerificadaTest() {
@@ -38,18 +47,18 @@ public class VerificadaTest {
 	}
 	@Test
 	void puedeVotarTest(){
-		assertEquals(verificada.puedeVotar(basicoStub,muestraStub),false);
-		assertEquals(verificada.puedeVotar(especialistaStub,muestraStub),false);
+		assertEquals(verificada.puedeVotar(basicoStub),false);
+		assertEquals(verificada.puedeVotar(especialistaStub),false);
 	}
 	@Test
 	void verificarTest() {
-		verificada.verificar(muestraStub);
+		verificada.verificar(muestraDummy);
 		assertEquals(verificada.esVerificada(),true);
 	}
 	@Test
 	void resultadoActualTest() {
 		
-		assertEquals(verificada.respuestaActual(),"Vinchuca Infestans");
+		assertEquals(verificada.resultadoActual(muestraDummy),"Vinchuca Infestans");
 	}
 
 }
