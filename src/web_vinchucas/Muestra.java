@@ -21,7 +21,6 @@ public class Muestra {
 	LocalDate fechaUltimaVotacion;
 	Verificacion estado; 
 	
-	
 	List<Opinion> opiniones = new ArrayList<Opinion>(); 
 	
 	public Muestra(Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
@@ -134,7 +133,7 @@ public class Muestra {
 	}
   
 	public boolean puedeOpinar(Usuario u) {
-		return estado.puedeVotar(u, this);
+		return estado.puedeVotar(u);
 	}
 	
 	
