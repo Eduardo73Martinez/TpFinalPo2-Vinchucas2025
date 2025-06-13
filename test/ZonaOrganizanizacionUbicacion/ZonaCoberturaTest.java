@@ -89,20 +89,20 @@ class ZonaCoberturaTest {
 	void testZonasQueSeSolapan() {
 		fail("Not yet implemented");
 	}
-
+ 
 	@Test
-	void testCargaMuestra() {
+	void testCargaMuestraEnZona() {
 		zonaDeCobertura.cargarMuestra(muestra3);
 		assertTrue(zonaDeCobertura.getMuestras().contains(muestra3) );
 	}
 
 	@Test
-	void testValidacionMuestra() {
+	void testValidacion() {
 		//VALIDAR ES EQUIVALENTE A RESULTADO ACTUAL EN EL CODIGO DE LUCIO.
 		when(muestra1.resultadoActual()).thenReturn("SORDIDA");
-		zonaDeCobertura.resultadoActual()
+		fail("Not yet implemented");
 	}
- 
+
 	@Test
 	void testSuscribirOrganizacion() {
 		fail("Not yet implemented");
@@ -110,6 +110,15 @@ class ZonaCoberturaTest {
 
 	@Test
 	void testDesuscribirOrganizacion() {
+		fail("Not yet implemented");
+	}
+	@Test
+	void testTieneCoberturaLaMuestra() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testHayIntersecciones() {
 		fail("Not yet implemented");
 	}
 
