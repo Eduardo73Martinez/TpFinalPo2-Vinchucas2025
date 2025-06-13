@@ -21,7 +21,7 @@ public class Muestra {
 	LocalDate fechaUltimaVotacion;
 	Verificacion estado; 
 	
-	List<Opinion> opiniones = new ArrayList<Opinion>(); 
+	List<Opinion> opiniones = new ArrayList<Opinion>();
 	
 	public Muestra(Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
 		this.autor = u;
@@ -31,6 +31,7 @@ public class Muestra {
 		this.ubicacion = ub;
 		this.fechaCreacion = LocalDate.now(); 
 		this.fechaUltimaVotacion = null;
+		this.opiniones.add(new Opinion(Nivel.BASICO,t));
 	}
 	/**
 	 *  
