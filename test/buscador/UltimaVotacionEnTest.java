@@ -16,15 +16,21 @@ import web_vinchucas.Web;
 
 class UltimaVotacionEnTest {
 
+	//doc:
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
 	
-	UltimaVotacionEn filtro = new UltimaVotacionEn(webStub, LocalDate.of(2000,11,26));
+	//sut:
+	UltimaVotacionEn filtro;
 	@BeforeEach
 	void setUp () {
 		
+		//sut:
+		filtro = new UltimaVotacionEn(webStub, LocalDate.of(2000,11,26));
+		
+		//setUp:
 		when (muestra1Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,11,26));
 		when (muestra2Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2001,11,26));
 		when (muestra3Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,01,01));
@@ -37,8 +43,10 @@ class UltimaVotacionEnTest {
 	}
 	@Test
 	void buscarTest() {
+		//setUp:
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra1Stub); //solo debe ser la muestra 1 al ser la unica que es igual en fecha de ultima votacion a la fecha ingresada
+		//verify:
 		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 		
 	}

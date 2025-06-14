@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 class SoloVotadasTest {
 
+	//doc:
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
@@ -26,13 +27,15 @@ class SoloVotadasTest {
 	OpinionExpertos opinionExpertosStub = mock (OpinionExpertos.class);
 	Verificada verificadaStub = mock (Verificada.class);
 	
+	//sut:
 	SoloVotadas filtro = new SoloVotadas (webStub);
 	
 	@BeforeEach
 	void setUp () {
+		//sut:
+		filtro = new SoloVotadas (webStub);
 		
-
-		
+		//setUp:
 		when (opinionBasicosStub.esVotada()).thenReturn (false);
 		when (opinionExpertosStub.esVotada()).thenReturn (true);
 		when (verificadaStub.esVotada()).thenReturn (true);
@@ -50,15 +53,17 @@ class SoloVotadasTest {
 	}
 	@Test
 	void buscarTest() {
-		
+		//setUp:
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra2Stub);
 		listaFinal.add(muestra3Stub);
+		//verify:
 		assertEquals(filtro.buscar(),listaFinal);
 	}
 
 	@Test
 	void esDelTipoEsperadoTest() {
+		//verify:
 		assertEquals(filtro.esDelTipoEsperado(muestra1Stub),false);
 		assertEquals(filtro.esDelTipoEsperado(muestra2Stub),true);
 		assertEquals(filtro.esDelTipoEsperado(muestra3Stub),true);

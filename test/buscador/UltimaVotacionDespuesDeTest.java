@@ -6,20 +6,25 @@ import static org.mockito.Mockito.*;
 import java.time.LocalDate;
 import java.util.*;
 import org.junit.jupiter.api.*;
-import verificacion.*;
 import web_vinchucas.*;
 
 class UltimaVotacionDespuesDeTest {
 
+	//doc:
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
-	
-	UltimaVotacionDespuesDe filtro = new UltimaVotacionDespuesDe(webStub, LocalDate.of(2000,11,26));
+	//sut:
+	UltimaVotacionDespuesDe filtro;
 	@BeforeEach
 	void setUp () {
 		
+		//sut:
+		
+		filtro = new UltimaVotacionDespuesDe(webStub, LocalDate.of(2000,11,26));
+		
+		//setUp:
 		when (muestra1Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,11,26));
 		when (muestra2Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2001,11,26));
 		when (muestra3Stub.getFechaUltimaVotacion()).thenReturn (LocalDate.of(2000,01,01));
@@ -32,8 +37,10 @@ class UltimaVotacionDespuesDeTest {
 	}
 	@Test
 	void buscarTest() {
+		//setUp:
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra2Stub); //solo debe ser la lista 2 al ser la unica que va despues
+		//verify:
 		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 		
 	}

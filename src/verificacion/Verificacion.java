@@ -1,8 +1,8 @@
 package verificacion;
-import web_vinchucas.IOpinable;
+
 import web_vinchucas.Muestra;
 import web_vinchucas.Usuario;
-public abstract class Verificacion {
+public interface Verificacion {
 
 
 
@@ -15,9 +15,6 @@ public abstract class Verificacion {
 	public abstract String resultadoActual (Muestra muestra);
 	
 	
-	public Verificacion () {
-		
-	}
 		
 	
 

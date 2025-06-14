@@ -16,15 +16,22 @@ import web_vinchucas.Web;
 
 class CreadoDespuesDeTest {
 
+	//doc:
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
 	
-	CreadoDespuesDe filtro = new CreadoDespuesDe(webStub, LocalDate.of(2000,11,26));
+	
+	//sut:
+	CreadoDespuesDe filtro ;
 	@BeforeEach
 	void setUp () {
 		
+		//sut:
+		filtro = new CreadoDespuesDe(webStub, LocalDate.of(2000,11,26));
+		
+		//setUp:
 		when (muestra1Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,11,26));
 		when (muestra2Stub.getFechaCreacion()).thenReturn (LocalDate.of(2001,11,26));
 		when (muestra3Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,01,01));
@@ -37,8 +44,11 @@ class CreadoDespuesDeTest {
 	}
 	@Test
 	void buscarTest() {
+		
+		//setUp:
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra2Stub); //solo debe ser la lista 2 al ser la unica que va despues
+		//verify:
 		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 		
 	}

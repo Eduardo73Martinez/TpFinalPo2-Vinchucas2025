@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SoloVerificadasTest {
 
+	//doc:
 	Web webStub = mock (Web.class);
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
@@ -21,11 +22,15 @@ class SoloVerificadasTest {
 	OpinionExpertos opinionExpertosStub = mock (OpinionExpertos.class);
 	Verificada verificadaStub = mock (Verificada.class);
 	
-	SoloVerificadas filtro = new SoloVerificadas (webStub);
+	//sut:
+	SoloVerificadas filtro ;
 	
 	@BeforeEach
 	void setUp () {
 		
+		//sut:
+		filtro = new SoloVerificadas (webStub);
+		//setUp:
 		when (opinionBasicosStub.esVerificada()).thenReturn (false);
 		when (opinionExpertosStub.esVerificada()).thenReturn (false);
 		when (verificadaStub.esVerificada()).thenReturn (true);
@@ -44,13 +49,16 @@ class SoloVerificadasTest {
 	@Test
 	void buscarTest() {
 		
+		//setUp:
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub);
+		//verify:
 		assertEquals(filtro.buscar(),listaFinal);
 	}
 
 	@Test
 	void esDelTipoEsperadoTest() {
+		//verify:
 		assertEquals(filtro.esDelTipoEsperado(muestra1Stub),false);
 		assertEquals(filtro.esDelTipoEsperado(muestra2Stub),false);
 		assertEquals(filtro.esDelTipoEsperado(muestra3Stub),true);
