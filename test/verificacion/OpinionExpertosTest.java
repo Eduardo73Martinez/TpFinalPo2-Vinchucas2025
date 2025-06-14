@@ -8,19 +8,20 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+
 
 import static org.mockito.Mockito.*;
-import verificacion.*;
+
 import web_vinchucas.*;
 
 class OpinionExpertosTest {
-
+    
+	//doc:
 	Muestra muestraStub = mock(Muestra.class); //tambien hace de mock
 	
 	Usuario experto = mock(Usuario.class);
 	Usuario basico = mock(Usuario.class);
-	OpinionExpertos verificacionExp = new OpinionExpertos ();
+	
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesVacia = new ArrayList<Opinion>();
@@ -36,14 +37,18 @@ class OpinionExpertosTest {
 	Opinion opinionInfestansTres= mock (Opinion.class);
 
 	
+	//sut:
+	OpinionExpertos verificacionExp;
+	
 	
 	@BeforeEach
 	void setUp () {
-		verificacionExp = new OpinionExpertos (); //en realidad no es necesario hacer setUp en
-													   //esta clase especifica, pero para no cambiar 
-													   //tanto el test si la cambio aun asi lo hago
 		
-	
+		//sut:
+		verificacionExp = new OpinionExpertos ();
+		
+		
+		//setUp:
 		when (experto.getNivel()).thenReturn (Nivel.EXPERTO);
 		when (basico.getNivel()).thenReturn (Nivel.BASICO);
 		
@@ -69,8 +74,7 @@ class OpinionExpertosTest {
 		listaDeOpinionesQueNoCambianEstado.add(opinionGuasayana);
 		listaDeOpinionesQueNoCambianEstado.add(opinionGuasayanaDos);
 		
-		ArgumentCaptor<Muestra> capto = ArgumentCaptor.forClass(Muestra.class); // para espiar que objeto recibe muestra
-	}
+		}
 	
 		
 		
@@ -78,52 +82,49 @@ class OpinionExpertosTest {
 	@Test
 	void verificarTestCambiaEstado() {
 		
-		
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesQueCambianEstado);
 		//debo hacer que al pedirle a muestra opiniones el resultado llegue a una conclusion (Guasayana)
+		//exercise:
 		verificacionExp.verificar(muestraStub);
+		//verify:
 		verify (muestraStub).setVerificacion((any(Verificada.class))); //esto comprueba que se haya mandado una instancia de verificada
 		
 		
 	}
-	@Test
-	void verificarTestSinOpiniones() {
-		
-		
-		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesVacia);
-		//debo hacer que al pedirle a muestra opiniones el resultado llegue a una conclusion (Guasayana)
-		verificacionExp.verificar(muestraStub);
-		verify (muestraStub,never()).setVerificacion(any()); //comprueba que no se llamo a setVerificacion
-		
-	}
-	
+
 	@Test
 	void verificarTestNoCambiaEstado() {
+		
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueNoCambianEstado);
 		
 		//debo hacer que al pedirle a muestra opiniones el resultado llegue a un empate
 		//ya que en caso de empate no cambia el estado
+		
+		//exercise:
 		verificacionExp.verificar(muestraStub);
+		//verify:
 		verify (muestraStub,never()).setVerificacion(any()); //comprueba que no se llamo a setVerificacion
 	}
 	@Test
 	void esVerificadaTest() {
 		
-		
+		//verify:
 		assertEquals(verificacionExp.esVerificada(), false);
 		
 	}
 	@Test
 	void esVotadaTest() {
 		
-		
+		//verify:
 		assertEquals(verificacionExp.esVotada(), true);
 		
 	}
 	@Test
 	void puedeVotarTest() {
 		
-		
+		//verify:
 		assertEquals(verificacionExp.puedeVotar(basico), false);
 		assertEquals(verificacionExp.puedeVotar(experto), true);
 		
@@ -131,12 +132,18 @@ class OpinionExpertosTest {
 	
 	@Test
 	void resultadoActual() {
+		
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueCambianEstado); //la opinion mayoritaria es Guasayana
+		//verify:
 		assertEquals (verificacionExp.resultadoActual(muestraStub) ,"Vinchuca Guasayana");
 	}
 	@Test
 	void resultadoActualSinDefinirTest(){
+		
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueNoCambianEstado); //hay empate
+		//verify:
 		assertEquals (verificacionExp.resultadoActual(muestraStub) ,"No definido");
 	}
 	

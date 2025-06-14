@@ -4,7 +4,7 @@ import web_vinchucas.IOpinable;
 import web_vinchucas.Muestra;
 import web_vinchucas.Usuario;
 
-public class Verificada extends Verificacion{
+public class Verificada implements Verificacion{
 	
 	IOpinable tipo;
 	public boolean esVerificada() {

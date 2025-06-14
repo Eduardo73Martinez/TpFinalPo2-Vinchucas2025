@@ -18,24 +18,30 @@ import web_vinchucas.Opinion;
 import web_vinchucas.TipoVinchuca;
 import web_vinchucas.Usuario;
 
-class OpinionBasicosTest {
+class OpinionBasicosTest { 
 
+	//doc:
 	Muestra muestraStub = mock(Muestra.class);
-	OpinionBasicos verificacionBasic = new OpinionBasicos ();
 	Opinion opinionGuasayana = mock(Opinion.class);
 	Opinion opinionGuasayanaExperto = mock (Opinion.class);
 	Opinion opinionInfestans = mock (Opinion.class);
 	
-	Usuario basicoStub = mock(Usuario.class);
+	Usuario basicoStub = mock(Usuario.class); 
 	Usuario especialistaStub = mock(Usuario.class);
 	
 	
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
 	
+	//sut:
+	OpinionBasicos verificacionBasic = new OpinionBasicos ();
 	
 	@BeforeEach
 	void setUp () {
+		
+		
+		//sut:
+		verificacionBasic = new OpinionBasicos ();
 		when (opinionGuasayana.getNivelOpinion()).thenReturn( Nivel.BASICO );
 		when (opinionGuasayanaExperto.getNivelOpinion()).thenReturn(Nivel.EXPERTO );
 		when (opinionInfestans.getNivelOpinion()).thenReturn(  Nivel.BASICO);

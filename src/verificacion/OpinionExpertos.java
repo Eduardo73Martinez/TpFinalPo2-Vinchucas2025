@@ -1,11 +1,8 @@
 package verificacion;
 import web_vinchucas.*;
 
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class OpinionExpertos extends NoVerificada{
@@ -20,88 +17,69 @@ public class OpinionExpertos extends NoVerificada{
 		//se comprueba el que tenga mas experto que opinen igual, si hay empate no se cambia la clase asi
 		//verifica de nuevo al agregarse una opinion
 	
-		if (hayOpinionCompartidaPorDosOMasExpertosOEspecialistas(muestra)) {
-			
-			
-			if ( hayOpinionMayoritariaDeexpertosOEspecialistas(muestra)) {
+		if (hayOpinionMayoritariaDeDosOMasExpertos (muestra)) {
 				
-				Verificada verif = new Verificada (opinionMayoritariaDeExpertosOEspecialistas(muestra));
+				IOpinable opinionMayoritariaExpertos = opinionMayoritaria (getIOpinableDeExpertos (muestra));
+				Verificada verif = new Verificada (opinionMayoritariaExpertos);
 				muestra.setVerificacion(verif);
-				muestra.actualizarVinchuca (opinionMayoritariaDeExpertosOEspecialistas(muestra));
-			}
+				muestra.actualizarVinchuca (opinionMayoritariaExpertos);
 		} 
 	}
 	public String resultadoActual (Muestra muestra) {
 		//en opiniones expertos ya no se toma en cuenta opiniones de usuarios basicos,
 		//asi que esto devuelve la opinion compartida por mas expertos
-		if (hayOpinionMayoritariaDeexpertosOEspecialistas (muestra)) {
-			
-			return opinionMayoritariaDeExpertosOEspecialistas(muestra).getValor();
-		} else {
+		
+		if (hayAlMenosDosOpinionesDiferentes (getIOpinableDeExpertos(muestra)) &&
+				! (hayOpinionMayoritaria(getIOpinableDeExpertos(muestra)))){
 			return "No definido";
+		} else { //en este caso no hay al menos 2 opiniones distintas o las hay y hay mayoria
+			return opinionMayoritaria(getIOpinableDeExpertos(muestra)).getValor();
 		}
+			
+			
 	}
 	private boolean hayOpinionMayoritariaDeDosOMasExpertos (Muestra muestra) {
 		//PROPOSITO:devuelve true hay una opinion compartida por al menos 2 personas y
 		//fue dejada por expertos (eran expertos cuando la dejaron)
 	return hayOpinionCompartidaPorDosOMasExpertosOEspecialistas(muestra) && 
-		   hayOpinionMayoritariaDeexpertosOEspecialistas(muestra);
+		   hayOpinionMayoritaria(getIOpinableDeExpertos(muestra));
 	}
 	
 	private boolean hayOpinionCompartidaPorDosOMasExpertosOEspecialistas(Muestra muestra) {
 		
-		Map<IOpinable,Long> mapRepetidoMasVeces = getOpinionesExpertos(muestra).stream()
-				.collect(Collectors.groupingBy (c->c.getValorOpinion(), Collectors.counting())); //convierto en un map
-				
+		Map<IOpinable,Long> mapRepetidoMasVeces =  mapOpinionesYSuCantidad(getIOpinableDeExpertos(muestra));
 		
-			if (mapRepetidoMasVeces.isEmpty() ) {
-				return false; //al no haber opiniones es false
-			} else {
-				Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream
-						.map(s->s.getValue()) //reemplazo todo por una lista de valores
-						.max(Comparator.naturalOrder()).get();
+		Long valorDelMayor = valorDelMayor (mapRepetidoMasVeces);
 				
-				
-				return (valorDelMayor >=2);
-			}
-	}
-	private boolean hayOpinionMayoritariaDeexpertosOEspecialistas (Muestra muestra) {
-		//PROPOSITO:devuelve true si hay una opinion que supera a todas las demas sin empate y fue dejada por expertos o especialistas
+		return (valorDelMayor >=2);
 		
-		Map<IOpinable,Long> mapRepetidoMasVeces = getOpinionesDeExpertos(muestra).stream()
-				.collect(Collectors.groupingBy (c->c, Collectors.counting())); //convierto en un map
-				
-				
-				Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream
-						.map(s->s.getValue()) //reemplazo todo por una lista de valores
-						.max(Comparator.naturalOrder()).get();
-						
-				
-				Iterator<Entry<IOpinable, Long>> iterator = mapRepetidoMasVeces.entrySet().iterator(); //el iterator todavia no tiene elemento
-				Map.Entry<IOpinable, Long> entry = iterator.next();
-				while (!(entry.getValue()).equals (valorDelMayor)) {
-				    
-				    
-				     entry = iterator.next();
-				    }
-				
-				
-				Map<IOpinable,Long> mapSinMayor = mapRepetidoMasVeces;
-				mapSinMayor.remove(entry.getKey());
-				Long valorDelSegundoMayor = mapSinMayor.entrySet().stream() //si no convierto el map en set no funciona stream
-						.map(s->s.getValue()) //reemplazo todo por una lista de valores
-						.max(Comparator.naturalOrder()).get();
-						
-				
-				Iterator<Map.Entry<IOpinable, Long>> iterator2 = mapSinMayor.entrySet().iterator(); //repito lo anterior con el map sin el mayor asi tengo el segundo mayor
-				Map.Entry<IOpinable, Long> entry2 = iterator2.next();
-				
-				while (!(entry2.getValue()).equals (valorDelSegundoMayor)) {				    
-				     entry2 = iterator2.next();
-				    }
-				return (entry.getValue()>entry2.getValue());
-				
 	}
+
+	
+	protected List<Opinion> getOpinionesExpertos(Muestra muestra){
+		//devuelve las opiniones de expertos y especialistas pero no otras
+		List<Opinion> lista= (
+				muestra.getOpiniones().stream()
+		.filter (opinion-> opinion.getNivelOpinion() == Nivel.EXPERTO
+				||opinion.getNivelOpinion() == Nivel.ESPECIALISTA)
+		.collect(Collectors.toList())
+		);
+		
+		//el stream lo cambia de tipo a uno trabajable por filtro y el collectors lo 
+		//devuelve a tipo list
+		return lista;
+			   
+
+	}
+	protected List<IOpinable> getIOpinableDeExpertos(Muestra muestra){
+		//devuelve los enums de las opiniones de los expertos y especialistas
+		return 
+				getOpinionesExpertos(muestra).stream()
+				.map(opinion->opinion.getValorOpinion())
+				.collect(Collectors.toList());
+	}
+	
+	
 	
 	public boolean esVotada() {
 		return true;

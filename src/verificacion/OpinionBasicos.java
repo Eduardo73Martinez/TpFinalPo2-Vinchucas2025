@@ -1,9 +1,9 @@
 package verificacion;
 
-import java.util.Comparator;
-import java.util.Iterator;
+
+
 import java.util.List;
-import java.util.Map;
+
 import java.util.stream.Collectors;
 
 import web_vinchucas.IOpinable;
@@ -20,12 +20,16 @@ public class OpinionBasicos extends NoVerificada {
 		return true;
 	}
 	public String resultadoActual (Muestra muestra) {
-		
-		if (hayOpinionMayoritaria(muestra)) {
-			return opinionMayoritaria(muestra).getValor();
-		} else {
-			return "No definido";
-		}
+		if (hayAlMenosDosOpinionesDiferentes (getIOpinable(muestra))) {
+			if (hayOpinionMayoritaria(getIOpinable(muestra))) {
+				return opinionMayoritaria(getIOpinable(muestra)).getValor();
+			} else {
+				return "No definido";
+			} 
+			
+		}else {
+				return muestra.getVinchuca().getValor();
+			}
 	}
 	
 	public void verificar(Muestra muestra) {
@@ -45,73 +49,20 @@ public class OpinionBasicos extends NoVerificada {
 	private List<Opinion> getOpiniones(Muestra muestra){
 		return muestra.getOpiniones();
 	}
+	
+	protected List<IOpinable> getIOpinable(Muestra muestra){
+		//devuelve los enums de las opiniones
+		return 
+				muestra.getOpiniones().stream()
+				.map(opinion->opinion.getValorOpinion())
+				.collect(Collectors.toList());
+	}
+	
 	public boolean esVotada() {
 		return false;
 	}
-	protected boolean hayOpinionMayoritaria (Muestra muestra) {
-		//PROPOSITO:devuelve true si hay una opinion que supera a todas las demas sin empate y fue dejada por expertos o especialistas
-		
-		Map<IOpinable,Long> mapRepetidoMasVeces = (Map<IOpinable, Long>) muestra.getOpiniones().stream()
-				.collect(Collectors.groupingBy (c-> c.getValorOpinion(), Collectors.counting())); //convierto en un map
-				
-				
-				Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream
-						.map(s->s.getValue()) //reemplazo todo por una lista de valores
-						.max(Comparator.naturalOrder()).get();
-						
-				
-				Iterator<Map.Entry<IOpinable, Long>> iterator = mapRepetidoMasVeces.entrySet().iterator(); //el iterator todavia no tiene elemento
-				Map.Entry<IOpinable, Long> entry = iterator.next();
-				while (!(entry.getValue()).equals (valorDelMayor)) {
-				    
-				    
-				     entry = iterator.next();
-				    }
-				
-				
-				Map<IOpinable,Long> mapSinMayor = mapRepetidoMasVeces;
-				mapSinMayor.remove(entry.getKey());
-				Long valorDelSegundoMayor = mapSinMayor.entrySet().stream() //si no convierto el map en set no funciona stream
-						.map(s->s.getValue()) //reemplazo todo por una lista de valores
-						.max(Comparator.naturalOrder()).get();
-						
-				
-				Iterator<Map.Entry<IOpinable, Long>> iterator2 = mapSinMayor.entrySet().iterator(); //repito lo anterior con el map sin el mayor asi tengo el segundo mayor
-				Map.Entry<IOpinable, Long> entry2 = iterator2.next();
-				
-				while (!(entry2.getValue()).equals (valorDelSegundoMayor)) {				    
-				     entry2 = iterator2.next();
-				    }
-				return (entry.getValue()>entry2.getValue());
-				
-	}
 	
-	protected IOpinable opinionMayoritaria(Muestra muestra) {
-		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos o especialistas)
-		//PRECONDICION:hay una opinion mayoritaria
-		Map<IOpinable, Long> mapRepetidoMasVeces = (Map<IOpinable, Long>) muestra.getOpiniones().stream()
-		.collect(Collectors.groupingBy (c->c.getValorOpinion(), Collectors.counting())); //convierto en un map
-		
-		
-		Long valorDelMayor = mapRepetidoMasVeces.entrySet().stream() //si no convierto el map en set no funciona stream
-				.map(s->s.getValue()) //reemplazo todo por una lista de valores
-				.max(Comparator.naturalOrder()).get();
-				
-		IOpinable keyDelMayor = null;
-		Iterator<Map.Entry<IOpinable, Long>> iterator = mapRepetidoMasVeces.entrySet().iterator(); //el iterator todavia no tiene elemento
-		Map.Entry<IOpinable, Long> entry = iterator.next();
-		while (!(entry.getValue()).equals (valorDelMayor)) {
-		    
-		    
-		     entry = iterator.next();
-		    }
-		keyDelMayor = entry.getKey(); //en caso de que el valor del inicio sea correcto se salta el while y key del mayor se
-									 //establece, si no recorre el while hasta llegar al correcto
-		
-		
-		return (keyDelMayor);
-		
-	}
+	
 	
 	public OpinionBasicos () {
 	
