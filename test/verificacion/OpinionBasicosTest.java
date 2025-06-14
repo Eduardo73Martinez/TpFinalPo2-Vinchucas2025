@@ -3,6 +3,7 @@ package verificacion;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +33,7 @@ class OpinionBasicosTest {
 	
 	List<Opinion> listaDeOpinionesQueCambianEstado = new ArrayList<Opinion>();
 	List<Opinion> listaDeOpinionesQueNoCambianEstado = new ArrayList<Opinion>();
+	List<Opinion> listaDeUnaOpinion = new ArrayList<Opinion>();
 	
 	//sut:
 	OpinionBasicos verificacionBasic = new OpinionBasicos ();
@@ -42,6 +44,11 @@ class OpinionBasicosTest {
 		
 		//sut:
 		verificacionBasic = new OpinionBasicos ();
+		
+		//setUp:
+		
+		when (muestraStub.getVinchuca()).thenReturn( TipoVinchuca.VINCHUCA_GUASAYANA );
+		
 		when (opinionGuasayana.getNivelOpinion()).thenReturn( Nivel.BASICO );
 		when (opinionGuasayanaExperto.getNivelOpinion()).thenReturn(Nivel.EXPERTO );
 		when (opinionInfestans.getNivelOpinion()).thenReturn(  Nivel.BASICO);
@@ -56,43 +63,66 @@ class OpinionBasicosTest {
 		
 		listaDeOpinionesQueNoCambianEstado.add(opinionInfestans);
 		listaDeOpinionesQueNoCambianEstado.add(opinionGuasayana);
+		
+		listaDeUnaOpinion.add(opinionGuasayana);
 	
 	}
 	@Test
 	void verificarCambiaEstadoTest(){
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesQueCambianEstado);
+		//exercise:
 		verificacionBasic.verificar(muestraStub);
+		//verify:
 		verify (muestraStub).setVerificacion((any(OpinionExpertos.class))); //esto comprueba que se haya mandado una instancia de OpinionExpertos
 		
 	}
+	@Test
 	void verificarNoCambiaEstadoTest(){
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn(listaDeOpinionesQueNoCambianEstado);
+		//exercise:
 		verificacionBasic.verificar(muestraStub);
-		verify (muestraStub).setVerificacion((any())); //esto comprueba que no se haya llamado a setVerificacion
+		//verify:
+		verify (muestraStub,never()).setVerificacion((any())); //esto comprueba que no se haya llamado a setVerificacion
 	}
 
 	@Test
 	void puedeVotarTest(){
+		//verify:
 		assertEquals(verificacionBasic.puedeVotar(basicoStub),true);
 		assertEquals(verificacionBasic.puedeVotar(especialistaStub),true);
 	}
 	@Test
 	void esVotadaTest(){
+		//verify:
 		assertEquals(verificacionBasic.esVotada(),false);
 	}
 	@Test
 	void esVerificadaTest(){
+		//verify:
 		assertEquals(verificacionBasic.esVerificada(),false);
 	}
 	@Test
 	void resultadoActualTest(){
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueCambianEstado); //la opinion mayoritaria es Guasayana
+		//exercise:
 		assertEquals (verificacionBasic.resultadoActual(muestraStub)  ,"Vinchuca Guasayana");
 	}
 	@Test
 	void resultadoActualSinDefinirTest(){
+		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueNoCambianEstado); //hay empate
+		//exercise:
 		assertEquals (verificacionBasic.resultadoActual(muestraStub) ,"No definido");
+	}
+	@Test
+	void resultadoActualConUnaSolaMuestraTest(){
+		//setUp:
+		when (muestraStub.getOpiniones()).thenReturn (listaDeUnaOpinion); 
+		//exercise:
+		assertEquals (verificacionBasic.resultadoActual(muestraStub) ,"Vinchuca Guasayana");
 	}
 
 }
