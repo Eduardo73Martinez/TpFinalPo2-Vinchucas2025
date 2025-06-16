@@ -40,7 +40,7 @@ class AndTest {
 	@Test
 	void buscarTest() {
 		//setUp:
-		List <Muestra> listaFinal = ne w ArrayList<Muestra>();
+		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Dummy);
 		//verify:
 		assertTrue(and.buscar().containsAll(listaFinal) && listaFinal.containsAll(and.buscar()));
