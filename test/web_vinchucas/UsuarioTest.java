@@ -156,7 +156,7 @@ public class UsuarioTest {
 		//Verify
 		assertEquals(nuevaMuestra.getVinchuca(),tipoVinchuca_1);
 		assertEquals(nuevaMuestra.getPersona(),miUsuario);
-		assertEquals(nuevaMuestra.getUbicacion().getLatitud(),lat);
+		assertEquals(nuevaMuestra.getUbicacion().getLatidud(),lat);
 		assertEquals(nuevaMuestra.getUbicacion().getLongitud(),lon);
 		
 	}
@@ -173,7 +173,7 @@ public class UsuarioTest {
 		verify(miWeb).agregarMuestra(muestraCreada);
 		assertEquals(muestraCreada.getPersona(),miUsuario);
 		assertEquals(muestraCreada.getVinchuca(),tipoVinchuca_1);
-		assertEquals(muestraCreada.getUbicacion().getLatitud(),lat);
+		assertEquals(muestraCreada.getUbicacion().getLatidud(),lat);
 		assertEquals(muestraCreada.getUbicacion().getLongitud(),lon);
 		
 	}
