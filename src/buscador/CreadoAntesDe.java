@@ -10,6 +10,7 @@ public class CreadoAntesDe extends FechaDeCreacion{
 
 	
 public List<Muestra> buscar(){
+	//PROPOSITO:devuelve las muestras que fueron creadas antes de la fecha ingresada
 		
 		return todasLasMuestras().stream()
 		.filter (muestra->muestra.getFechaCreacion().isBefore(fechaIngresada))

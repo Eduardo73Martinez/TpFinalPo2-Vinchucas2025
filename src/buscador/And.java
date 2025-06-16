@@ -8,7 +8,7 @@ public class And extends Compuesto {
 	
 	
 	public List<Muestra> buscar() {
-
+		//PROPOSITO:devuelve las muestras que ambos filtros devuelven
 		List<Muestra> lista1 = primerFiltro.buscar();
 		List<Muestra> lista2 = segundoFiltro.buscar();
 		lista1.retainAll(lista2); //hace una interseccion

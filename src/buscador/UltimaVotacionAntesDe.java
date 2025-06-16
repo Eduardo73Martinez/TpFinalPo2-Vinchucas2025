@@ -11,7 +11,7 @@ public class UltimaVotacionAntesDe extends FechaUltimaVotacion {
 	
 	
 	public List<Muestra> buscar(){
-		
+		//PROPOSITO:devuelve las muestras que fueron votadas antes de la fecha ingresada
 		return todasLasMuestras().stream()
 		.filter (muestra->muestra.getFechaUltimaVotacion().isBefore(fechaIngresada))
 		.collect(Collectors.toList());

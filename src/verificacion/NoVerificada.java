@@ -24,12 +24,12 @@ public abstract  class NoVerificada implements Verificacion {
 	
 	
 	protected Map<IOpinable,Long> mapOpinionesYSuCantidad (List<IOpinable> opinables){
-		//devuelve el iOpinable con su cantidad agrupados en maps
+		//PROPOSITO:devuelve el iOpinable con su cantidad agrupados en maps
 		return opinables.stream()
 		.collect(Collectors.groupingBy (c->c, Collectors.counting()));
 	}
 	protected Long valorDelMayor (Map<IOpinable,Long> map) {
-		//devuelve el long de mayor valor
+		//PROPOSITO:devuelve el long de mayor valor
 		return map.entrySet().stream() //si no convierto el map en set no funciona stream
 				.map(s->s.getValue()) //reemplazo todo por una lista de valores
 				.max(Comparator.naturalOrder()).get();
@@ -48,7 +48,7 @@ public abstract  class NoVerificada implements Verificacion {
 	}
 	
 	protected IOpinable opinionMayoritaria(List<IOpinable> listaDeOpinables) {
-		//devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos o especialistas)
+		//PROPOSITO:devuelve la opinion que mas se repite (solo contando las opiniones que provienen de expertos o especialistas)
 		//PRECONDICION:hay una opinion mayoritaria
 		Map<IOpinable,Long> mapRepetidoMasVeces =  mapOpinionesYSuCantidad(listaDeOpinables);
 		
@@ -59,6 +59,7 @@ public abstract  class NoVerificada implements Verificacion {
 		return keyDelMayor;
 	}
 	protected boolean hayAlMenosDosOpinionesDiferentes(List<IOpinable> listaOpinables) {
+		//PROPOSITO:devuelve true si hay al menos 2 opiniones distintas (por ejemplo infestans y guasayana), false si no las hay
 		Set<IOpinable> set = new HashSet<IOpinable>();
 		set.addAll(listaOpinables);
 		return (set.size()>1);

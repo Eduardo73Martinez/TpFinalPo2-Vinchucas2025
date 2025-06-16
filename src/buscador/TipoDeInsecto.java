@@ -14,7 +14,7 @@ public class TipoDeInsecto extends Simple {
 	IOpinable vinchuca;
 	
 	public List<Muestra> buscar(){
-		
+		//PROPOSITO:devuelve las muestras que son del tipo de insecto ingresado
 		
 		return todasLasMuestras().stream()
 		.filter(muestra-> muestra.resultadoActual() == vinchuca.getValor() )
@@ -25,6 +25,7 @@ public class TipoDeInsecto extends Simple {
 	}
 	
 	private void setOpinable (IOpinable vinchuca) {
+		//PROPOSITO:setea el insecto
 		this.vinchuca = vinchuca;
 	}
 	

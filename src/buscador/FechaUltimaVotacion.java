@@ -11,6 +11,7 @@ public abstract class FechaUltimaVotacion extends Simple{
 	
 	abstract List<Muestra> buscar();
 	private void setFechaIngresada (LocalDate fechaIngresada) {
+		//PROPOSITO:setea la fecha
 		this.fechaIngresada = fechaIngresada;
 	}
 	
