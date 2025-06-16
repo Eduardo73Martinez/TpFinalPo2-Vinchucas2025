@@ -14,12 +14,15 @@ import web_vinchucas.Usuario;
 
 public class OpinionBasicos extends NoVerificada {
 	public boolean esVerificada() {
+		//PROPOSITO:devuelve false siempre
 		return false;
 	}
 	public boolean puedeVotar (Usuario usuario) {
+		//PROPOSITO:devuelve true si el usuario tiene permiso de votar, de no ser asi devuelve false (en este caso es siempre true)
 		return true;
 	}
 	public String resultadoActual (Muestra muestra) {
+		//PROPOSITO:devuelve la opinion mas comun (en caso de empate devuelve "No definido")
 		if (hayAlMenosDosOpinionesDiferentes (getIOpinable(muestra))) {
 			if (hayOpinionMayoritaria(getIOpinable(muestra))) {
 				return opinionMayoritaria(getIOpinable(muestra)).getValor();
@@ -33,13 +36,14 @@ public class OpinionBasicos extends NoVerificada {
 	}
 	
 	public void verificar(Muestra muestra) {
-		//hago que pase a ser OpinionExpertos al haber al menos una opinon de experto o especialista
+		//PROPOSITO:hago que pase a ser OpinionExpertos al haber al menos una opinon de experto o especialista
 		if (algunExpertoOEspecialistaOpino (muestra)) {
 		OpinionExpertos opinionExperto = new OpinionExpertos ();
 		muestra.setVerificacion (opinionExperto);
 		}
 	}
 	private boolean algunExpertoOEspecialistaOpino(Muestra muestra) {
+		//PROPOSITO:devuelve true si alguna de las opiniones fue de experto o especialista, de no ser asi devuelve false
 		return getOpiniones(muestra).stream().anyMatch(
 				elemento->elemento.getNivelOpinion() == Nivel.EXPERTO ||
 				elemento.getNivelOpinion() == Nivel.ESPECIALISTA);
@@ -47,11 +51,12 @@ public class OpinionBasicos extends NoVerificada {
 		//alguien que es experto o especialista
 	}
 	private List<Opinion> getOpiniones(Muestra muestra){
+		//PROPOSITO:devuelve la lista de todas las opiniones
 		return muestra.getOpiniones();
 	}
 	
 	protected List<IOpinable> getIOpinable(Muestra muestra){
-		//devuelve los enums de las opiniones
+		//PROPOSITO:devuelve los enums de las opiniones
 		return 
 				muestra.getOpiniones().stream()
 				.map(opinion->opinion.getValorOpinion())
@@ -59,6 +64,7 @@ public class OpinionBasicos extends NoVerificada {
 	}
 	
 	public boolean esVotada() {
+		//PROPOSITO:Devuelve false
 		return false;
 	}
 	

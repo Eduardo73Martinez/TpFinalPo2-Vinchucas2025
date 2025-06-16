@@ -7,6 +7,7 @@ import web_vinchucas.*;
 
 public class Or extends Compuesto {
 	public List<Muestra> buscar() {
+		//PROPOSITO:devuelve las muestras que al menos uno de los filtros devuelve
 		Set<Muestra> setConFiltros= new HashSet<>(primerFiltro.buscar());
 		//el set es para evitar repetidos
 		setConFiltros.addAll (segundoFiltro.buscar()); //uno lo que esta en una u otra lista

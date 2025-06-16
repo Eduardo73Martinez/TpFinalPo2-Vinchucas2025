@@ -9,7 +9,7 @@ import web_vinchucas.Web;
 
 public class CreadoEn extends FechaDeCreacion {
 	public List<Muestra> buscar(){
-		
+		//PROPOSITO:devuelve las muestras que fueron creadas el dia de la fecha ingresada
 		return todasLasMuestras().stream()
 		.filter (muestra->muestra.getFechaCreacion().isEqual(fechaIngresada))
 		.collect(Collectors.toList());

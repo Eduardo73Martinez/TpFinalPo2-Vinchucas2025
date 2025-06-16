@@ -1,14 +1,12 @@
 package buscador;
 
-import static org.mockito.Mockito.*;
-import java.util.*;
-import org.junit.jupiter.api.*;
-import verificacion.*;
+
 import web_vinchucas.*;
 
 public class SoloVerificadas extends PorVerificacion {
 
 	public  boolean esDelTipoEsperado (Muestra muestra){
+		//PROPOSITO:devuelve true si la muestra fue verificada, si no lo es da false
 		return muestra.getVerificacion().esVerificada();
 	}
 	public SoloVerificadas (Web web){

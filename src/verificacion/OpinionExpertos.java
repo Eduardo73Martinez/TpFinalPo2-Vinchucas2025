@@ -7,15 +7,15 @@ import java.util.stream.Collectors;
 
 public class OpinionExpertos extends NoVerificada{
 	public boolean esVerificada() {
+		//PROPOSITO:devuelve false
 		return false;
 	}
 	public boolean puedeVotar (Usuario usuario) {
+		//PROPOSITO:devuelve true si el usuario tiene permiso de votar, de no ser asi devuelve false
 		return  (!(usuario.getNivel() == Nivel.BASICO )) ;
 	}
 	public void verificar(Muestra muestra) {
-		//debo agregar algo que compruebe si dos expertos opinan igual,en caso de que sea asi
-		//se comprueba el que tenga mas experto que opinen igual, si hay empate no se cambia la clase asi
-		//verifica de nuevo al agregarse una opinion
+		//PROPOSITO:convierte el estado en verificada si hay al menos 2 que expertos/especialistas opinan igual sin empate
 	
 		if (hayOpinionMayoritariaDeDosOMasExpertos (muestra)) {
 				
@@ -26,8 +26,8 @@ public class OpinionExpertos extends NoVerificada{
 		} 
 	}
 	public String resultadoActual (Muestra muestra) {
-		//en opiniones expertos ya no se toma en cuenta opiniones de usuarios basicos,
-		//asi que esto devuelve la opinion compartida por mas expertos
+		
+		//PROPOSITO:devuelve la opinion compartida por mas expertos/especialistas
 		
 		if (hayAlMenosDosOpinionesDiferentes (getIOpinableDeExpertos(muestra)) &&
 				! (hayOpinionMayoritaria(getIOpinableDeExpertos(muestra)))){
@@ -46,7 +46,7 @@ public class OpinionExpertos extends NoVerificada{
 	}
 	
 	private boolean hayOpinionCompartidaPorDosOMasExpertosOEspecialistas(Muestra muestra) {
-		
+		//PROPOSITO:devuelve true si al menos 2 expertos/especialistas opinan igual, falso en caso contrario
 		Map<IOpinable,Long> mapRepetidoMasVeces =  mapOpinionesYSuCantidad(getIOpinableDeExpertos(muestra));
 		
 		Long valorDelMayor = valorDelMayor (mapRepetidoMasVeces);
@@ -57,7 +57,7 @@ public class OpinionExpertos extends NoVerificada{
 
 	
 	protected List<Opinion> getOpinionesExpertos(Muestra muestra){
-		//devuelve las opiniones de expertos y especialistas pero no otras
+		//PROPOSITO:devuelve las opiniones de expertos y especialistas pero no otras
 		List<Opinion> lista= (
 				muestra.getOpiniones().stream()
 		.filter (opinion-> opinion.getNivelOpinion() == Nivel.EXPERTO
@@ -72,7 +72,7 @@ public class OpinionExpertos extends NoVerificada{
 
 	}
 	protected List<IOpinable> getIOpinableDeExpertos(Muestra muestra){
-		//devuelve los enums de las opiniones de los expertos y especialistas
+		//PROPOSITO:devuelve los enums de las opiniones de los expertos y especialistas
 		return 
 				getOpinionesExpertos(muestra).stream()
 				.map(opinion->opinion.getValorOpinion())
@@ -82,6 +82,7 @@ public class OpinionExpertos extends NoVerificada{
 	
 	
 	public boolean esVotada() {
+		//PROPOSITO:devuelve true
 		return true;
 	}
 	
