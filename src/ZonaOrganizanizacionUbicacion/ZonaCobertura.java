@@ -52,7 +52,7 @@ public class ZonaCobertura {
 	public boolean tieneCoberturaLaMuestra(Muestra muestra) {
 		return this.epicentro.distanciaCon(muestra.getUbicacion()) <= this.getRadio();
 	}
-
+ 
 	public void validacion(Muestra muestra) {
 		if (this.tieneCoberturaLaMuestra(muestra)) {
 			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeValidation(this, muestra));

@@ -17,7 +17,7 @@ public class Muestra {
 	IOpinable vinchuca;
 	Foto foto;
 	Ubicacion ubicacion;
-	LocalDate fechaCreacion;
+	LocalDate fechaCreacion; 
 	LocalDate fechaUltimaVotacion;
 	Verificacion estado; 
 	
