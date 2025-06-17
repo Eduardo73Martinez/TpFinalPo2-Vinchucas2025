@@ -7,6 +7,7 @@ import java.util.List;
 public class Ubicacion {
 	private Double latitud;
 	private Double longitud;
+	private ZonaCobertura zona;
 
 	public Ubicacion(Double latitud, Double longitud) {
 		// TODO Auto-generated constructor stub
@@ -41,7 +42,7 @@ public class Ubicacion {
 		return Math.pow(numero, 2);
 	}
 
-	public void setLatitud(double latitud) {
+	public void setLatitud(double latitud) { 
 		// TODO Auto-generated method stub
 		this.latitud = latitud;
 	}
