@@ -1,59 +1,93 @@
 package web_vinchucas;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import java.util.*;
+
+import org.junit.jupiter.api.*;
 
 class WebTest {
+	Web sistemaWeb; 
+	List<Muestra> muestras = new ArrayList<>(); 
+	List<Usuario> usuarios = new ArrayList<>(); 
+	Muestra muestra1;
+	Muestra muestra2;
+	Muestra muestra3;
+	Usuario usuario1;
+	Usuario usuario2;
+	Usuario usuario3;
+	
 
 	@BeforeEach
 	void setUp() throws Exception {
+		muestra1 = mock(Muestra.class);
+		muestra2 = mock(Muestra.class);
+		muestra3 = mock(Muestra.class);
+
+		usuario1 = mock(Usuario.class);
+		usuario2 = mock(Usuario.class);
+		usuario3 = mock(Usuario.class);
+		
+		muestras.add(muestra1);muestras.add(muestra3);muestras.add(muestra3);
+		usuarios.add(usuario1);usuarios.add(usuario2);usuarios.add(usuario3);
+		sistemaWeb =new Web(muestras, usuarios);
 	}
 
 	@Test
 	void testWeb() {
-		fail("Not yet implemented");
+		//assertEquals(null, null);
 	}
 
 	@Test
 	void testTodasLasMuestras() {
-		fail("Not yet implemented");
+		assertEquals(muestras.size(), sistemaWeb.getMuestrasSubidas().size());
 	}
 
 	@Test
 	void testAgregarMuestra() {
-		fail("Not yet implemented");
+		Muestra muestra4 = mock(Muestra.class); 
+		
+		sistemaWeb.agregarMuestra(muestra4);
+		
+		assertEquals(4, sistemaWeb.getMuestrasSubidas().size());
 	}
 
 	@Test
 	void testSacarMuestra() {
-		fail("Not yet implemented");
+		sistemaWeb.sacarMuestra(muestra3);
+		assertEquals(2, sistemaWeb.getMuestrasSubidas().size());
 	}
 
 	@Test
 	void testDesuscribirUsuario() {
-		fail("Not yet implemented");
+		sistemaWeb.desuscribirUsuario(usuario3);
+		assertFalse(sistemaWeb.getUsuariosRegistrados().contains(usuario3));
 	}
 
 	@Test
 	void testGetMuestrasSubidas() {
-		fail("Not yet implemented");
+		assertEquals(muestras.size(), sistemaWeb.getMuestrasSubidas().size());
 	}
 
 	@Test
 	void testSetMuestrasSubidas() {
-		fail("Not yet implemented");
+		List<Muestra> muestras2 = new ArrayList<>();
+		
+		sistemaWeb.setMuestrasSubidas(muestras2);
+		assertEquals(muestras2, sistemaWeb.getMuestrasSubidas());
 	}
 
 	@Test
 	void testGetUsuariosRegistrados() {
-		fail("Not yet implemented");
+		assertEquals(usuarios, sistemaWeb.getUsuariosRegistrados());
 	}
 
 	@Test
 	void testSetUsuariosRegistrados() {
-		fail("Not yet implemented");
+		List<Usuario> usuarios2 = new ArrayList<>();
+		sistemaWeb.setUsuariosRegistrados(usuarios2);
+		assertEquals(usuarios2, sistemaWeb.getUsuariosRegistrados());
 	}
 
 }
