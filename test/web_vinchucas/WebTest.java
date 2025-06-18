@@ -41,7 +41,7 @@ class WebTest {
 
 	@Test
 	void testTodasLasMuestras() {
-		assertEquals(muestras.size(), sistemaWeb.getMuestrasSubidas().size());
+		assertEquals(muestras.size(), sistemaWeb.todasLasMuestras().size());
 	}
 
 	@Test
@@ -58,11 +58,23 @@ class WebTest {
 		sistemaWeb.sacarMuestra(muestra3);
 		assertEquals(2, sistemaWeb.getMuestrasSubidas().size());
 	}
+	@Test
+	void testSacarMuestraQueNoExisiteEnSistema() {
+		Muestra muestra4 = mock(Muestra.class);
+		sistemaWeb.sacarMuestra(muestra4);
+		assertEquals(3, sistemaWeb.getMuestrasSubidas().size());
+	}
 
 	@Test
 	void testDesuscribirUsuario() {
 		sistemaWeb.desuscribirUsuario(usuario3);
 		assertFalse(sistemaWeb.getUsuariosRegistrados().contains(usuario3));
+	}
+	@Test
+	void testDesuscribirUsuarioQueNoExisiteEnSistema() {
+		Usuario usuario4 = mock(Usuario.class);
+		sistemaWeb.desuscribirUsuario(usuario4);
+		assertEquals(3, sistemaWeb.getMuestrasSubidas().size());
 	}
 
 	@Test
