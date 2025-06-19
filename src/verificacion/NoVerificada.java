@@ -16,10 +16,9 @@ import web_vinchucas.Usuario;
 
 
 public abstract  class NoVerificada implements Verificacion {
-	public abstract boolean esVerificada();
+	
 	public abstract boolean puedeVotar (Usuario usuario);
 	public abstract void verificar(Muestra muestra); //recalcula el tipo de verificacion
-	public abstract boolean esVotada();
 	public abstract String resultadoActual (Muestra muestra);
 	
 	

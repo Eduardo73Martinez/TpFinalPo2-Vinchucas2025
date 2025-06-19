@@ -107,20 +107,7 @@ class OpinionExpertosTest {
 		//verify:
 		verify (muestraStub,never()).setVerificacion(any()); //comprueba que no se llamo a setVerificacion
 	}
-	@Test
-	void esVerificadaTest() {
-		
-		//verify:
-		assertEquals(verificacionExp.esVerificada(), false);
-		
-	}
-	@Test
-	void esVotadaTest() {
-		
-		//verify:
-		assertEquals(verificacionExp.esVotada(), true);
-		
-	}
+	
 	@Test
 	void puedeVotarTest() {
 		

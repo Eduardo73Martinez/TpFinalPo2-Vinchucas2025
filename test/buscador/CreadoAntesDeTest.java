@@ -51,6 +51,6 @@ class CreadoAntesDeTest {
 		//verify:
 		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
 	
-		
+		 
 	}
 }

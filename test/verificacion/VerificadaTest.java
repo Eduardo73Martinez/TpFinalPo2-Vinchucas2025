@@ -38,16 +38,7 @@ public class VerificadaTest {
 	
 		
 	}
-	@Test
-	void esVerificadaTest() {
-		//verify:
-		assertEquals(verificada.esVerificada(),true);
-	}
-	@Test
-	void esVotadaTest() {
-		//verify:
-		assertEquals (verificada.esVotada(),true);
-	}
+	
 	@Test
 	void puedeVotarTest(){
 		//verify:

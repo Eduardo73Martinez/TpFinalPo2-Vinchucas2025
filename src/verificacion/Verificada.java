@@ -7,18 +7,13 @@ import web_vinchucas.Usuario;
 public class Verificada implements Verificacion{
 	
 	IOpinable tipo;
-	public boolean esVerificada() {
-		//PROPOSITO:devuelve true
-		return true;
-	}
+	
+	
 	public boolean puedeVotar (Usuario usuario) {
 		//PROPOSITO:devuelve true si el usuario tiene permiso de votar, de no ser asi devuelve false (en este caso es siempre false)
 		return false;
 	}
-	public boolean esVotada () { 
-		//PROPOSITO:devuelve true
-		return true;
-	}
+
 	public void verificar(Muestra muestra) {
 		//PROPOSITO:al ya estar verificada en este caso no hace nada
 	}

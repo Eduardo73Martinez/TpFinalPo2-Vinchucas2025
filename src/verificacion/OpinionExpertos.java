@@ -6,10 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OpinionExpertos extends NoVerificada{
-	public boolean esVerificada() {
-		//PROPOSITO:devuelve false
-		return false;
-	}
+	
+	
 	public boolean puedeVotar (Usuario usuario) {
 		//PROPOSITO:devuelve true si el usuario tiene permiso de votar, de no ser asi devuelve false
 		return  (!(usuario.getNivel() == Nivel.BASICO )) ;
@@ -81,10 +79,6 @@ public class OpinionExpertos extends NoVerificada{
 	
 	
 	
-	public boolean esVotada() {
-		//PROPOSITO:devuelve true
-		return true;
-	}
 	
 	
 	public OpinionExpertos () {

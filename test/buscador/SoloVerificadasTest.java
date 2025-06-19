@@ -7,10 +7,6 @@ import org.junit.jupiter.api.*;
 import verificacion.*;
 import web_vinchucas.*;
 
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class SoloVerificadasTest {
 
 	//doc:
@@ -18,9 +14,9 @@ class SoloVerificadasTest {
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
-	OpinionBasicos opinionBasicosStub = mock (OpinionBasicos.class);
-	OpinionExpertos opinionExpertosStub = mock (OpinionExpertos.class);
-	Verificada verificadaStub = mock (Verificada.class);
+	OpinionBasicos opinionBasicosDummy = mock (OpinionBasicos.class);
+	OpinionExpertos opinionExpertosDummy = mock (OpinionExpertos.class);
+	Verificada verificadaDummy = mock (Verificada.class);
 	
 	//sut:
 	SoloVerificadas filtro ;
@@ -31,13 +27,11 @@ class SoloVerificadasTest {
 		//sut:
 		filtro = new SoloVerificadas (webStub);
 		//setUp:
-		when (opinionBasicosStub.esVerificada()).thenReturn (false);
-		when (opinionExpertosStub.esVerificada()).thenReturn (false);
-		when (verificadaStub.esVerificada()).thenReturn (true);
+	
 		
-		when (muestra1Stub.getVerificacion()).thenReturn (opinionBasicosStub);
-		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosStub);
-		when (muestra3Stub.getVerificacion()).thenReturn (verificadaStub);
+		when (muestra1Stub.getVerificacion()).thenReturn (opinionBasicosDummy);
+		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosDummy);
+		when (muestra3Stub.getVerificacion()).thenReturn (verificadaDummy);
 		
 		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 		listaDeMuestras.add(muestra1Stub);
@@ -53,7 +47,8 @@ class SoloVerificadasTest {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub);
 		//verify:
-		assertEquals(filtro.buscar(),listaFinal);
+		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
+		
 	}
 
 	@Test
