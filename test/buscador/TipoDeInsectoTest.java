@@ -36,7 +36,7 @@ class TipoDeInsectoTest {
 		
 	}
 	@Test
-	void buscarTest() {
+	void buscarTest() { 
 		
 		//setUp:
 		List <Muestra> listaFinal = new ArrayList<Muestra>();

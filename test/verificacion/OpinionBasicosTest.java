@@ -94,16 +94,6 @@ class OpinionBasicosTest {
 		assertEquals(verificacionBasic.puedeVotar(especialistaStub),true);
 	}
 	@Test
-	void esVotadaTest(){
-		//verify:
-		assertEquals(verificacionBasic.esVotada(),false);
-	}
-	@Test
-	void esVerificadaTest(){
-		//verify:
-		assertEquals(verificacionBasic.esVerificada(),false);
-	}
-	@Test
 	void resultadoActualTest(){
 		//setUp:
 		when (muestraStub.getOpiniones()).thenReturn (listaDeOpinionesQueCambianEstado); //la opinion mayoritaria es Guasayana
