@@ -30,7 +30,7 @@ public class Muestra {
 		this.estado = new OpinionBasicos();
 		this.ubicacion = ub;
 		this.fechaCreacion = LocalDate.now(); 
-		this.agregarOpinion(new Opinion(u.getNivel(),t));
+		this.agregarOpinion(new Opinion(u.getId(),u.getNivel(),t));
 	}
 	/**
 	 *  
@@ -162,8 +162,16 @@ public class Muestra {
 
 	//Indica si el usuario dado puede opinar sobre la muestra
 	public boolean puedeOpinar(Usuario u) {
-		return estado.puedeVotar(u);
+		boolean respuesta = false;
+		if (!this.yaVoto(u)) {
+			respuesta = estado.puedeVotar(u);
+		} 
+		return respuesta;
 	}
 	
+	private boolean yaVoto(Usuario u) {
+		List<Long> idVotantes = this.opiniones.stream().map(o->o.getIdUsuario()).toList();
+		return idVotantes.contains(u.getId());
+	}
 	
 }	

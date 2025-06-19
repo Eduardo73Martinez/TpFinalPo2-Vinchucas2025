@@ -49,7 +49,7 @@ public class Usuario {
 	//Si el usuario no puede votar, no hace nada.
 	public void opinar(Muestra m, IOpinable vo) {
 		if (m.puedeOpinar(this)) {
-			Opinion miOpinion = new Opinion(this.nivel, vo);
+			Opinion miOpinion = new Opinion(this.id, this.nivel, vo);
 			m.agregarOpinion(miOpinion);
 			this.opiniones.add(miOpinion);
 		}
@@ -65,7 +65,7 @@ public class Usuario {
 	//Crea una nueva Muestra con el TipoVinchuca y coordenadas dados por parametro
 	protected Muestra crearMuestra(TipoVinchuca t,Double latitud, Double longitud) {
 		Foto foto = new Foto();
-		Ubicacion ubicacion = new Ubicacion(latitud,longitud);
+		Ubicacion ubicacion = web.obtenerUbicacion(latitud,longitud);
 		Muestra nuevaMuestra = new Muestra(this,t,foto,ubicacion);
 		return nuevaMuestra;
 	}

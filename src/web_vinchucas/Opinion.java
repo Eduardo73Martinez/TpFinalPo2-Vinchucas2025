@@ -4,14 +4,21 @@ import java.time.LocalDate;
 
 public class Opinion {
 	
+	Long idUsuario;
 	IOpinable valorOpinion;
 	Nivel nivelUsuario;
 	LocalDate fecha;
 	
-	public Opinion(Nivel nivel, IOpinable vo) {
+	public Opinion(Long idUsuario, Nivel nivel, IOpinable vo) {
+		this.idUsuario = idUsuario;
 		this.nivelUsuario = nivel;
 		this.fecha = LocalDate.now();
 		this.valorOpinion = vo;
+	}
+	
+	//Devuelve el Id del Usuario que dejo la opinion
+	public Long getIdUsuario() {
+		return this.idUsuario;
 	}
 	
 	//Devuelve el IOpinable correspondiente a la opinion

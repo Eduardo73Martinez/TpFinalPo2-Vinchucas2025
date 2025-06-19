@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ZonaOrganizanizacionUbicacion.Ubicacion;
+
 public class UsuarioTest {
 	
 	Usuario miUsuario;
@@ -23,6 +25,8 @@ public class UsuarioTest {
 	List<LocalDate> listaConFecha;
 	
 	Muestra muestra_1;
+	
+	Ubicacion ubicacion_1;
 	
 	IOpinable opinable_1;
 	
@@ -48,6 +52,7 @@ public class UsuarioTest {
 		misMuestrasVacia = new ArrayList<Muestra>();
 				
 		muestra_1 = mock(Muestra.class);
+		ubicacion_1 = mock(Ubicacion.class);
 		opinable_1 = mock(IOpinable.class);
 		opinion_1 = mock(Opinion.class);
 		
@@ -57,6 +62,10 @@ public class UsuarioTest {
 		
 		listaConFecha = new ArrayList<LocalDate>();
 		listaConFecha.add(LocalDate.now());
+		
+		when(miWeb.obtenerUbicacion(lat,lon)).thenReturn(ubicacion_1);
+		when(ubicacion_1.getLatidud()).thenReturn(lat);
+		when(ubicacion_1.getLongitud()).thenReturn(lon);
 	}
 	
 	@Test
