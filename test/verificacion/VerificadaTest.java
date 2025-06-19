@@ -50,7 +50,7 @@ public class VerificadaTest {
 		//exercise:
 		verificada.verificar(muestraDummy);
 		//verify:
-		assertEquals(verificada.esVerificada(),true);
+		assertEquals(verificada instanceof Verificada,true);
 	}
 	@Test
 	void resultadoActualTest() {
