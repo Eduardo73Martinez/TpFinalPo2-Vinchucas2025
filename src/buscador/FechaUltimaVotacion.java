@@ -4,19 +4,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 import web_vinchucas.Muestra;
-import web_vinchucas.Web;
 
 public abstract class FechaUltimaVotacion extends Simple{
 	LocalDate fechaIngresada;
 	
-	abstract List<Muestra> buscar();
+	public abstract List<Muestra> buscar(List<Muestra> lista);
 	private void setFechaIngresada (LocalDate fechaIngresada) {
 		//PROPOSITO:setea la fecha
 		this.fechaIngresada = fechaIngresada;
 	}
 	
-	public FechaUltimaVotacion (Web web,LocalDate fechaIngresada){
-		super (web);
+	public FechaUltimaVotacion (LocalDate fechaIngresada){
+		
 		setFechaIngresada (fechaIngresada);
 	}
 }

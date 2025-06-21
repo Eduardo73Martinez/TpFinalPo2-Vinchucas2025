@@ -10,13 +10,16 @@ import web_vinchucas.*;
 class SoloVerificadasTest {
 
 	//doc:
-	Web webStub = mock (Web.class);
+
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
 	OpinionBasicos opinionBasicosDummy = mock (OpinionBasicos.class);
 	OpinionExpertos opinionExpertosDummy = mock (OpinionExpertos.class);
 	Verificada verificadaDummy = mock (Verificada.class);
+	
+	//setUp:
+	List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 	
 	//sut:
 	SoloVerificadas filtro ;
@@ -25,7 +28,7 @@ class SoloVerificadasTest {
 	void setUp () {
 		
 		//sut:
-		filtro = new SoloVerificadas (webStub);
+		filtro = new SoloVerificadas ();
 		//setUp:
 	
 		
@@ -33,12 +36,11 @@ class SoloVerificadasTest {
 		when (muestra2Stub.getVerificacion()).thenReturn (opinionExpertosDummy);
 		when (muestra3Stub.getVerificacion()).thenReturn (verificadaDummy);
 		
-		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
+		
 		listaDeMuestras.add(muestra1Stub);
 		listaDeMuestras.add(muestra2Stub);
 		listaDeMuestras.add(muestra3Stub);
-		when (webStub.todasLasMuestras()).thenReturn(listaDeMuestras);
-		
+
 	}
 	@Test
 	void buscarTest() {
@@ -47,7 +49,7 @@ class SoloVerificadasTest {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra3Stub);
 		//verify:
-		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
+		assertTrue(filtro.buscar(listaDeMuestras).containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar(listaDeMuestras)));
 		
 	}
 
