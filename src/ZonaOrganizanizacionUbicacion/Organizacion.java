@@ -6,8 +6,8 @@ import web_vinchucas.*;
 public class Organizacion implements OrganizacionNoGubernamental {
 	private String tipoOrganizacion;
 	private int cantidadDeEmpleados;
-	private FuncionalidadExterna funcionalidadCargaMuestra;
-	private FuncionalidadExterna funcionalidadValidacionMuestra;
+	private FuncionalidadExterna carga;
+	private FuncionalidadExterna validacion;
 	private Ubicacion ubicacion;
 	/**
 	 * NO LO PIDE EL ENUCIADO PERO YO REGISTRO IGUALMENTE DONDE ESPERO RECIBIR
@@ -20,11 +20,11 @@ public class Organizacion implements OrganizacionNoGubernamental {
 	}
 
 	public FuncionalidadExterna getFuncionalidadExternaCarga() {
-		return this.funcionalidadCargaMuestra;
+		return this.carga;
 	}
 
 	public FuncionalidadExterna getFuncionalidadExternaValidacion() {
-		return this.funcionalidadValidacionMuestra;
+		return this.validacion;
 	}
 
 	public void subscribe(ZonaCobertura zona) {
@@ -66,8 +66,8 @@ public class Organizacion implements OrganizacionNoGubernamental {
 		super();
 		this.tipoOrganizacion = tipoOrganizacion;
 		this.cantidadDeEmpleados = cantidadDeEmpleados;
-		this.funcionalidadCargaMuestra = carga;
-		this.funcionalidadValidacionMuestra = validacion;
+		this.carga = carga;
+		this.validacion = validacion;
 		this.ubicacion = ubicacion;
 		this.zonasSubscriptas = zonasSubscriptas;
 	}

@@ -3,9 +3,7 @@ package buscador;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import web_vinchucas.Muestra;
-import web_vinchucas.Web;
+import web_vinchucas.*;
 
 public class UltimaVotacionAntesDe extends FechaUltimaVotacion {
 	

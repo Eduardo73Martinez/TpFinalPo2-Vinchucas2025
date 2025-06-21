@@ -3,8 +3,7 @@ package buscador;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import web_vinchucas.Muestra;
-import web_vinchucas.Web;
+import web_vinchucas.*;
 
 abstract class PorVerificacion extends Simple {
 	
