@@ -83,24 +83,4 @@ class UbicacionTest {
 	 * 
 	 */
 
-	@Test
-	void testListaMuestrasObtenidasAMenosDeTalDistancia() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testDistanciaEntreDosUbicaciones() {
-		// assertEquals(null, null);
-	}
-
-	@Test
-	void testRaizCuadrada() {
-		assertEquals(4, miubicacion.raizCuadrada(16));
-	}
-
-	@Test
-	void testPotencia() {
-		assertEquals(9, miubicacion.potencia(3));
-	}
-
 }

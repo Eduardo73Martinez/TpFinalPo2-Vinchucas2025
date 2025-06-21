@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import web_vinchucas.Muestra;
-import web_vinchucas.Web;
+import web_vinchucas.*;
 
 public class CreadoEn extends FechaDeCreacion {
 	public List<Muestra> buscar(){
