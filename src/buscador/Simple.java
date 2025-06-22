@@ -1,8 +1,6 @@
 package buscador;
-
 import java.util.List;
-
-import web_vinchucas.Muestra;
+import web_vinchucas.*;
 
 
 abstract class Simple implements Filtro {

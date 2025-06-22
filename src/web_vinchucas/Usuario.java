@@ -2,10 +2,8 @@ package web_vinchucas;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-
-import ZonaOrganizanizacionUbicacion.Ubicacion;
+import java.util.*;
+import ZonaOrganizanizacionUbicacion.*;
 
 public class Usuario {
 	 

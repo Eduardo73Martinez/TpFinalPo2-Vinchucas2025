@@ -2,8 +2,8 @@ package buscador;
 
 import java.time.LocalDate;
 import java.util.List;
+import web_vinchucas.*;
 
-import web_vinchucas.Muestra;
 
 public abstract class FechaUltimaVotacion extends Simple{
 	LocalDate fechaIngresada;

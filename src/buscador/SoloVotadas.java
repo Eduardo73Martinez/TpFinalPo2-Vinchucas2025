@@ -1,10 +1,6 @@
 package buscador;
-
-
-
-import verificacion.NoVerificada;
-import web_vinchucas.Muestra;
-
+import verificacion.*;
+import web_vinchucas.*;
 
 public class SoloVotadas extends PorVerificacion{
 
