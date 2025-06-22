@@ -20,7 +20,7 @@ public class OpinionExpertos extends NoVerificada{
 				IOpinable opinionMayoritariaExpertos = opinionMayoritaria (getIOpinableDeExpertos (muestra));
 				Verificada verif = new Verificada (opinionMayoritariaExpertos);
 				muestra.setVerificacion(verif);
-				muestra.actualizarVinchuca (opinionMayoritariaExpertos);
+				muestra.verificar (opinionMayoritariaExpertos);
 		} 
 	}
 	public String resultadoActual (Muestra muestra) {
