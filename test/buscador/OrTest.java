@@ -18,7 +18,9 @@ public class OrTest {
 	Muestra muestra1Dummy = mock (Muestra.class);
 	Muestra muestra2Dummy = mock (Muestra.class);
 	Muestra muestra3Dummy = mock (Muestra.class);
-	Web webDummy = mock (Web.class);
+
+	//setUp:
+		List <Muestra> listaDeTodasLasMuestras = new ArrayList<Muestra>();
 	
 	//sut:
 	Or or;
@@ -26,7 +28,7 @@ public class OrTest {
 	@BeforeEach
 	void setUp () {
 		//sut:
-		or = new Or (filtro1Stub,filtro2Stub,webDummy);
+		or = new Or (filtro1Stub,filtro2Stub);
 		
 		//setUp:
 		List <Muestra> listaFiltrada1 = new ArrayList<Muestra>();
@@ -35,8 +37,8 @@ public class OrTest {
 		listaFiltrada2.add(muestra2Dummy);
 		listaFiltrada1.add(muestra3Dummy);
 		listaFiltrada2.add(muestra3Dummy);
-		when ((filtro1Stub.buscar())).thenReturn (listaFiltrada1);
-		when (filtro2Stub.buscar()).thenReturn (listaFiltrada2);
+		when ((filtro1Stub.buscar(listaDeTodasLasMuestras ))).thenReturn (listaFiltrada1);
+		when (filtro2Stub.buscar(listaDeTodasLasMuestras )).thenReturn (listaFiltrada2);
 		//al hacer un or de listas deberia quedar lo de ambas listas que seria las 3 muestras
 	}
 	@Test
@@ -48,7 +50,7 @@ public class OrTest {
 		listaFinal.add(muestra2Dummy);
 		listaFinal.add(muestra3Dummy);
 		//verify:
-		assertTrue(or.buscar().containsAll(listaFinal) && listaFinal.containsAll(or.buscar()));
+		assertTrue(or.buscar(listaDeTodasLasMuestras ).containsAll(listaFinal) && listaFinal.containsAll(or.buscar(listaDeTodasLasMuestras )));
 	}
 	
 	

@@ -10,7 +10,7 @@ public class SoloVerificadas extends PorVerificacion {
 		//PROPOSITO:devuelve true si la muestra fue verificada, si no lo es da false
 		return muestra.getVerificacion() instanceof Verificada;
 	}
-	public SoloVerificadas (Web web){
-		super (web);
+	public SoloVerificadas (){
+		
 	}
 }

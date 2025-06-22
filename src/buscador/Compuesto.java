@@ -3,7 +3,7 @@ import java.util.List;
 import web_vinchucas.*;
 
 
-public abstract class Compuesto extends Filtro{
+public abstract class Compuesto implements Filtro{
 	Filtro primerFiltro;
 	Filtro segundoFiltro;
 	
@@ -15,9 +15,9 @@ public abstract class Compuesto extends Filtro{
 		//PROPOSITO:setea el segundo filtro
 		this.segundoFiltro = filt;
 	}
-	abstract List<Muestra> buscar();
-	public Compuesto (Filtro filt1, Filtro filt2,Web web) {
-		super (web);
+	public abstract List<Muestra> buscar(List<Muestra> lista);
+	public Compuesto (Filtro filt1, Filtro filt2) {
+	
 		setPrimerFiltro (filt1);
 		setSegundoFiltro (filt2);
 		

@@ -8,15 +8,15 @@ import web_vinchucas.*;
 public class UltimaVotacionDespuesDe extends FechaUltimaVotacion {
 	
 	
-	public List<Muestra> buscar(){
+	public List<Muestra> buscar(List<Muestra> lista){
 		//PROPOSITO:devuelve las muestras que fueron votadas despues de la fecha ingresada
-		return todasLasMuestras().stream()
+		return lista.stream()
 		.filter (muestra->muestra.getFechaUltimaVotacion().isAfter(fechaIngresada))
 		.collect(Collectors.toList());
 	}
 	
-	public UltimaVotacionDespuesDe (Web web,LocalDate fechaIngresada){
-		super (web,fechaIngresada);
+	public UltimaVotacionDespuesDe (LocalDate fechaIngresada){
+		super (fechaIngresada);
 		
 	}
 }

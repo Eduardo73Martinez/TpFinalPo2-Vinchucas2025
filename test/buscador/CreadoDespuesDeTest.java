@@ -12,12 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import web_vinchucas.Muestra;
-import web_vinchucas.Web;
+
 
 class CreadoDespuesDeTest {
 
 	//doc:
-	Web webStub = mock (Web.class);
+	
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
@@ -25,21 +25,24 @@ class CreadoDespuesDeTest {
 	
 	//sut:
 	CreadoDespuesDe filtro ;
+	//setUp:
+	List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
+	
 	@BeforeEach
 	void setUp () {
 		
 		//sut:
-		filtro = new CreadoDespuesDe(webStub, LocalDate.of(2000,11,26));
+		filtro = new CreadoDespuesDe( LocalDate.of(2000,11,26));
 		
 		//setUp:
 		when (muestra1Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,11,26));
 		when (muestra2Stub.getFechaCreacion()).thenReturn (LocalDate.of(2001,11,26));
 		when (muestra3Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,01,01));
-		List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
+		
 		listaDeMuestras.add(muestra1Stub);
 		listaDeMuestras.add(muestra2Stub);
 		listaDeMuestras.add(muestra3Stub);
-		when (webStub.todasLasMuestras()).thenReturn (listaDeMuestras);
+		
 		
 	}
 	@Test
@@ -49,7 +52,7 @@ class CreadoDespuesDeTest {
 		List <Muestra> listaFinal = new ArrayList<Muestra>();
 		listaFinal.add(muestra2Stub); //solo debe ser la lista 2 al ser la unica que va despues
 		//verify:
-		assertTrue(filtro.buscar().containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar()));
+		assertTrue(filtro.buscar(listaDeMuestras).containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar(listaDeMuestras)));
 		
 	}
 
