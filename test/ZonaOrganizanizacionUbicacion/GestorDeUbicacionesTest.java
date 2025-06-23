@@ -55,5 +55,30 @@ class GestorDeUbicacionesTest {
 	void testSetTodasLasZonas() {
 		fail("Not yet implemented");
 	}
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 
 }
