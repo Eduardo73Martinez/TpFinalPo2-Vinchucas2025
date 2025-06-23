@@ -3,6 +3,7 @@ package ZonaOrganizanizacionUbicacion;
 import java.lang.Math;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Ubicacion {
 	private Double latitud;
@@ -42,7 +43,7 @@ public class Ubicacion {
 		return Math.pow(numero, 2);
 	}
 
-	public void setLatitud(double latitud) { 
+	public void setLatitud(double latitud) {
 		// TODO Auto-generated method stub
 		this.latitud = latitud;
 	}
@@ -59,5 +60,24 @@ public class Ubicacion {
 	public Double getLongitud() {
 		return longitud;
 	}
+	
+	/**
+	 * METODOS PARA QUE SOLAMENTE SEAN IGUALES LAS UBICACIONES CUANDO 
+	 * SUS ATRIBUTOS SON IGUALES. 
+	 * 
+	 * HASH CODE ES PARA QUE SEAN IGUALES CON EQUALS EN LOS MAPS.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)return true; // MISMA REFERENCIA AL OBJETO
+		if (!(obj instanceof Ubicacion)) return false;// NULL O CLASES DIFERENTEES (INSTANCEOF ACEPTA SUBCLASES DE UBICACION)
+
+		Ubicacion other = (Ubicacion) obj;
+		return Objects.equals(latitud, other.latitud) && Objects.equals(longitud, other.longitud);
+	}
+	@Override
+    public int hashCode() {
+        return Objects.hash(latitud, longitud);
+    }
 
 }

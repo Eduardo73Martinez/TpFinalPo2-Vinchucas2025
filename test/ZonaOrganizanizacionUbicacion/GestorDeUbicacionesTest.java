@@ -2,10 +2,13 @@ package ZonaOrganizanizacionUbicacion;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GestorDeUbicacionesTest {
+	GestorDeUbicaciones gestor;
 	Map<Ubicacion, List<ZonaCobertura>> zonasPorUbicacion;
 	Ubicacion ubicacion1;
 	Ubicacion ubicacion2;
@@ -13,6 +16,7 @@ class GestorDeUbicacionesTest {
 	List<ZonaCobertura> zonas1= new ArrayList<>();
 	List<ZonaCobertura> zonas2= new ArrayList<>();
 	List<ZonaCobertura> zonas3= new ArrayList<>();
+	List<ZonaCobertura> todasLasZonas;
 	
 	ZonaCobertura zonaA = mock(ZonaCobertura.class);
 	ZonaCobertura zonaB = mock(ZonaCobertura.class);
@@ -25,6 +29,7 @@ class GestorDeUbicacionesTest {
 	ZonaCobertura zonaG = mock(ZonaCobertura.class);
 	ZonaCobertura zonaH = mock(ZonaCobertura.class);
 	ZonaCobertura zonaI = mock(ZonaCobertura.class);
+	
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -44,6 +49,12 @@ class GestorDeUbicacionesTest {
 		zonasPorUbicacion.put(ubicacion2, zonas2);
 		zonasPorUbicacion.put(ubicacion3, zonas3);
 		
+		//INSTANCIO EL OBJETO
+
+		todasLasZonas = zonasPorUbicacion.values().stream().flatMap(List::stream).collect(Collectors.toList());
+		gestor = new GestorDeUbicaciones(zonasPorUbicacion, todasLasZonas);
+		
+		
 	}
 	
 	/**
@@ -56,8 +67,24 @@ class GestorDeUbicacionesTest {
 
 	@Test
 	void testValidarUbicacion() {
-		
-		fail("Not yet implemented");
+		// La ubicación ya está en el mapa (setUp la agregó)
+		assertTrue(gestor.getZonasPorUbicacion().containsKey(ubicacion1));
+
+		gestor.validarUbicacion(ubicacion1);
+
+		// El mapa no debería haber cambiado
+		assertEquals(3, gestor.getZonasPorUbicacion().size());
+		assertSame(zonas1, gestor.getZonasPorUbicacion().get(ubicacion1));
+	}
+	
+	@Test
+	void testValidarUbicacionFalse() {
+		Ubicacion ubicacion4 = mock(Ubicacion.class);
+
+		gestor.validarUbicacion(ubicacion4);
+
+		// El mapa no debería haber cambiado
+		assertEquals(4, gestor.getZonasPorUbicacion().size());
 	}
 
 	@Test
@@ -82,17 +109,25 @@ class GestorDeUbicacionesTest {
 
 	@Test
 	void testSetZonasPorUbicacion() {
-		fail("Not yet implemented");
+		Map<Ubicacion, List<ZonaCobertura>> nuevoMap = new HashMap<>();
+		gestor.setZonasPorUbicacion(nuevoMap);
+		assertEquals(0,gestor.getZonasPorUbicacion().size());
 	}
 
 	@Test
 	void testGetTodasLasZonas() {
-		fail("Not yet implemented");
+		
+		assertSame(todasLasZonas,gestor.getTodasLasZonas());
 	}
 
 	@Test
 	void testSetTodasLasZonas() {
-		fail("Not yet implemented");
+		
+		List<ZonaCobertura> zonasNueva = new ArrayList<>();
+		
+		gestor.setTodasLasZonas(zonasNueva);
+		
+		assertSame(zonasNueva,gestor.getTodasLasZonas());
 	}
 	/**
 	 * ES IMPORTANTE EL ULTIMO
