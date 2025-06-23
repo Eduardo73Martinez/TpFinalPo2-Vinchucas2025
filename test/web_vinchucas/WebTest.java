@@ -1,105 +1,102 @@
 package web_vinchucas;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.util.*;
+import java.util.Arrays;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-class WebTest {
-	Web sistemaWeb; 
-	List<Muestra> muestras = new ArrayList<>(); 
-	List<Usuario> usuarios = new ArrayList<>(); 
-	Muestra muestra1;
-	Muestra muestra2;
-	Muestra muestra3;
-	Usuario usuario1;
-	Usuario usuario2;
-	Usuario usuario3;
+import ZonaOrganizanizacionUbicacion.GestorDeUbicaciones;
+import ZonaOrganizanizacionUbicacion.Ubicacion;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class WebTest {
 	
-
-	@BeforeEach
-	void setUp() throws Exception {
-		muestra1 = mock(Muestra.class);
-		muestra2 = mock(Muestra.class);
-		muestra3 = mock(Muestra.class);
-
-		usuario1 = mock(Usuario.class);
-		usuario2 = mock(Usuario.class);
-		usuario3 = mock(Usuario.class);
+	Web web;
+	
+	Usuario usuario_1;
+	Muestra muestra_1;
+	Ubicacion ubicacion_1;
+	
+	GestorDeUsuarios gestorUs_1;
+	GestorDeUbicaciones gestorUbs_1;
+	
+	TipoVinchuca vinchuca;
+	
+	Double lat;
+	Double lon;
+	
+	@BeforeEach 
+	void setUp() throws Exception{
+		//DOC:
+		gestorUs_1 = mock(GestorDeUsuarios.class);
+		gestorUbs_1 = mock(GestorDeUbicaciones.class);
 		
-		muestras.add(muestra1);muestras.add(muestra3);muestras.add(muestra3);
-		usuarios.add(usuario1);usuarios.add(usuario2);usuarios.add(usuario3);
-		sistemaWeb =new Web(muestras, usuarios);
+		//SUT:
+		web = new Web(gestorUs_1,gestorUbs_1);
+		
+		//DOC:
+		usuario_1 = mock(Usuario.class);
+		muestra_1 = mock(Muestra.class);
+		ubicacion_1 = mock(Ubicacion.class);
+		
+		
+		vinchuca = TipoVinchuca.VINCHUCA_GUASAYANA;
+		
+		lat = 15d; lon = 10d;
+	}
+	
+	@Test
+	void testGestGestorDeUsuarios() {
+		//Exercise y Verify
+		assertEquals(web.getGestorDeUsuarios(), gestorUs_1);
 	}
 
 	@Test
-	void testWeb() {
-		//assertEquals(null, null);
+	void testGestGestorDeUbicaciones() {
+		//Exercise y Verify
+		assertEquals(web.getGestorUbicaciones(), gestorUbs_1);
 	}
-
-	@Test
-	void testTodasLasMuestras() {
-		assertEquals(muestras.size(), sistemaWeb.todasLasMuestras().size());
-	}
-
 	@Test
 	void testAgregarMuestra() {
-		Muestra muestra4 = mock(Muestra.class); 
+		//Exercise
+		web.agregarMuestra(muestra_1);
 		
-		sistemaWeb.agregarMuestra(muestra4);
+		//Verify
+		assertEquals(web.todasLasMuestras().getFirst(),muestra_1);
+	}
+	
+	@Test
+	void testObtenerUbicacion() {
+		//SetUp
+		when(gestorUbs_1.obtenerUbicacion(lat, lon)).thenReturn(ubicacion_1);
 		
-		assertEquals(4, sistemaWeb.getMuestrasSubidas().size());
-	}
-
-	@Test
-	void testSacarMuestra() {
-		sistemaWeb.sacarMuestra(muestra3);
-		assertEquals(2, sistemaWeb.getMuestrasSubidas().size());
-	}
-	@Test
-	void testSacarMuestraQueNoExisiteEnSistema() {
-		Muestra muestra4 = mock(Muestra.class);
-		sistemaWeb.sacarMuestra(muestra4);
-		assertEquals(3, sistemaWeb.getMuestrasSubidas().size());
-	}
-
-	@Test
-	void testDesuscribirUsuario() {
-		sistemaWeb.desuscribirUsuario(usuario3);
-		assertFalse(sistemaWeb.getUsuariosRegistrados().contains(usuario3));
-	}
-	@Test
-	void testDesuscribirUsuarioQueNoExisiteEnSistema() {
-		Usuario usuario4 = mock(Usuario.class);
-		sistemaWeb.desuscribirUsuario(usuario4);
-		assertEquals(3, sistemaWeb.getMuestrasSubidas().size());
-	}
-
-	@Test
-	void testGetMuestrasSubidas() {
-		assertEquals(muestras.size(), sistemaWeb.getMuestrasSubidas().size());
-	}
-
-	@Test
-	void testSetMuestrasSubidas() {
-		List<Muestra> muestras2 = new ArrayList<>();
+		//Exercise
+		Ubicacion nuevaUb = web.obtenerUbicacion(lat, lon);
 		
-		sistemaWeb.setMuestrasSubidas(muestras2);
-		assertEquals(muestras2, sistemaWeb.getMuestrasSubidas());
+		//Verify
+		assertEquals(nuevaUb,ubicacion_1);
+	}
+	
+	@Test
+	void testNotificarNuevaMuestra() {
+		
+		//Exercise
+		web.notificarNuevaMuestra(muestra_1);
+		
+		//Verify
+		verify(gestorUbs_1).notificarNuevaMuestra(muestra_1);
 	}
 
 	@Test
-	void testGetUsuariosRegistrados() {
-		assertEquals(usuarios, sistemaWeb.getUsuariosRegistrados());
+	void testNotificarNuevaValidacion() {
+		
+		//Exercise
+		web.notificarNuevaValidacion(muestra_1);
+		
+		//Verify
+		verify(gestorUbs_1).notificarNuevaValidacion(muestra_1);
 	}
-
-	@Test
-	void testSetUsuariosRegistrados() {
-		List<Usuario> usuarios2 = new ArrayList<>();
-		sistemaWeb.setUsuariosRegistrados(usuarios2);
-		assertEquals(usuarios2, sistemaWeb.getUsuariosRegistrados());
-	}
-
 }

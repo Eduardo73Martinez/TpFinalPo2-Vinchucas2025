@@ -1,58 +1,47 @@
 package web_vinchucas;
 
+import ZonaOrganizanizacionUbicacion.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Web {
-	private List<Muestra> muestrasSubidas;
-	private List<Usuario> usuariosRegistrados;
-	// private AppWebMovil aplicacionDelUsuario;
-	// TENEMOS UNA VERSION MAS ACTUALIZADA EN NUESTRO MODELO TODAVIA FALTA
-	// CONFIRMACION.
-
-	public Web(List<Muestra> muestrasSubidas, List<Usuario> usuariosRegistrados) {
-		super();
-		this.muestrasSubidas = muestrasSubidas;
-		this.usuariosRegistrados = usuariosRegistrados;
+public class Web 
+	List<Muestra> muestras = new ArrayList<Muestra>();
+	GestorDeUsuarios gestorUs = new GestorDeUsuarios(this);
+	GestorDeUbicaciones gestorUbs = new GestorDeUbicaciones(this);
+	
+	public Web(GestorDeUsuarios gestorUs, GestorDeUbicaciones gestorUbs) {
+		this.gestorUs = gestorUs;
+		this.gestorUbs = gestorUbs;
+	}
+	
+	public GestorDeUsuarios getGestorDeUsuarios() {
+		return gestorUs;
+	}
+	
+	public GestorDeUbicaciones getGestorUbicaciones() {
+		return gestorUbs;
 	}
 
 	public List<Muestra> todasLasMuestras() {
-		// TODO Auto-generated method stub
-		return this.getMuestrasSubidas();
+		return muestras;
 	}
 
 	public void agregarMuestra(Muestra nuevaMuestra) {
-		// TODO Auto-generated method stub
-		this.muestrasSubidas.add(nuevaMuestra);
+		muestras.add(nuevaMuestra);
+		this.notificarNuevaMuestra(nuevaMuestra);
 	}
-
-	public void sacarMuestra(Muestra nuevaMuestra) {
-		// TODO Auto-generated method stub
-		if (this.getMuestrasSubidas().contains(nuevaMuestra)) {
-			this.muestrasSubidas.remove(nuevaMuestra);
-		}
+	
+	public Ubicacion obtenerUbicacion(Double lat, Double lon) {
+		return gestorUbs.obtenerUbicacion(lat, lon);
 	}
-
-	public void desuscribirUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		if (this.getUsuariosRegistrados().contains(usuario)) {
-			this.usuariosRegistrados.remove(usuario);
-		}
+	
+	protected void notificarNuevaMuestra(Muestra muestra) {
+		gestorUbs.notificarNuevaMuestra(muestra);
 	}
-
-	public List<Muestra> getMuestrasSubidas() {
-		return muestrasSubidas;
-	}
-
-	public void setMuestrasSubidas(List<Muestra> muestrasSubidas) {
-		this.muestrasSubidas = muestrasSubidas;
-	}
-
-	public List<Usuario> getUsuariosRegistrados() {
-		return usuariosRegistrados;
-	}
-
-	public void setUsuariosRegistrados(List<Usuario> usuariosRegistrados) {
-		this.usuariosRegistrados = usuariosRegistrados;
+	
+	public void notificarNuevaValidacion(Muestra muestra) {
+		gestorUbs.notificarNuevaValidacion(muestra);
 	}
 
 }

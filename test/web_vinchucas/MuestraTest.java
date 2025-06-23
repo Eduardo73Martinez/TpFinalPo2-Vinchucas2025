@@ -28,6 +28,8 @@ class MuestraTest {
 	
 	double distancia;
 	
+	Usuario otroUsuario;
+		
 	Web miWeb;
 	
 	Muestra muestra_1;
@@ -63,17 +65,22 @@ class MuestraTest {
 	void setUp() throws Exception {
 		
 		//DOC:
+		miWeb = mock(Web.class);
 		miUsuario = mock(Usuario.class);
 		miVinchuca = mock(TipoVinchuca.class);
 		miFoto = mock(Foto.class);
 		miUbicacion = mock(Ubicacion.class);
 		
+		when(miUsuario.getId()).thenReturn(1l);
+		
 		//SUT:
-		miMuestra = new Muestra(miUsuario, miVinchuca, miFoto, miUbicacion);
+		miMuestra = new Muestra(miWeb, miUsuario, miVinchuca, miFoto, miUbicacion);
 		
 		
 		//DOC: 
 		distancia = 15d;
+		
+		otroUsuario = mock(Usuario.class);
 		
 		miWeb = mock(Web.class);
 		
@@ -126,6 +133,7 @@ class MuestraTest {
 		listaDeOpiniones = new ArrayList<Opinion>();
 		listaDeOpiniones.add(opinion_1);
 		listaDeOpiniones.add(opinion_2);
+		when(otroUsuario.getId()).thenReturn(2l);
 	}
 
 	@Test
@@ -196,12 +204,13 @@ class MuestraTest {
 
     
 	@Test
-	void testActualizarVinchuca() {
+	void testVerificar() {
 		//Exercise
-		miMuestra.actualizarVinchuca(resultadoVerificacion);
+		miMuestra.verificar(resultadoVerificacion);
 		
 		//Verify
 		assertEquals(miMuestra.getVinchuca(),resultadoVerificacion);
+		//verify(miWeb).notificarNuevaValidacion(miMuestra);
 	}
 	
 	@Test
@@ -302,10 +311,19 @@ class MuestraTest {
 	@Test 
 	void testPuedeOpinar() {
 		//Exercise
-		Boolean resultado = miMuestra.puedeOpinar(miUsuario);
+		Boolean resultado = miMuestra.puedeOpinar(otroUsuario);
 		
 		//Verify
 		assertEquals(resultado,true);
+	}
+
+	@Test 
+	void testNoPuedeOpinar() {
+		//Exercise
+		Boolean resultado = miMuestra.puedeOpinar(miUsuario);
+		
+		//Verify
+		assertEquals(resultado,false);
 	}
     	
 }
