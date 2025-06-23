@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-//import org.mockito.stubbing.OngoingStubbing;
-
 import ZonaOrganizanizacionUbicacion.Ubicacion;
 
 public class Muestra {
+	Web web;
 	Usuario autor;
 	IOpinable vinchuca;
 	Foto foto;
@@ -23,7 +22,8 @@ public class Muestra {
 	
 	List<Opinion> opiniones = new ArrayList<Opinion>();
 	
-	public Muestra(Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
+	public Muestra(Web w, Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
+		this.web = w;
 		this.autor = u;
 		this.vinchuca = t;
 		this.foto = f;
@@ -32,24 +32,7 @@ public class Muestra {
 		this.fechaCreacion = LocalDate.now(); 
 		this.agregarOpinion(new Opinion(u.getId(),u.getNivel(),t));
 	}
-	/**
-	 *  
-	 * 	COMENTO ACÁ LUCIO, SOY MARTIN,....ME PARECE QUE  ESTA PARTE NO ESTA DEL TODO BIEN. LA PARTE DEL ESTADO 
-	 *  DEBERIA LLAMAR EN EL ESTADO A VERIFICAR. ME ACUERDO QUE LO CAMBIAMOS Y DEVOLVIA UN STRING PORQUE APLICABA UN IOPINABLE, PERO NO SE SI ELLOS LO VAN A ACEPTAR
-	 *  (PARA MI NO ESTÁ MAL) PERO DEBERIAMOS PREGUNTARLE SI PODEMOS HACERLO PORQUE NOS PUEDEN MARCAR COMO ERROR ESTO. 
-	 *  
-	 *  
-	 *  TENEMOS QUE ORDENAR EL ESTADO. ME PARECE QUE VOY A TENER QUE AYUDAR A QUIMEY EN ESA PARTE QUE ES MAS IMPORTANTE
-	 *  PARA EL GRUPO. SU CODIGO NO FUNCIONA.
-	 *  
-	 *  EJEMPLO 
-	 *  THIS.ESTADO.VERIFICAR(THIS) O THIS.GETESTADO().VERIFICAR(THIS)
-	 *  
-	 * 
-	 * @return
-	 */
 	
-	//YO NECESITO VERIFICAR() EN LA CLASE ZONASCOBERTURA CAMBIO POR RESULTADOACTUAL(). DESPUES BORRA ESTE COMENTARIO.
 	
 	//Devuelve un string con el resultado actual de la verificacion de la Muestra
 	public String resultadoActual() {
@@ -107,16 +90,13 @@ public class Muestra {
 	public void setVerificacion(Verificacion v) {
 		this.estado = v;
 	}
-	/*
-	 * COMENTO ACÁ TAMBIEN... ¿EL RESULTADO ACTUAL NO TE COMBIENE PEDIRSELO AL ESTADO?
-	 * ME PARECE UN POCO INNECESARIO TENER SETEADOS DOS ESTADOS.
-	 * 
-	 * YA SE ENTENDI... VOS TENES SETTEADO POR DEFAULT NULL EN THIS.VINCHUCA Y CUANDO LA VERIFICAS LE ASIGNAS UNA, PERO
-	 * ESTÁ POR FUERA DEL PROPIO ESTADO.
-	 */
 	
-	//Setea el IOpinable de la muestra. Este mensaje lo llama el estado cuando la muestra queda verificada
-	public void actualizarVinchuca(IOpinable o) {
+	/*
+	 * Setea el IOpinable de la muestra y avisa a la web. 
+	 * Este mensaje lo llama el estado cuando la muestra queda verificada
+	 */
+	public void verificar(IOpinable o) {
+		web.notificarNuevaValidacion(this); 
 		this.vinchuca = o;
 	}
 	
@@ -169,6 +149,7 @@ public class Muestra {
 		return respuesta;
 	}
 	
+	//Indica si ya existe una opinion del usuario dado
 	private boolean yaVoto(Usuario u) {
 		List<Long> idVotantes = this.opiniones.stream().map(o->o.getIdUsuario()).toList();
 		return idVotantes.contains(u.getId());

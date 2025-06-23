@@ -65,6 +65,7 @@ class MuestraTest {
 	void setUp() throws Exception {
 		
 		//DOC:
+		miWeb = mock(Web.class);
 		miUsuario = mock(Usuario.class);
 		miVinchuca = mock(TipoVinchuca.class);
 		miFoto = mock(Foto.class);
@@ -73,7 +74,7 @@ class MuestraTest {
 		when(miUsuario.getId()).thenReturn(1l);
 		
 		//SUT:
-		miMuestra = new Muestra(miUsuario, miVinchuca, miFoto, miUbicacion);
+		miMuestra = new Muestra(miWeb, miUsuario, miVinchuca, miFoto, miUbicacion);
 		
 		
 		//DOC: 
@@ -203,12 +204,13 @@ class MuestraTest {
 
     
 	@Test
-	void testActualizarVinchuca() {
+	void testVerificar() {
 		//Exercise
-		miMuestra.actualizarVinchuca(resultadoVerificacion);
+		miMuestra.verificar(resultadoVerificacion);
 		
 		//Verify
 		assertEquals(miMuestra.getVinchuca(),resultadoVerificacion);
+		//verify(miWeb).notificarNuevaValidacion(miMuestra);
 	}
 	
 	@Test
