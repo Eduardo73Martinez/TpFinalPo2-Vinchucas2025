@@ -17,7 +17,7 @@ class GestorDeUbicacionesTest {
 	}
 
 	@Test
-	void testAgregarUbicacion() {
+	void testValidarUbicacion() {
 		fail("Not yet implemented");
 	}
 
@@ -55,30 +55,12 @@ class GestorDeUbicacionesTest {
 	void testSetTodasLasZonas() {
 		fail("Not yet implemented");
 	}
-	/*
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
+	/**
+	 * ES IMPORTANTE EL ULTIMO
 	 */
+	@Test
+	void testAsociarZona() {
+		fail("Not yet implemented");
+	}
 
 }
