@@ -38,7 +38,7 @@ public class GestorDeUbicaciones {
 		zonasDeU.add(zona); // LA AGREGO AL MAP 
 		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// ACTUALIZO LA LISTA EN EL MAP.
 		this.getTodasLasZonas().add(zona); // LA AGREGO A LA LISTA GENERAL.
-	}
+	} 
 
 	/**
 	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARCIÓ UNA MUESTRA NUEVA.
