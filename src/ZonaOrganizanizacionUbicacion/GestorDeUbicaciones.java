@@ -17,14 +17,27 @@ public class GestorDeUbicaciones {
 	public Ubicacion obtenerUbicacion(Double lat, Double lon) {
 		// TODO Auto-generated method stub
 		Ubicacion ubicacionNueva = new Ubicacion(lat, lon);
-		this.agregarUbicacion(ubicacionNueva);
+		this.validarUbicacion(ubicacionNueva);
 		return ubicacionNueva;
 	}
 
-	public void agregarUbicacion(Ubicacion ubicacion) {
+	public void validarUbicacion(Ubicacion ubicacion) {
 		if (!this.getZonasPorUbicacion().containsKey(ubicacion)) {
 			this.zonasPorUbicacion.put(ubicacion, new ArrayList<ZonaCobertura>());
 		}
+	}
+	/**
+	 * ASOCIA UNA ZONA CON UNA UBICACION. 
+	 * @param zona
+	 * @param ubicacion
+	 */
+	public void asociarZona(ZonaCobertura zona, Ubicacion ubicacion) {
+		Ubicacion ubicacionR = this.obtenerUbicacion(ubicacion.getLatidud(), ubicacion.getLongitud());
+		//this.validarZonaEnUbicacion(); VALIDA  QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
+		List<ZonaCobertura> zonasDeU = this.getZonasPorUbicacion().get(ubicacionR); // BUSCO LA LISTA EN EL MAP.
+		zonasDeU.add(zona); // LA AGREGO AL MAP 
+		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// ACTUALIZO LA LISTA EN EL MAP.
+		this.getTodasLasZonas().add(zona); // LA AGREGO A LA LISTA GENERAL.
 	}
 
 	/**
