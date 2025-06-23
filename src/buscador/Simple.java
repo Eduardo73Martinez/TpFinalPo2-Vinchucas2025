@@ -1,14 +1,12 @@
 package buscador;
-
 import java.util.List;
+import web_vinchucas.*;
 
-import web_vinchucas.Muestra;
-import web_vinchucas.Web;
 
-abstract class Simple extends Filtro {
+abstract class Simple implements Filtro {
 
-	abstract List<Muestra> buscar();
-	public Simple (Web web) {
-		super (web);
+	public abstract List<Muestra> buscar(List<Muestra> lista);
+	public Simple () {
+		
 	}
 }

@@ -99,5 +99,4 @@ public class WebTest {
 		//Verify
 		verify(gestorUbs_1).notificarNuevaValidacion(muestra_1);
 	}
-	
 }

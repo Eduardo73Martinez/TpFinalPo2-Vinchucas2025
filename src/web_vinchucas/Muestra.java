@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import ZonaOrganizanizacionUbicacion.Ubicacion;
+import ZonaOrganizanizacionUbicacion.*;
 
 public class Muestra {
 	Web web;
@@ -16,7 +15,7 @@ public class Muestra {
 	IOpinable vinchuca;
 	Foto foto;
 	Ubicacion ubicacion;
-	LocalDate fechaCreacion;
+	LocalDate fechaCreacion; 
 	LocalDate fechaUltimaVotacion;
 	Verificacion estado; 
 	

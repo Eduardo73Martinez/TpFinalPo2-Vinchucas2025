@@ -9,16 +9,16 @@ import web_vinchucas.*;
 public class CreadoAntesDe extends FechaDeCreacion{
 
 	
-public List<Muestra> buscar(){
+public List<Muestra> buscar(List<Muestra> lista){
 	//PROPOSITO:devuelve las muestras que fueron creadas antes de la fecha ingresada
 		
-		return todasLasMuestras().stream()
+		return lista.stream()
 		.filter (muestra->muestra.getFechaCreacion().isBefore(fechaIngresada))
 		.collect(Collectors.toList());
 	}
 	
-	public CreadoAntesDe (Web web,LocalDate fechaIngresada){
-		super (web,fechaIngresada);
+	public CreadoAntesDe (LocalDate fechaIngresada){
+		super (fechaIngresada);
 		
 	}
 }

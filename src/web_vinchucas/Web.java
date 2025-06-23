@@ -5,7 +5,7 @@ import ZonaOrganizanizacionUbicacion.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Web {
+public class Web 
 	List<Muestra> muestras = new ArrayList<Muestra>();
 	GestorDeUsuarios gestorUs = new GestorDeUsuarios(this);
 	GestorDeUbicaciones gestorUbs = new GestorDeUbicaciones(this);
@@ -13,7 +13,6 @@ public class Web {
 	public Web(GestorDeUsuarios gestorUs, GestorDeUbicaciones gestorUbs) {
 		this.gestorUs = gestorUs;
 		this.gestorUbs = gestorUbs;
-		
 	}
 	
 	public GestorDeUsuarios getGestorDeUsuarios() {

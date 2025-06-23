@@ -13,10 +13,7 @@ import web_vinchucas.Opinion;
 import web_vinchucas.Usuario;
 
 public class OpinionBasicos extends NoVerificada {
-	public boolean esVerificada() {
-		//PROPOSITO:devuelve false siempre
-		return false;
-	}
+
 	public boolean puedeVotar (Usuario usuario) {
 		//PROPOSITO:devuelve true si el usuario tiene permiso de votar, de no ser asi devuelve false (en este caso es siempre true)
 		return true;
@@ -63,10 +60,7 @@ public class OpinionBasicos extends NoVerificada {
 				.collect(Collectors.toList());
 	}
 	
-	public boolean esVotada() {
-		//PROPOSITO:Devuelve false
-		return false;
-	}
+	
 	
 	
 	

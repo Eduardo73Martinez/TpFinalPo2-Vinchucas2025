@@ -52,7 +52,7 @@ public class ZonaCobertura {
 	public boolean tieneCoberturaLaMuestra(Muestra muestra) {
 		return this.epicentro.distanciaCon(muestra.getUbicacion()) <= this.getRadio();
 	}
-
+ 
 	public void validacion(Muestra muestra) {
 		if (this.tieneCoberturaLaMuestra(muestra)) {
 			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeValidation(this, muestra));
@@ -89,6 +89,10 @@ public class ZonaCobertura {
 		// TODO Auto-generated method stub
 		return this.epicentro;
 	}
+	public Ubicacion setEpicentro(Ubicacion ubicacion) {
+		// TODO Auto-generated method stub
+		return this.epicentro= ubicacion;
+	}
 
 	public Double getRadio() {
 		// TODO Auto-generated method stub
@@ -109,6 +113,10 @@ public class ZonaCobertura {
 	public List<Muestra> getMuestras() {
 		// TODO Auto-generated method stub
 		return this.muestras;
+	}
+	
+	public List<Organizacion> getOrganizaciones(){
+		return this.organizaciones;
 	}
 
 }

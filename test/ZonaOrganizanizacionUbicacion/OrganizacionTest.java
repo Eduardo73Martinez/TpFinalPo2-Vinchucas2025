@@ -8,6 +8,8 @@ import java.util.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import web_vinchucas.Muestra;
+
 class OrganizacionTest {
 	private Organizacion organizacion;
 	private FuncionalidadExterna carga;
@@ -97,11 +99,15 @@ class OrganizacionTest {
  
 	@Test
 	void testNotifyMenotifyMeValidation() {
-		fail("Not yet implemented");
+		Muestra muestra = mock(Muestra.class);
+		organizacion.notifyMeValidation(zona1, muestra);
+		verify(validacion).nuevoEvento(organizacion, zona1, muestra);
 	}
 	@Test
 	void testNotifyMeCarga() {
-		fail("Not yet implemented");
+		Muestra muestra = mock(Muestra.class);
+		organizacion.notifyMeCarga(zona1, muestra);
+		verify(validacion).nuevoEvento(organizacion, zona1, muestra);
 	}
 
 }
