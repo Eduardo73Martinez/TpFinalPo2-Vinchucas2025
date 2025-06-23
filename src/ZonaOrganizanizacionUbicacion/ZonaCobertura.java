@@ -32,7 +32,7 @@ public class ZonaCobertura {
 		this.epicentro = epicentro;
 		this.radio = radioEnKilometros;
 		this.muestras = muestras;
-		this.organizaciones = new ArrayList<Organizacion>();
+		this.organizaciones = organizaciones;
 
 	}
 	// METODOS QUE PIDE EL TP
@@ -62,7 +62,7 @@ public class ZonaCobertura {
 	public void cargarMuestraEnZona(Muestra muestra) {
 		if (this.tieneCoberturaLaMuestra(muestra)) {
 			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeCarga(this, muestra));
-			this.getMuestras().add(muestra);
+			this.cargarMuestra(muestra);
 		}
 	}
 
