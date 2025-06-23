@@ -14,17 +14,16 @@ public class GestorDeUbicaciones {
 	 * @return UNA UBICACION, SI NO EXISTE LA CREAMOS Y AGREGAMOS AL GESTOR COMO
 	 *         CLAVE DE LAS ZONAS.
 	 */
-	public Ubicacion obtenerUbicacion(Double lat, Double lon) {
+	public Ubicacion obtenerUbicacion(Ubicacion ubicacion) {
 		// TODO Auto-generated method stub
-		Ubicacion ubicacionNueva = new Ubicacion(lat, lon);
-		this.validarUbicacion(ubicacionNueva);
-		return ubicacionNueva;
+		this.validarUbicacion(ubicacion);
+		return ubicacion; 
 	}
 
 	public void validarUbicacion(Ubicacion ubicacion) {
 		if (!this.getZonasPorUbicacion().containsKey(ubicacion)) {
 			this.zonasPorUbicacion.put(ubicacion, new ArrayList<ZonaCobertura>());
-		}
+		} 
 	}
 	/**
 	 * ASOCIA UNA ZONA CON UNA UBICACION. 
@@ -32,13 +31,13 @@ public class GestorDeUbicaciones {
 	 * @param ubicacion
 	 */
 	public void asociarZona(ZonaCobertura zona, Ubicacion ubicacion) {
-		Ubicacion ubicacionR = this.obtenerUbicacion(ubicacion.getLatidud(), ubicacion.getLongitud());
+		Ubicacion ubicacionR = this.obtenerUbicacion(ubicacion);
 		//this.validarZonaEnUbicacion(); VALIDA  QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
 		List<ZonaCobertura> zonasDeU = this.getZonasPorUbicacion().get(ubicacionR); // BUSCO LA LISTA EN EL MAP.
-		zonasDeU.add(zona); // LA AGREGO AL MAP 
-		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// ACTUALIZO LA LISTA EN EL MAP.
+		zonasDeU.add(zona); // ACTUALIZO LA LISTA 
+		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// LA ASOCIO NUEVAMENTE EN EL MAP.
 		this.getTodasLasZonas().add(zona); // LA AGREGO A LA LISTA GENERAL.
-	}
+	} 
 
 	/**
 	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARCIÓ UNA MUESTRA NUEVA.
@@ -48,7 +47,7 @@ public class GestorDeUbicaciones {
 	 */
 	public void notificarNuevaMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
-		Ubicacion ubicacionABuscar = this.obtenerUbicacion(muestra.getUbicacion().getLatidud(),muestra.getUbicacion().getLatidud());
+		Ubicacion ubicacionABuscar = this.obtenerUbicacion(muestra.getUbicacion());
 		this.zonasPorUbicacion.get(ubicacionABuscar).stream().forEach(zona -> zona.cargarMuestraEnZona(muestra));
 
 	}
@@ -61,7 +60,7 @@ public class GestorDeUbicaciones {
 	public void notificarNuevaValidacion(Muestra muestra) {
 		// TODO Auto-generated method stub
 
-		Ubicacion ubicacionABuscar = this.obtenerUbicacion(muestra.getUbicacion().getLatidud(),muestra.getUbicacion().getLatidud());
+		Ubicacion ubicacionABuscar = this.obtenerUbicacion(muestra.getUbicacion());
 		this.zonasPorUbicacion.get(ubicacionABuscar).stream().forEach(zona -> zona.validacion(muestra));
 	}
 
