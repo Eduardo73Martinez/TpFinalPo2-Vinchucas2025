@@ -3,12 +3,13 @@ package web_vinchucas;
 import ZonaOrganizanizacionUbicacion.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Web 
+public class Web {
 	List<Muestra> muestras = new ArrayList<Muestra>();
 	GestorDeUsuarios gestorUs = new GestorDeUsuarios(this);
-	GestorDeUbicaciones gestorUbs = new GestorDeUbicaciones(this);
+	GestorDeUbicaciones gestorUbs = new GestorDeUbicaciones(new HashMap<Ubicacion, List<ZonaCobertura>>(), new ArrayList<ZonaCobertura>() );
 	
 	public Web(GestorDeUsuarios gestorUs, GestorDeUbicaciones gestorUbs) {
 		this.gestorUs = gestorUs;
