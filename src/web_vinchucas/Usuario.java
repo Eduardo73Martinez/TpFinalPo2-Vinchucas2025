@@ -14,12 +14,6 @@ public class Usuario {
 	List<Opinion> opiniones = new ArrayList<Opinion>();
 	List<Muestra> muestras = new ArrayList<Muestra>();
 	
-	public Usuario(Web web, Long id) {
-		this.web = web;
-		this.id = id;
-		this.nivel = Nivel.BASICO;
-	}
-	
 	//Devuelve el Id del usuario
 	public Long getId() {
 		return id;
@@ -38,6 +32,20 @@ public class Usuario {
 	//Devuelve una lista con las muestras que genero el usuario
 	public List<Muestra> getMuestras() {
 		return muestras;
+	}
+	
+	//Retorna una lista de LocalDate con las fechas de todas las opiniones que emitio el usuario
+	public List<LocalDate> getFechasRevisiones(){
+		List<LocalDate> revisiones = this.opiniones.stream().map(o -> o.getFecha()).toList();
+		
+		return revisiones;
+	}
+	
+	//Retorna una lista de LocalDate con las fechas de envio de todas las muestras que genero el usuario
+	public List<LocalDate> getFechasEnvios(){
+		List<LocalDate> envios = this.muestras.stream().map(m -> m.getFechaCreacion()).toList();
+		
+		return envios;
 	}
 	
 	//Cambia el nivel del Usuario
@@ -75,20 +83,6 @@ public class Usuario {
 		return nuevaMuestra;
 	}
 	
-	//Retorna una lista de LocalDate con las fechas de todas las opiniones que emitio el usuario
-	public List<LocalDate> getFechasRevisiones(){
-		List<LocalDate> revisiones = this.opiniones.stream().map(o -> o.getFecha()).toList();
-		
-		return revisiones;
-	}
-
-	//Retorna una lista de LocalDate con las fechas de envio de todas las muestras que genero el usuario
-	public List<LocalDate> getFechasEnvios(){
-		List<LocalDate> envios = this.muestras.stream().map(m -> m.getFechaCreacion()).toList();
-		
-		return envios;
-	}
-	
 	//Actualiza el nivel del usuario segun cumpla con el criterio establecido
 	public void actualizarNivel() {
 		if (this.getNivel()!=Nivel.ESPECIALISTA) {
@@ -122,4 +116,10 @@ public class Usuario {
 		return nuevoNivel;
 	}
 	
+	public Usuario(Web web, Long id) {
+		this.web = web;
+		this.id = id;
+		this.nivel = Nivel.BASICO;
+	}
 }
+
