@@ -1,5 +1,6 @@
 package ZonaOrganizanizacionUbicacion;
 
+import java.io.IOError;
 import java.util.*;
 import web_vinchucas.*;
 
@@ -25,19 +26,35 @@ public class GestorDeUbicaciones {
 			this.zonasPorUbicacion.put(ubicacion, new ArrayList<ZonaCobertura>());
 		} 
 	}
-	/**
+	/** 
 	 * ASOCIA UNA ZONA CON UNA UBICACION. 
 	 * @param zona
 	 * @param ubicacion
+	 * @throws SinCoberturaException 
 	 */
-	public void asociarZona(ZonaCobertura zona, Ubicacion ubicacion) {
+	public void asociarUbicacionConZona( Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException {
 		Ubicacion ubicacionR = this.obtenerUbicacion(ubicacion);
-		//this.validarZonaEnUbicacion(); VALIDA  QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
+		this.validarZonaEnUbicacion(ubicacionR, zona); //VALIDA  QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
 		List<ZonaCobertura> zonasDeU = this.getZonasPorUbicacion().get(ubicacionR); // BUSCO LA LISTA EN EL MAP.
 		zonasDeU.add(zona); // ACTUALIZO LA LISTA 
 		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// LA ASOCIO NUEVAMENTE EN EL MAP.
 		this.getTodasLasZonas().add(zona); // LA AGREGO A LA LISTA GENERAL.
 	} 
+	
+	/**
+	 * VALIDA QUE LA UBICACION ESTÁ DENTRO DE LA COVERTURA.
+	 * @param ubicacion 						
+	 * @param zona
+	 * @throws IOError
+	 * @throws SinCoberturaException 
+	 */
+	public void validarZonaEnUbicacion(Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException{
+		// TODO Auto-generated method stub
+		if (ubicacion.distanciaCon(zona.getEpicentro()) > zona.getRadio()) {
+			throw new SinCoberturaException("La Ubicacion no está dentro de la cobertura");
+		}
+		
+	}
 
 	/**
 	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARCIÓ UNA MUESTRA NUEVA.

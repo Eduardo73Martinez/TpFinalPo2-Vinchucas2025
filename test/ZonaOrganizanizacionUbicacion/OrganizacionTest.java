@@ -16,12 +16,10 @@ class OrganizacionTest {
 	private FuncionalidadExterna validacion;
 	private Ubicacion ubicacion;
 	private ZonaCobertura zona1;
-	private ZonaCobertura zona2; 
+	private ZonaCobertura zona2;
 	private ZonaCobertura zona3;
 	private ZonaCobertura zona4;
 	private List<ZonaCobertura> listaZonas = new ArrayList<ZonaCobertura>();
-	
-	
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -30,17 +28,17 @@ class OrganizacionTest {
 		zona2 = mock(ZonaCobertura.class);
 		zona3 = mock(ZonaCobertura.class);
 		zona4 = mock(ZonaCobertura.class);
-		carga= mock(FuncionalidadExterna.class);
+		carga = mock(FuncionalidadExterna.class);
 		validacion = mock(FuncionalidadExterna.class);
-		
-		
+
 		this.listaZonas.add(zona1);
-		this.listaZonas.add(zona2); 
+		this.listaZonas.add(zona2);
 		this.listaZonas.add(zona3);
-		
-		organizacion = new Organizacion("Medica", 556, carga,validacion, ubicacion,this.listaZonas);
-		
+
+		organizacion = new Organizacion("Medica", 556, carga, validacion, ubicacion, this.listaZonas);
+
 	}
+
 	/**
 	 * constructor
 	 */
@@ -51,13 +49,13 @@ class OrganizacionTest {
 
 	@Test
 	void testGetFuncionalidadExteraCarga() {
-		
+
 		assertEquals(carga, organizacion.getFuncionalidadExternaCarga());
 	}
 
 	@Test
 	void testGetFuncionalidadExteraValidacion() {
-		
+
 		assertEquals(validacion, organizacion.getFuncionalidadExternaValidacion());
 	}
 
@@ -66,6 +64,7 @@ class OrganizacionTest {
 		organizacion.subscribe(zona4);
 		assertEquals(4, organizacion.getZonasSubscriptas().size());
 	}
+
 	@Test
 	void testGetZonasSubscriptas() {
 		assertTrue(organizacion.getZonasSubscriptas().contains(zona1));
@@ -92,17 +91,18 @@ class OrganizacionTest {
 		assertEquals(ubicacion, organizacion.getUbicacion());
 	}
 	/*
-	 * FALTAN LOS DOS ULTIMOS MENSAJES.
-	 * LOS IMPLEMENTE DESPUES DE RELEER EL ENUNCIADO.
+	 * FALTAN LOS DOS ULTIMOS MENSAJES. LOS IMPLEMENTE DESPUES DE RELEER EL
+	 * ENUNCIADO.
 	 * 
 	 */
- 
+
 	@Test
 	void testNotifyMenotifyMeValidation() {
 		Muestra muestra = mock(Muestra.class);
 		organizacion.notifyMeValidation(zona1, muestra);
 		verify(validacion).nuevoEvento(organizacion, zona1, muestra);
 	}
+
 	@Test
 	void testNotifyMeCarga() {
 		Muestra muestra = mock(Muestra.class);

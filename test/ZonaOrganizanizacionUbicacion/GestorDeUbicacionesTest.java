@@ -1,11 +1,16 @@
 package ZonaOrganizanizacionUbicacion;
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import java.io.IOError;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import web_vinchucas.Muestra;
 
 class GestorDeUbicacionesTest {
 	GestorDeUbicaciones gestor;
@@ -17,6 +22,7 @@ class GestorDeUbicacionesTest {
 	List<ZonaCobertura> zonas2= new ArrayList<>();
 	List<ZonaCobertura> zonas3= new ArrayList<>();
 	List<ZonaCobertura> todasLasZonas;
+	Muestra muestra = mock(Muestra.class);
 	
 	ZonaCobertura zonaA = mock(ZonaCobertura.class);
 	ZonaCobertura zonaB = mock(ZonaCobertura.class);
@@ -41,7 +47,7 @@ class GestorDeUbicacionesTest {
 		//AGREGO LAS ZONAS A LAS LISTAS 
 		zonas1.add(zonaA);zonas1.add(zonaB);zonas1.add(zonaC);
 		zonas2.add(zonaD);zonas2.add(zonaE);zonas2.add(zonaF);
-		zonas2.add(zonaG);zonas2.add(zonaH);zonas2.add(zonaI);
+		zonas2.add(zonaG);zonas2.add(zonaH);
 		
 		//CREO EL MAP 
 		zonasPorUbicacion = new HashMap<>();
@@ -62,7 +68,7 @@ class GestorDeUbicacionesTest {
 	 */
 	@Test
 	void testObtenerUbicacion() {
-		fail("Not yet implemented");
+		assertEquals(ubicacion3, gestor.obtenerUbicacion(ubicacion3));
 	}
 
 	@Test
@@ -89,22 +95,22 @@ class GestorDeUbicacionesTest {
 
 	@Test
 	void testNotificarNuevaMuestra() {
-		fail("Not yet implemented");
+		when(muestra.getUbicacion()).thenReturn(ubicacion1);
+		
+		gestor.notificarNuevaMuestra(muestra);
+		
+		verify(muestra).getUbicacion();
+		verify(zonaB).cargarMuestraEnZona(muestra);
 	}
 
 	@Test
 	void testNotificarNuevaValidacion() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGestorDeUbicaciones() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetZonasPorUbicacion() {
-		fail("Not yet implemented");
+		when(muestra.getUbicacion()).thenReturn(ubicacion2);
+		
+		gestor.notificarNuevaValidacion(muestra);
+		
+		verify(muestra).getUbicacion();
+		verify(zonaD).validacion(muestra);
 	}
 
 	@Test
@@ -118,7 +124,7 @@ class GestorDeUbicacionesTest {
 	void testGetTodasLasZonas() {
 		
 		assertSame(todasLasZonas,gestor.getTodasLasZonas());
-	}
+	} 
 
 	@Test
 	void testSetTodasLasZonas() {
@@ -129,12 +135,31 @@ class GestorDeUbicacionesTest {
 		
 		assertSame(zonasNueva,gestor.getTodasLasZonas());
 	}
-	/**
-	 * ES IMPORTANTE EL ULTIMO
-	 */
+	
 	@Test
-	void testAsociarZona() {
-		fail("Not yet implemented");
+	void testAsociarZona() throws SinCoberturaException {
+		zonas3.add(zonaI);
+		
+		gestor.asociarUbicacionConZona(ubicacion3, zonaI);
+		
+		assertTrue(gestor.getTodasLasZonas().contains(zonaI));
 	}
+	
+	@Test
+	void testValidarZonaEnUbicacion() {
+	    // Configuramos los mocks
+	    when(zonaI.getEpicentro()).thenReturn(ubicacion2);
+	    when(zonaI.getRadio()).thenReturn(500.0);
+	    when(ubicacion3.distanciaCon(ubicacion2)).thenReturn(1000.0);
+
+	    // Ahora ejecutamos y verificamos que lance la excepción
+	    SinCoberturaException exception = assertThrows(SinCoberturaException.class, () -> {
+	        gestor.validarZonaEnUbicacion(ubicacion3, zonaI);
+	    });
+
+	    // Verificamos el mensaje de la excepción
+	    assertEquals("La Ubicacion no está dentro de la cobertura", exception.getMessage());
+	}
+
 
 }
