@@ -7,17 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Web {
+	Long proximoId = 0l;
 	List<Muestra> muestras = new ArrayList<Muestra>();
-	GestorDeUsuarios gestorUs = new GestorDeUsuarios(this);
+	List<Usuario> usuarios = new ArrayList<Usuario>();
 	GestorDeUbicaciones gestorUbs = new GestorDeUbicaciones(new HashMap<Ubicacion, List<ZonaCobertura>>(), new ArrayList<ZonaCobertura>() );
 	
-	public Web(GestorDeUsuarios gestorUs, GestorDeUbicaciones gestorUbs) {
-		this.gestorUs = gestorUs;
+	public Web(GestorDeUbicaciones gestorUbs) {
 		this.gestorUbs = gestorUbs;
-	}
-	
-	public GestorDeUsuarios getGestorDeUsuarios() {
-		return gestorUs;
 	}
 	
 	public GestorDeUbicaciones getGestorUbicaciones() {
@@ -27,14 +23,49 @@ public class Web {
 	public List<Muestra> todasLasMuestras() {
 		return muestras;
 	}
+	
+	public List<Usuario> todosLosUsuarios(){
+		return usuarios;
+	}
+	
+	public Long getProximoId() {
+		return proximoId;
+	}
 
 	public void agregarMuestra(Muestra nuevaMuestra) {
 		muestras.add(nuevaMuestra);
 		this.notificarNuevaMuestra(nuevaMuestra);
 	}
 	
-	public Ubicacion obtenerUbicacion(Double lat, Double lon) {
-		return gestorUbs.obtenerUbicacion(lat, lon);
+	public void quitarMuestra(Muestra muestra) {
+		if (this.muestras.contains(muestra)) {
+			muestras.remove(muestra);
+		}
+	}
+	
+	public void agregarUsuario() {
+		Usuario usuarioNuevo = new Usuario(this, proximoId);
+		usuarios.add(usuarioNuevo);
+		this.proximoId++;
+	}
+	
+	public void quitarUsuario(Usuario usuario) {
+		if (this.usuarios.contains(usuario)) {
+			usuarios.remove(usuario);
+		}
+	}
+	
+	public void actualizarNivel(List<Usuario> usuarios) {
+		usuarios.stream().forEach(u->u.actualizarNivel());
+	}
+	
+	public void convertirEnEspecialistas(List<Usuario> usuarios) {
+		usuarios.stream().forEach(u->u.convertirEnEspecialista());
+	}
+	
+	public Ubicacion verificarUbicacion(Ubicacion ubicacion) {
+		return gestorUbs.verificarUbicacion(ubicacion);
+		
 	}
 	
 	protected void notificarNuevaMuestra(Muestra muestra) {
