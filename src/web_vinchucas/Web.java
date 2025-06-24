@@ -10,11 +10,7 @@ public class Web {
 	Long proximoId = 0l;
 	List<Muestra> muestras = new ArrayList<Muestra>();
 	List<Usuario> usuarios = new ArrayList<Usuario>();
-	GestorDeUbicaciones gestorUbs = new GestorDeUbicaciones(new HashMap<Ubicacion, List<ZonaCobertura>>(), new ArrayList<ZonaCobertura>() );
-	
-	public Web(GestorDeUbicaciones gestorUbs) {
-		this.gestorUbs = gestorUbs;
-	}
+	GestorDeUbicaciones gestorUbs;
 	
 	//Devuelve el gestor de ubicaciones
 	public GestorDeUbicaciones getGestorUbicaciones() {
@@ -87,6 +83,10 @@ public class Web {
 	//Notifica al gestor de ubicaciones de la validacion de la muestra dada
 	public void notificarNuevaValidacion(Muestra muestra) {
 		gestorUbs.notificarNuevaValidacion(muestra);
+	}
+	
+	public Web(GestorDeUbicaciones gestorUbs) {
+		this.gestorUbs = gestorUbs;
 	}
 
 }

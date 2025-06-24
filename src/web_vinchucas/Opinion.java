@@ -9,13 +9,6 @@ public class Opinion {
 	Nivel nivelUsuario;
 	LocalDate fecha;
 	
-	public Opinion(Long idUsuario, Nivel nivel, IOpinable vo) {
-		this.idUsuario = idUsuario;
-		this.nivelUsuario = nivel;
-		this.fecha = LocalDate.now();
-		this.valorOpinion = vo;
-	}
-	
 	//Devuelve el Id del Usuario que dejo la opinion
 	public Long getIdUsuario() {
 		return this.idUsuario;
@@ -34,6 +27,13 @@ public class Opinion {
 	//Devuelve la fecha en la que se registro la opinion
 	public LocalDate getFecha() {
 		return this.fecha;
+	}
+	
+	public Opinion(Long idUsuario, Nivel nivel, IOpinable vo) {
+		this.idUsuario = idUsuario;
+		this.nivelUsuario = nivel;
+		this.fecha = LocalDate.now();
+		this.valorOpinion = vo;
 	}
 
 }

@@ -6,12 +6,12 @@ public enum TipoOpinion implements IOpinable{
 	
 	String valor;
 	
-	TipoOpinion (String v){
-		this.valor = v;
-	}
-	
 	//Devuelve un string con el valor asociado al TipoOpinion
 	public String getValor() {
 		return this.valor;
+	}
+	
+	TipoOpinion (String v){
+		this.valor = v;
 	}
 }

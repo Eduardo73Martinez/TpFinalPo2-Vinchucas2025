@@ -6,12 +6,12 @@ public enum TipoVinchuca implements IOpinable{
 	
 	String valor;
 	
-	TipoVinchuca(String v) {
-		this.valor = v;
-	}
-	
 	//Devuelve el String asociado al TipoVinchuca
 	public String getValor() {
 		return this.valor;
+	}
+	
+	TipoVinchuca(String v) {
+		this.valor = v;
 	}
 }

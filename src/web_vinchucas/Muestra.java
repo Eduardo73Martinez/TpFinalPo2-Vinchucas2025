@@ -21,16 +21,6 @@ public class Muestra {
 	
 	List<Opinion> opiniones = new ArrayList<Opinion>();
 	
-	public Muestra(Web w, Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
-		this.web = w;
-		this.autor = u;
-		this.vinchuca = t;
-		this.foto = f;
-		this.estado = new OpinionBasicos();
-		this.ubicacion = ub;
-		this.fechaCreacion = LocalDate.now(); 
-		this.agregarOpinion(new Opinion(u.getId(),u.getNivel(),t));
-	}
 	
 	
 	//Devuelve un string con el resultado actual de la verificacion de la Muestra
@@ -73,13 +63,6 @@ public class Muestra {
 		return fechaUltimaVotacion;
 	}
 	
-	//Agrega una opinion sobre la muestra
-	public void agregarOpinion(Opinion o) {
-		this.opiniones.add(o);
-		this.fechaUltimaVotacion = LocalDate.now();
-		this.estado.verificar(this);
-	}
-	
 	//Devuelve el estado de Verificacion actual de la muestra
 	public Verificacion getVerificacion() {
 		return this.estado;
@@ -88,6 +71,13 @@ public class Muestra {
 	//Setea el estado de verificacion actual de la muestra
 	public void setVerificacion(Verificacion v) {
 		this.estado = v;
+	}
+	
+	//Agrega una opinion sobre la muestra
+	public void agregarOpinion(Opinion o) {
+		this.opiniones.add(o);
+		this.fechaUltimaVotacion = LocalDate.now();
+		this.estado.verificar(this);
 	}
 	
 	/*
@@ -152,6 +142,17 @@ public class Muestra {
 	private boolean yaVoto(Usuario u) {
 		List<Long> idVotantes = this.opiniones.stream().map(o->o.getIdUsuario()).toList();
 		return idVotantes.contains(u.getId());
+	}
+	
+	public Muestra(Web w, Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
+		this.web = w;
+		this.autor = u;
+		this.vinchuca = t;
+		this.foto = f;
+		this.estado = new OpinionBasicos();
+		this.ubicacion = ub;
+		this.fechaCreacion = LocalDate.now(); 
+		this.agregarOpinion(new Opinion(u.getId(),u.getNivel(),t));
 	}
 	
 }	
