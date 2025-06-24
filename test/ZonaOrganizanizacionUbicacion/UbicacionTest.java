@@ -29,8 +29,7 @@ class UbicacionTest {
 		muestra1 = mock(Muestra.class);
 		muestra2 = mock(Muestra.class);
 		muestra3 = mock(Muestra.class);
-		
- 
+
 		ubicacionesCercanas.add(ubicacion2);
 		ubicacionesCercanas.add(ubicacion3);
 
@@ -71,16 +70,42 @@ class UbicacionTest {
 
 	@Test
 	void testListaUbicacionesConDistanciaMenorA() {
-		
+
 		List<Ubicacion> lista = miubicacion.ubicacionesCercanas(ubicacionesCercanas, 50.0);
-		
+
 		assertEquals(1, lista.size());
 	}
-	/**
-	 * IMPORTANTE PREGUNTAR SI IMPLEMENTO ESTA FUNCIONALIDAD 
-	 * O LA DEJO QUE LA IMPLEMENTE LA CLASE MUESTRA
-	 * 
-	 * 
-	 */
+
+	@Test
+	void testEquals() {
+		Ubicacion ubicacion4 = ubicacion2;
+		assertTrue(ubicacion2.equals(ubicacion4));
+		assertFalse(miubicacion.equals(ubicacion4));
+		assertFalse(miubicacion.equals(muestra1));
+	}
+
+	@Test
+	void testNotEquals() {
+		Ubicacion ubicacion4 = ubicacion2;
+		assertFalse(miubicacion.equals(ubicacion4));
+	}
+
+	@Test
+	void testHashCodeIgualParaObjetosIguales() {
+		Ubicacion u1 = new Ubicacion(12.1, 10.0);
+		Ubicacion u2 = new Ubicacion(12.1, 10.0);
+
+		assertEquals(u1, u2); // Verifica equals
+		assertEquals(u1.hashCode(), u2.hashCode(), "Los hashCodes deben ser iguales");
+	}
+
+	@Test
+	void testHashCodeDistintoParaObjetosDistintos() {
+		Ubicacion u1 = new Ubicacion(12.1, 10.0);
+		Ubicacion u2 = new Ubicacion(11.0, 9.0);
+
+		// No hay garantía, pero es muy probable que sean distintos
+		assertNotEquals(u1.hashCode(), u2.hashCode(), "HashCodes deberían ser distintos si los valores lo son");
+	}
 
 }
