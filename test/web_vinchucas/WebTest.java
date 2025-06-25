@@ -226,15 +226,13 @@ public class WebTest {
 	}
 	
 	@Test
-	void testObtenerUbicacion() {
-		//SetUp
-		when(gestorUbs_1.verificarUbicacion(ubicacion_1)).thenReturn(ubicacion_1);
+	void testRefistrarEnElGestor() {
 		
 		//Exercise
-		Ubicacion nuevaUb = web.verificarUbicacion(ubicacion_1);
+		web.registrarEnElGestor(ubicacion_1);
 		
 		//Verify
-		assertEquals(nuevaUb,ubicacion_1);
+		verify(gestorUbs_1).obtenerUbicacion(ubicacion_1);
 	}
 	
 	@Test

@@ -94,7 +94,6 @@ public class UsuarioTest {
 		
 		when(ubicacion_1.getLatidud()).thenReturn(lat);
 		when(ubicacion_1.getLongitud()).thenReturn(lon);
-		when(miWeb.verificarUbicacion(ubicacion_1)).thenReturn(ubicacion_1);
 	}
 	
 	@Test
@@ -155,6 +154,7 @@ public class UsuarioTest {
 		//Exercise
 		Muestra nuevaMuestra = miUsuario.crearMuestra(tipoVinchuca_1, lat, lon);
 		//Verify
+		verify(miWeb).registrarEnElGestor(any());
 		assertEquals(nuevaMuestra.getVinchuca(),tipoVinchuca_1);
 		assertEquals(nuevaMuestra.getPersona(),miUsuario);
 		assertEquals(nuevaMuestra.getUbicacion().getLatidud(),lat);
@@ -164,7 +164,6 @@ public class UsuarioTest {
 	
 	@Test
 	void testEnviarMuestra() {
-		
 		//Exercise
 		miUsuario.enviarMuestra(tipoVinchuca_1, lat, lon);
 		
@@ -172,6 +171,7 @@ public class UsuarioTest {
 		Muestra muestraCreada = miUsuario.getMuestras().getFirst();
 				
 		verify(miWeb).agregarMuestra(muestraCreada);
+		verify(miWeb).registrarEnElGestor(any());
 		assertEquals(muestraCreada.getPersona(),miUsuario);
 		assertEquals(muestraCreada.getVinchuca(),tipoVinchuca_1);
 		assertEquals(muestraCreada.getUbicacion().getLatidud(),lat);
