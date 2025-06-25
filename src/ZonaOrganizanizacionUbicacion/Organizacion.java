@@ -82,4 +82,12 @@ public class Organizacion implements OrganizacionNoGubernamental {
 		this.getFuncionalidadExternaCarga().nuevoEvento(this, zona, muestra);
 		;
 	}
+
+	public void setCarga(FuncionalidadExterna carga) {
+		this.carga = carga;
+	}
+
+	public void setValidacion(FuncionalidadExterna validacion) {
+		this.validacion = validacion;
+	}
 }

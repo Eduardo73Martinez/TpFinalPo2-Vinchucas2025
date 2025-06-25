@@ -107,7 +107,25 @@ class OrganizacionTest {
 	void testNotifyMeCarga() {
 		Muestra muestra = mock(Muestra.class);
 		organizacion.notifyMeCarga(zona1, muestra);
-		verify(validacion).nuevoEvento(organizacion, zona1, muestra);
+		verify(carga).nuevoEvento(organizacion, zona1, muestra);
+	}
+	
+	@Test
+	void testSetFuncionalidadExteraCarga() {
+		FuncionalidadExterna nuevaCarga = mock(FuncionalidadExterna.class);
+		
+		organizacion.setCarga(nuevaCarga);
+
+		assertEquals(nuevaCarga, organizacion.getFuncionalidadExternaCarga());
+	}
+
+	@Test
+	void testSetFuncionalidadExteraValidacion() {
+		FuncionalidadExterna nuevaValidacion = mock(FuncionalidadExterna.class);
+		
+		organizacion.setValidacion(nuevaValidacion);
+
+		assertEquals(nuevaValidacion, organizacion.getFuncionalidadExternaValidacion());
 	}
 
 }
