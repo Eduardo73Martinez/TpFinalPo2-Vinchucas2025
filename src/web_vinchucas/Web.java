@@ -70,8 +70,8 @@ public class Web {
 	}
 	
 	//Envia la ubicacion dada al gestor de ubicaciones y retorna una ubicacion verificada
-	public Ubicacion registrarEnElGestor(Ubicacion ubicacion) {
-		return gestorUbs.obtenerUbicacion(ubicacion);
+	public void registrarEnElGestor(Ubicacion ubicacion) {
+		gestorUbs.obtenerUbicacion(ubicacion);
 	}
 	
 	//Notifica al gestor de ubicaciones de la creacion de la muestra dada
