@@ -3,10 +3,6 @@ package ZonaOrganizanizacionUbicacion;
 import java.util.List;
 import web_vinchucas.*;
 
-/*
- * HAY UN OBESERVER EN ESTA CLASE, AL AVISAR A LAS ORGANIZACIONES. CUANDO OCURRE UN EVENTO 
- * LES AVISA A TODAS LAS SUBSCRIPTAS.
- */
 public class ZonaCobertura {
 	private String nombre;
 	private Ubicacion epicentro;
@@ -35,7 +31,10 @@ public class ZonaCobertura {
 
 	}
 	// METODOS QUE PIDE EL TP
-
+	/***
+	 * SUSCRIBE UNA ORGANIZACION A ESTA ZONA, LUEGO SERÁ NOTIFICADA DE LOS EVENTOS DE ESTA ZONA.
+	 * @param organizacion
+	 */
 	public void sucribeOrganizacion(Organizacion organizacion) {
 		// TODO Auto-generated method stub
 		this.organizaciones.add(organizacion);
@@ -55,20 +54,34 @@ public class ZonaCobertura {
 	public boolean tieneCoberturaLaUbicacion(Ubicacion ubicacion) {
 		return this.getEpicentro().distanciaCon(ubicacion) <= this.getRadio();
 	}
-
+	/***
+	 * NOTIFICA A LAS ORGANIZACIONES QUE UNA MUESTRA SE VERIFICÓ. 
+	 * ANTES VALIDA SI TIENE COBERTURA.
+	 * @param muestra
+	 */
 	public void validacion(Muestra muestra) {
 		if (this.tieneCoberturaLaMuestra(muestra)) {
 			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeValidation(this, muestra));
 		}
 	}
-
+	
+	/**
+	 * AGREGA UNA MUESTRA A LA LISTA DE MUESTRAS QUE ESTAN CUBIERTAS.
+	 * ANTES VALIDA SI TIENE COBERTURA, LUEGO NOTIFICA A LAS ORGANIZACIONES CORRESPONDIENTES.
+	 * @param muestra
+	 */
 	public void cargarMuestraEnZona(Muestra muestra) {
 		if (this.tieneCoberturaLaMuestra(muestra)) {
-			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeCarga(this, muestra));
 			this.cargarMuestra(muestra);
+			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeCarga(this, muestra));
 		}
 	}
-
+	
+	/***
+	 * MUESTRA TODAS LAS ZONAS QUE SE SOLAPAN. (LLAMÉ AL METODO INTERSECCIONES)
+	 * @param zonaDeCoberturas
+	 * @return
+	 */
 	public List<ZonaCobertura> intersecciones(List<ZonaCobertura> zonaDeCoberturas) {
 		return zonaDeCoberturas.stream().filter(zona -> zona.interseccionConZona(this)).toList();
 	}
@@ -76,6 +89,16 @@ public class ZonaCobertura {
 	public boolean interseccionConZona(ZonaCobertura zona) {
 		return this.epicentro.distanciaCon(zona.getEpicentro()) <= this.getRadio();
 	}
+	
+	/***
+	 * LISTA TODAS LAS MUESTRAS QUE ESTA ZONA CUBRE.
+	 * @return
+	 */
+	public List<Muestra> getMuestras() {
+		// TODO Auto-generated method stub
+		return this.muestras;
+	}
+	
 
 	// getters y setters usados.
 	public String getNombre() {
@@ -107,16 +130,17 @@ public class ZonaCobertura {
 		// TODO Auto-generated method stub
 		this.radio = radioN;
 	}
-
+	
+	/**
+	 * METODO INTERNO. SE USA PARA CARGAR PERO ANTES CON EL OTRO METODO
+	 * NOS ASEGURAMOS QUE TENGA COBERTURA.
+	 * 
+	 * @param muestra
+	 */
 	public void cargarMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
 		this.muestras.add(muestra);
 
-	}
-
-	public List<Muestra> getMuestras() {
-		// TODO Auto-generated method stub
-		return this.muestras;
 	}
 
 	public List<Organizacion> getOrganizaciones() {

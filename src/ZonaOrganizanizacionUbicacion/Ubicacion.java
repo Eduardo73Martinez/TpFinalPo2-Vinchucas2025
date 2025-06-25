@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Ubicacion {
 	private Double latitud;
 	private Double longitud;
-	private ZonaCobertura zona;
 
 	public Ubicacion(Double latitud, Double longitud) {
 		// TODO Auto-generated constructor stub
@@ -23,13 +22,13 @@ public class Ubicacion {
 	/**
 	 * d = √( (x₂ - x₁)² + (y₂ - y₁)²)
 	 * 
-	 * @param distancia entre dos puntos en el plano.
-	 * @return
+	 * @param  OTRA UBICACION
+	 * @return LA DISTANCIA ENTRE DOS UBICACIONES.
 	 */
-	public double distanciaCon(Ubicacion distancia2) {
+	public double distanciaCon(Ubicacion ubicacion2) {
 		// TODO Auto-generated method stub
-		return this.raizCuadrada(this.potencia(this.getLatidud() - distancia2.getLatidud())
-				+ this.potencia(this.getLongitud() - distancia2.getLongitud()));
+		return this.raizCuadrada(this.potencia(this.getLatidud() - ubicacion2.getLatidud())
+				+ this.potencia(this.getLongitud() - ubicacion2.getLongitud()));
 	}
 
 	public double raizCuadrada(double numero) {
@@ -63,7 +62,7 @@ public class Ubicacion {
 	
 	/**
 	 * METODOS PARA QUE SOLAMENTE SEAN IGUALES LAS UBICACIONES CUANDO 
-	 * SUS ATRIBUTOS SON IGUALES. 
+	 * SUS COORDENADAS SON IGUALES. 
 	 * 
 	 * HASH CODE ES PARA QUE SEAN IGUALES CON EQUALS EN LOS MAPS.
 	 */
