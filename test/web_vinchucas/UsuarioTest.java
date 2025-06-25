@@ -94,7 +94,7 @@ public class UsuarioTest {
 		
 		when(ubicacion_1.getLatidud()).thenReturn(lat);
 		when(ubicacion_1.getLongitud()).thenReturn(lon);
-		when(miWeb.verificarUbicacion(ubicacion_1)).thenReturn(ubicacion_1);
+		when(miWeb.registrarEnElGestor(ubicacion_1)).thenReturn(ubicacion_1);
 	}
 	
 	@Test
@@ -152,6 +152,8 @@ public class UsuarioTest {
 	}
 	@Test
 	void testCrearMuestra() {
+		//Setup
+		when(miWeb.registrarEnElGestor(any())).thenReturn(ubicacion_1);
 		//Exercise
 		Muestra nuevaMuestra = miUsuario.crearMuestra(tipoVinchuca_1, lat, lon);
 		//Verify
@@ -164,7 +166,8 @@ public class UsuarioTest {
 	
 	@Test
 	void testEnviarMuestra() {
-		
+		//Setup
+		when(miWeb.registrarEnElGestor(any())).thenReturn(ubicacion_1);
 		//Exercise
 		miUsuario.enviarMuestra(tipoVinchuca_1, lat, lon);
 		

@@ -78,7 +78,7 @@ public class Usuario {
 	//Crea una nueva Muestra con el TipoVinchuca y coordenadas dados por parametro
 	protected Muestra crearMuestra(TipoVinchuca t,Double latitud, Double longitud) {
 		Foto foto = new Foto();
-		Ubicacion ubicacion = web.verificarUbicacion(new Ubicacion(latitud,longitud));
+		Ubicacion ubicacion = web.registrarEnElGestor(new Ubicacion(latitud,longitud));
 		Muestra nuevaMuestra = new Muestra(web,this,t,foto,ubicacion);
 		return nuevaMuestra;
 	}

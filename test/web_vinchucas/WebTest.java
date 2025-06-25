@@ -228,10 +228,10 @@ public class WebTest {
 	@Test
 	void testObtenerUbicacion() {
 		//SetUp
-		when(gestorUbs_1.verificarUbicacion(ubicacion_1)).thenReturn(ubicacion_1);
+		when(gestorUbs_1.obtenerUbicacion(ubicacion_1)).thenReturn(ubicacion_1);
 		
 		//Exercise
-		Ubicacion nuevaUb = web.verificarUbicacion(ubicacion_1);
+		Ubicacion nuevaUb = web.registrarEnElGestor(ubicacion_1);
 		
 		//Verify
 		assertEquals(nuevaUb,ubicacion_1);
