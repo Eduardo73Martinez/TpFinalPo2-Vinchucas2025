@@ -9,17 +9,16 @@ public class GestorDeUbicaciones {
 	private List<ZonaCobertura> todasLasZonas;
 
 	/**
-	 * DEVUELVE UNA UBICACION Y LA REGISTRA SI NO SE ENCUENTRA EN EL GESTOR.
+	 *  REGISTRA UNA UBICACION SI NO SE ENCUENTRA EN EL GESTOR.
 	 * 
 	 * @param lat LATITUD DE LA UBICACION
 	 * @param lon LONGITUD DE LA UBICACION
 	 * @return UNA UBICACION, SI NO EXISTE LA CREAMOS Y AGREGAMOS AL GESTOR COMO
 	 *         CLAVE DE LAS ZONAS.
 	 */
-	public Ubicacion obtenerUbicacion(Ubicacion ubicacion) {
+	public void obtenerUbicacion(Ubicacion ubicacion) {
 		// TODO Auto-generated method stub
 		this.registrarUbicacion(ubicacion);
-		return ubicacion;
 	}
 
 	/**
@@ -41,12 +40,8 @@ public class GestorDeUbicaciones {
 	 * @throws SinCoberturaException
 	 */
 	public void asociarUbicacionConZona(Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException {
-		Ubicacion ubicacionR = this.obtenerUbicacion(ubicacion);
-		this.validarZonaEnUbicacion(ubicacionR, zona); // VALIDA QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
-		List<ZonaCobertura> zonasDeU = this.getZonasPorUbicacion().get(ubicacion);// BUSCO LA LISTA DE ESA UBICACION.
-		zonasDeU.add(zona); // ACTUALIZO LA LISTA CON LA ZONA DADA.
-		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// LA ASOCIO NUEVAMENTE EN EL MAP.
-		this.registrarZona(zona); // LA AGREGO A LA LISTA GENERAL.
+		this.validarZonaEnUbicacion(ubicacion, zona); // VALIDA QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
+		this.actualizarUbicacionConListaDeZonas(ubicacion);
 	}
 
 	/**
@@ -70,8 +65,8 @@ public class GestorDeUbicaciones {
 	 * @param ubicacion
 	 */
 	private void actualizarUbicacionConListaDeZonas(Ubicacion ubicacion) {
-		List<ZonaCobertura> listaZonas = this.zonasQueCubrenLaUbicacion(ubicacion);
-		this.getZonasPorUbicacion().put(ubicacion, listaZonas);
+		List<ZonaCobertura> listaZonas = this.zonasQueCubrenLaUbicacion(ubicacion);// BUSCA TODAS LAS ZONAS QUE LA CUBREN 
+		this.getZonasPorUbicacion().put(ubicacion, listaZonas);// ACTUALIZA EL MAP
 
 	}
 
@@ -94,8 +89,8 @@ public class GestorDeUbicaciones {
 	 */
 	public void notificarNuevaMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
-		Ubicacion ubicacionABuscar = this.obtenerUbicacion(muestra.getUbicacion());
-		this.zonasPorUbicacion.get(ubicacionABuscar).stream().forEach(zona -> zona.cargarMuestraEnZona(muestra));
+		this.obtenerUbicacion(muestra.getUbicacion());
+		this.zonasPorUbicacion.get(muestra.getUbicacion()).stream().forEach(zona -> zona.cargarMuestraEnZona(muestra));
 
 	}
 
@@ -107,20 +102,21 @@ public class GestorDeUbicaciones {
 	public void notificarNuevaValidacion(Muestra muestra) {
 		// TODO Auto-generated method stub
 
-		Ubicacion ubicacionABuscar = this.obtenerUbicacion(muestra.getUbicacion());
-		this.zonasPorUbicacion.get(ubicacionABuscar).stream().forEach(zona -> zona.validacion(muestra));
+		this.obtenerUbicacion(muestra.getUbicacion());
+		this.zonasPorUbicacion.get(muestra.getUbicacion()).stream().forEach(zona -> zona.validacion(muestra));
 	}
 
 	/**
-	 * SU FUNCION ES AGREGAR A LA LISTA GENERAL DE ZONAS. NO ASOCIA NI ACTUALIZA EL
-	 * MAP.
+	 * SU FUNCION ES AGREGAR A LA LISTA GENERAL DE ZONA Y ACTUALIZAR EL MAP.
 	 */
 	public void registrarZona(ZonaCobertura zona) {
-		this.getTodasLasZonas().add(zona);
+		this.getTodasLasZonas().add(zona); // AGREGA LA ZONA A LA LISTA GENERAL 
+		this.asociarUbicacionConZona(zona.getEpicentro(), zona); // ACTUALIZA EL MAP CON ESA ZONA.
 	}
 
 	public void sacarZona(ZonaCobertura zona) {
 		this.getTodasLasZonas().remove(zona);
+		this.getZonasPorUbicacion().keySet().stream().forEach(ubicacion -> this.actualizarUbicacionConListaDeZonas(ubicacion));
 	}
 
 	/**
