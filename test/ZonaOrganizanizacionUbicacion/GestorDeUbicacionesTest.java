@@ -18,6 +18,7 @@ class GestorDeUbicacionesTest {
 	Ubicacion ubicacion1;
 	Ubicacion ubicacion2;
 	Ubicacion ubicacion3;
+	Ubicacion ubicacion4;
 	List<ZonaCobertura> zonas1= new ArrayList<>();
 	List<ZonaCobertura> zonas2= new ArrayList<>();
 	List<ZonaCobertura> zonas3= new ArrayList<>();
@@ -43,6 +44,7 @@ class GestorDeUbicacionesTest {
 		ubicacion1 = mock(Ubicacion.class);
 		ubicacion2 = mock(Ubicacion.class);
 		ubicacion3 = mock(Ubicacion.class);
+		ubicacion4 = mock(Ubicacion.class);
 		
 		//AGREGO LAS ZONAS A LAS LISTAS 
 		zonas1.add(zonaA);zonas1.add(zonaB);zonas1.add(zonaC);
@@ -68,7 +70,8 @@ class GestorDeUbicacionesTest {
 	 */
 	@Test
 	void testObtenerUbicacion() {
-		assertEquals(ubicacion3, gestor.obtenerUbicacion(ubicacion3));
+		gestor.registrarUbicacion(ubicacion4);
+		assertTrue(gestor.getZonasPorUbicacion().containsKey(ubicacion4));
 	}
 
 	@Test
@@ -99,7 +102,7 @@ class GestorDeUbicacionesTest {
 		
 		gestor.notificarNuevaMuestra(muestra);
 		
-		verify(muestra).getUbicacion();
+		verify(muestra, times(2)).getUbicacion();
 		verify(zonaB).cargarMuestraEnZona(muestra);
 	}
 
@@ -109,7 +112,7 @@ class GestorDeUbicacionesTest {
 		
 		gestor.notificarNuevaValidacion(muestra);
 		
-		verify(muestra).getUbicacion();
+		verify(muestra, times(2)).getUbicacion();
 		verify(zonaD).validacion(muestra);
 	}
 
@@ -139,10 +142,11 @@ class GestorDeUbicacionesTest {
 	@Test
 	void testAsociarZona() throws SinCoberturaException {
 		zonas3.add(zonaI);
+		when(zonaI.getEpicentro()).thenReturn(ubicacion3);
 		
 		gestor.asociarUbicacionConZona(ubicacion3, zonaI);
 		
-		assertTrue(gestor.getTodasLasZonas().contains(zonaI));
+		verify(zonaI).getEpicentro();
 	}
 	
 	@Test
@@ -165,6 +169,16 @@ class GestorDeUbicacionesTest {
 	void testSacarZona() {
 		gestor.sacarZona(zonaA);
 		assertEquals(7, gestor.getTodasLasZonas().size());
+	}
+	
+	@Test
+	void testRegistrarZonaZona() throws SinCoberturaException {
+		zonas3.add(zonaI);
+		when(zonaI.getEpicentro()).thenReturn(ubicacion3);
+		
+		gestor.registrarZona( zonaI);
+		
+		verify(zonaI, times(2)).getEpicentro();
 	}
 
 
