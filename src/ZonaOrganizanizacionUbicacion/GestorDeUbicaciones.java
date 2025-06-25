@@ -9,6 +9,7 @@ public class GestorDeUbicaciones {
 	private List<ZonaCobertura> todasLasZonas;
 
 	/**
+	 * DEVUELVE UNA UBICACION Y LA REGISTRA SI NO SE ENCUENTRA EN EL GESTOR.
 	 * 
 	 * @param lat LATITUD DE LA UBICACION
 	 * @param lon LONGITUD DE LA UBICACION
@@ -17,56 +18,73 @@ public class GestorDeUbicaciones {
 	 */
 	public Ubicacion obtenerUbicacion(Ubicacion ubicacion) {
 		// TODO Auto-generated method stub
-		this.validarUbicacion(ubicacion);
-		return ubicacion; 
+		this.registrarUbicacion(ubicacion);
+		return ubicacion;
 	}
 
-	public void validarUbicacion(Ubicacion ubicacion) {
+	/**
+	 * AGREGA UNA UBICACION AL MAP SI NO EXISTE, CON LAS ZONAS QUE LA CUBREN.	 * 
+	 * @param ubicacion
+	 */
+	public void registrarUbicacion(Ubicacion ubicacion) {
 		if (!this.getZonasPorUbicacion().containsKey(ubicacion)) {
-			this.zonasQueCubrenLaUbicacion(ubicacion);
-			this.zonasPorUbicacion.put(ubicacion, new ArrayList<ZonaCobertura>());
-		} 
+			this.actualizarUbicacionConListaDeZonas(ubicacion);
+		}
 	}
-	/** 
-	 * ASOCIA UNA ZONA CON UNA UBICACION. 
+
+	/**
+	 * REGISTRA UNA ZONA QUE CUBRE UNA UBICACION; CHEQUEA ANTES DE ASOCIAR SI LA
+	 * ZONA LA CUBRE (FUNCION EXCLUSIVA DEL MAP).
+	 *  
 	 * @param zona
 	 * @param ubicacion
-	 * @throws SinCoberturaException 
+	 * @throws SinCoberturaException
 	 */
-	public void asociarUbicacionConZona( Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException {
+	public void asociarUbicacionConZona(Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException {
 		Ubicacion ubicacionR = this.obtenerUbicacion(ubicacion);
-		this.validarZonaEnUbicacion(ubicacionR, zona); //VALIDA  QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
-		List<ZonaCobertura> zonasDeU = this.getZonasPorUbicacion().get(ubicacionR); // BUSCO LA LISTA EN EL MAP.
-		zonasDeU.add(zona); // ACTUALIZO LA LISTA 
+		this.validarZonaEnUbicacion(ubicacionR, zona); // VALIDA QUE LA UBICACION ESTA CUBIERTA POR ESA ZONA.
+		List<ZonaCobertura> zonasDeU = this.getZonasPorUbicacion().get(ubicacion);// BUSCO LA LISTA DE ESA UBICACION.
+		zonasDeU.add(zona); // ACTUALIZO LA LISTA CON LA ZONA DADA.
 		this.getZonasPorUbicacion().put(ubicacionR, zonasDeU);// LA ASOCIO NUEVAMENTE EN EL MAP.
-		this.getTodasLasZonas().add(zona); // LA AGREGO A LA LISTA GENERAL.
-	} 
-	
+		this.registrarZona(zona); // LA AGREGO A LA LISTA GENERAL.
+	}
+
 	/**
 	 * VALIDA QUE LA UBICACION ESTÁ DENTRO DE LA COVERTURA.
-	 * @param ubicacion 						
+	 * 
+	 * @param ubicacion
 	 * @param zona
-	 * @throws IOError
-	 * @throws SinCoberturaException 
+	 * @throws SinCoberturaException
 	 */
-	public void validarZonaEnUbicacion(Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException{
+	public void validarZonaEnUbicacion(Ubicacion ubicacion, ZonaCobertura zona) throws SinCoberturaException {
 		// TODO Auto-generated method stub
 		if (ubicacion.distanciaCon(zona.getEpicentro()) > zona.getRadio()) {
 			throw new SinCoberturaException("La Ubicacion no está dentro de la cobertura");
 		}
-		
+
 	}
-	
+
+	/***
+	 * ACTIALIZA LA UBICACION CON LA LISTA DE ZONAS QUE LA CUBREN.
+	 * 
+	 * @param ubicacion
+	 */
+	private void actualizarUbicacionConListaDeZonas(Ubicacion ubicacion) {
+		List<ZonaCobertura> listaZonas = this.zonasQueCubrenLaUbicacion(ubicacion);
+		this.getZonasPorUbicacion().put(ubicacion, listaZonas);
+
+	}
+
 	/**
-	 * BUSCA LAS ZONAS QUE CUBREN LA UBICACION DADA EN LA LISTA DE ZONAS.
-	 * (EN NUESTRO MODELO TODAS LAS ZONAS DEBEN ESTAR REGISTRADAS EN ESA COLLECCION).
-	 * @param ubicacion 
+	 * BUSCA LAS ZONAS QUE CUBREN LA UBICACION DADA EN LA LISTA DE ZONAS. (EN
+	 * NUESTRO MODELO TODAS LAS ZONAS DEBEN ESTAR REGISTRADAS EN ESA COLLECCION).
+	 * 
+	 * @param ubicacion
 	 * @return LA LISTA DE ZONAS QUE LA CUBREN ESA UBICACIÓN.
 	 */
-	public List<ZonaCobertura> zonasQueCubrenLaUbicacion(Ubicacion ubicacion){
+	public List<ZonaCobertura> zonasQueCubrenLaUbicacion(Ubicacion ubicacion) {
 		return this.getTodasLasZonas().stream().filter(zona -> zona.tieneCoberturaLaUbicacion(ubicacion)).toList();
 	}
-	
 
 	/**
 	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARCIÓ UNA MUESTRA NUEVA.
@@ -94,8 +112,20 @@ public class GestorDeUbicaciones {
 	}
 
 	/**
-	 * SU RESPONSABILIDAD ES GESTIONAR UBICACIONES Y ZONAS Y AVISAR SI HAY ALGUN EVENTO EN 
-	 * ALGUNA UBICACION.
+	 * SU FUNCION ES AGREGAR A LA LISTA GENERAL DE ZONAS. NO ASOCIA NI ACTUALIZA EL
+	 * MAP.
+	 */
+	public void registrarZona(ZonaCobertura zona) {
+		this.getTodasLasZonas().add(zona);
+	}
+
+	public void sacarZona(ZonaCobertura zona) {
+		this.getTodasLasZonas().remove(zona);
+	}
+
+	/**
+	 * SU RESPONSABILIDAD ES GESTIONAR UBICACIONES Y ZONAS Y AVISAR SI HAY ALGUN
+	 * EVENTO EN ALGUNA UBICACION.
 	 * 
 	 * @param zonasPorUbicacion
 	 * @param todasLasZonas
