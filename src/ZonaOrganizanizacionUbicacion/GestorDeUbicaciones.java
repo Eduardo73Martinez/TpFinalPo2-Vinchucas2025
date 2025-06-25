@@ -23,6 +23,7 @@ public class GestorDeUbicaciones {
 
 	public void validarUbicacion(Ubicacion ubicacion) {
 		if (!this.getZonasPorUbicacion().containsKey(ubicacion)) {
+			this.zonasQueCubrenLaUbicacion(ubicacion);
 			this.zonasPorUbicacion.put(ubicacion, new ArrayList<ZonaCobertura>());
 		} 
 	}
@@ -55,6 +56,17 @@ public class GestorDeUbicaciones {
 		}
 		
 	}
+	
+	/**
+	 * BUSCA LAS ZONAS QUE CUBREN LA UBICACION DADA EN LA LISTA DE ZONAS.
+	 * (EN NUESTRO MODELO TODAS LAS ZONAS DEBEN ESTAR REGISTRADAS EN ESA COLLECCION).
+	 * @param ubicacion 
+	 * @return LA LISTA DE ZONAS QUE LA CUBREN ESA UBICACIÓN.
+	 */
+	public List<ZonaCobertura> zonasQueCubrenLaUbicacion(Ubicacion ubicacion){
+		return this.getTodasLasZonas().stream().filter(zona -> zona.tieneCoberturaLaUbicacion(ubicacion)).toList();
+	}
+	
 
 	/**
 	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARCIÓ UNA MUESTRA NUEVA.

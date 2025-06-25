@@ -1,4 +1,5 @@
 package ZonaOrganizanizacionUbicacion;
+
 import java.util.List;
 import web_vinchucas.*;
 
@@ -48,9 +49,13 @@ public class ZonaCobertura {
 	}
 
 	public boolean tieneCoberturaLaMuestra(Muestra muestra) {
-		return this.epicentro.distanciaCon(muestra.getUbicacion()) <= this.getRadio();
+		return this.tieneCoberturaLaUbicacion(muestra.getUbicacion());
 	}
- 
+
+	public boolean tieneCoberturaLaUbicacion(Ubicacion ubicacion) {
+		return this.getEpicentro().distanciaCon(ubicacion) <= this.getRadio();
+	}
+
 	public void validacion(Muestra muestra) {
 		if (this.tieneCoberturaLaMuestra(muestra)) {
 			this.organizaciones.stream().forEach(organizacion -> organizacion.notifyMeValidation(this, muestra));
@@ -65,11 +70,11 @@ public class ZonaCobertura {
 	}
 
 	public List<ZonaCobertura> intersecciones(List<ZonaCobertura> zonaDeCoberturas) {
-		return zonaDeCoberturas.stream().filter(zona ->zona.interseccionConZona(this)).toList();
+		return zonaDeCoberturas.stream().filter(zona -> zona.interseccionConZona(this)).toList();
 	}
 
 	public boolean interseccionConZona(ZonaCobertura zona) {
-		return this.epicentro.distanciaCon(zona.getEpicentro())<= this.getRadio();
+		return this.epicentro.distanciaCon(zona.getEpicentro()) <= this.getRadio();
 	}
 
 	// getters y setters usados.
@@ -87,9 +92,10 @@ public class ZonaCobertura {
 		// TODO Auto-generated method stub
 		return this.epicentro;
 	}
+
 	public Ubicacion setEpicentro(Ubicacion ubicacion) {
 		// TODO Auto-generated method stub
-		return this.epicentro= ubicacion;
+		return this.epicentro = ubicacion;
 	}
 
 	public Double getRadio() {
@@ -112,8 +118,8 @@ public class ZonaCobertura {
 		// TODO Auto-generated method stub
 		return this.muestras;
 	}
-	
-	public List<Organizacion> getOrganizaciones(){
+
+	public List<Organizacion> getOrganizaciones() {
 		return this.organizaciones;
 	}
 
