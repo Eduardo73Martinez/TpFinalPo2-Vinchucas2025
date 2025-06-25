@@ -76,7 +76,7 @@ class GestorDeUbicacionesTest {
 		// La ubicación ya está en el mapa (setUp la agregó)
 		assertTrue(gestor.getZonasPorUbicacion().containsKey(ubicacion1));
 
-		gestor.validarUbicacion(ubicacion1);
+		gestor.registrarUbicacion(ubicacion1);
 
 		// El mapa no debería haber cambiado
 		assertEquals(3, gestor.getZonasPorUbicacion().size());
@@ -87,7 +87,7 @@ class GestorDeUbicacionesTest {
 	void testValidarUbicacionFalse() {
 		Ubicacion ubicacion4 = mock(Ubicacion.class);
 
-		gestor.validarUbicacion(ubicacion4);
+		gestor.registrarUbicacion(ubicacion4);
 
 		// El mapa no debería haber cambiado
 		assertEquals(4, gestor.getZonasPorUbicacion().size());
@@ -159,6 +159,12 @@ class GestorDeUbicacionesTest {
 
 	    // Verificamos el mensaje de la excepción
 	    assertEquals("La Ubicacion no está dentro de la cobertura", exception.getMessage());
+	}
+	
+	@Test
+	void testSacarZona() {
+		gestor.sacarZona(zonaA);
+		assertEquals(7, gestor.getTodasLasZonas().size());
 	}
 
 
