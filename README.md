@@ -7,6 +7,7 @@ Trabajo Final de programación orientada a Objetos 2 (UNQ)
 3. [Documentacion](#Documentación)
 4. [Librerias usadas](#Librerias)
 5. [Integrantes](#Integrantes)
+6. [Apendice](#Apendice)
 <br> </br>
 
 ![Imagen](https://github.com/Eduardo73Martinez/TpFinalPo2-Vinchucas2025/blob/main/imagenVinchuca.png)
@@ -30,6 +31,9 @@ Link a la documentación [Documentación](https://docs.google.com/document/d/1sK
 
 ## Integrantes 
 
-- Martinez Quimey
+- Martinez Quimey         - quimeyadonai@gmail.com
 - Cristofanetti Lucio     - luciocristofanetti@gmail.com
 - Martinez Eduardo        - mm7735608@gmail.com
+
+## Apendice
+Deatlle de los Commits Lucio Cristofanetti [Apéndice](https://docs.google.com/spreadsheets/d/17EXlL2zOruAL7oo26yJrIqoKIFsu8R8Jt3mKG0A49Z0/edit?usp=sharing)
