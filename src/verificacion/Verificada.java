@@ -20,7 +20,7 @@ public class Verificada implements Verificacion{
 	
 	public String resultadoActual (Muestra muestra) {
 		//PROPOSITO:develve la vinchuca que fue mas votada
-		return tipo.getValor();
+		return muestra.getVinchuca().getValor();
 		
 	}
 	

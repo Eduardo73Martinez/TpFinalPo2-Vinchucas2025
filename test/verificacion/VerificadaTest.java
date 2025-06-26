@@ -1,12 +1,12 @@
 package verificacion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import web_vinchucas.IOpinable;
 import web_vinchucas.Muestra;
 import web_vinchucas.Nivel;
 import web_vinchucas.TipoVinchuca;
@@ -23,10 +23,11 @@ public class VerificadaTest {
 	
 	//sut:
 	Verificada verificada;
-	
+	IOpinable resultado;
 	//creo los mock y la verificada a testear
 	@BeforeEach
 	void setUp () {
+		resultado = mock(IOpinable.class);
 		
 		//sut:
 		verificada = new Verificada (TipoVinchuca.VINCHUCA_INFESTANS); //en realidad no es necesario hacer setUp en
@@ -54,8 +55,11 @@ public class VerificadaTest {
 	}
 	@Test
 	void resultadoActualTest() {
+		when(muestraDummy.getVinchuca()).thenReturn(resultado);
+		
+		verificada.resultadoActual(muestraDummy);
 		//verify:
-		assertEquals(verificada.resultadoActual(muestraDummy),"Vinchuca Infestans");
+		verify(muestraDummy).getVinchuca();
 	}
 
 }
