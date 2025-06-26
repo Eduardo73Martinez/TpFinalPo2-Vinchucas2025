@@ -23,7 +23,7 @@ Diseño completo del proyecto [UML](https://app.diagrams.net/?splash=0#G1tGuokfU
 
 ## Documentación
 
-Link a la documentación [Documentación](https://docs.google.com/document/d/1sKFRoWrqUjDJp-y912IJaEPd2Vm1KEPJOCCt5NGTf3M/edit?usp=sharing).
+Link a la documentación [Documentación](https://github.com/Eduardo73Martinez/TpFinalPo2-Vinchucas2025/blob/main/DocumentacionTrabajoVinchucas.pdf).
 
 ## Librerias 
 * [Mockito framework](https://site.mockito.org/): 5.14
