@@ -4,7 +4,7 @@ import java.util.*;
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
-public class Organizacion implements OrganizacionNoGubernamental {
+public class Organizacion implements IOrganizacion {
 	private String tipoOrganizacion;
 	private int cantidadDeEmpleados;
 	private FuncionalidadExterna carga;

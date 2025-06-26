@@ -7,7 +7,7 @@ package ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion;
  * @author EDUARDO
  *
  */
-public interface OrganizacionNoGubernamental {
+public interface IOrganizacion {
 	public String getTipoOrganizacion();
 
 	public int getCantidadDeEmpleados();
