@@ -7,28 +7,44 @@ import web_vinchucas.*;
 public class GestorDeUbicaciones {
 	private Map<Ubicacion, List<ZonaCobertura>> zonasPorUbicacion;
 	private List<ZonaCobertura> todasLasZonas;
-
+	
 	/**
-	 *  REGISTRA UNA UBICACION SI NO SE ENCUENTRA EN EL GESTOR.
+	 * SU RESPONSABILIDAD ES GESTIONAR UBICACIONES Y ZONAS Y AVISAR SI HAY ALGUN
+	 * EVENTO EN ALGUNA UBICACION.
 	 * 
-	 * @param lat LATITUD DE LA UBICACION
-	 * @param lon LONGITUD DE LA UBICACION
-	 * @return UNA UBICACION, SI NO EXISTE LA CREAMOS Y AGREGAMOS AL GESTOR COMO
-	 *         CLAVE DE LAS ZONAS.
+	 * @param zonasPorUbicacion
+	 * @param todasLasZonas
 	 */
-	public void obtenerUbicacion(Ubicacion ubicacion) {
+	public GestorDeUbicaciones(Map<Ubicacion, List<ZonaCobertura>> zonasPorUbicacion,
+			List<ZonaCobertura> todasLasZonas) {
+		super();
+		this.zonasPorUbicacion = zonasPorUbicacion;
+		this.todasLasZonas = todasLasZonas;
+	}
+	
+	/**
+	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARECIÓ UNA MUESTRA NUEVA.
+	 * 
+	 * @param muestra MUESTRA QUE SE CARGÓ AL SISTEMA.
+	 * 
+	 */
+	public void notificarNuevaMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
-		this.registrarUbicacion(ubicacion);
+		this.obtenerUbicacion(muestra.getUbicacion());
+		this.zonasPorUbicacion.get(muestra.getUbicacion()).stream().forEach(zona -> zona.cargarMuestraEnZona(muestra));
+
 	}
 
-	/**
-	 * AGREGA UNA UBICACION AL MAP SI NO EXISTE, CON LAS ZONAS QUE LA CUBREN.	 * 
-	 * @param ubicacion
+	/***
+	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE SE VALIDÓ UNA MUESTRA.
+	 * 
+	 * @param muestra MUESTRA QUE SE VALIDÓ
 	 */
-	public void registrarUbicacion(Ubicacion ubicacion) {
-		if (!this.getZonasPorUbicacion().containsKey(ubicacion)) {
-			this.actualizarUbicacionConListaDeZonas(ubicacion);
-		}
+	public void notificarNuevaValidacion(Muestra muestra) {
+		// TODO Auto-generated method stub
+
+		this.obtenerUbicacion(muestra.getUbicacion());
+		this.zonasPorUbicacion.get(muestra.getUbicacion()).stream().forEach(zona -> zona.validacion(muestra));
 	}
 
 	/**
@@ -81,30 +97,7 @@ public class GestorDeUbicaciones {
 		return this.getTodasLasZonas().stream().filter(zona -> zona.tieneCoberturaLaUbicacion(ubicacion)).toList();
 	}
 
-	/**
-	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE APARCIÓ UNA MUESTRA NUEVA.
-	 * 
-	 * @param muestra MUESTRA QUE SE CARGÓ AL SISTEMA.
-	 * 
-	 */
-	public void notificarNuevaMuestra(Muestra muestra) {
-		// TODO Auto-generated method stub
-		this.obtenerUbicacion(muestra.getUbicacion());
-		this.zonasPorUbicacion.get(muestra.getUbicacion()).stream().forEach(zona -> zona.cargarMuestraEnZona(muestra));
-
-	}
-
-	/***
-	 * BUSCA Y NOTIFICA A LAS ZONAS QUE CORRESPONDAN QUE SE VALIDÓ UNA MUESTRA.
-	 * 
-	 * @param muestra MUESTRA QUE SE VALIDÓ
-	 */
-	public void notificarNuevaValidacion(Muestra muestra) {
-		// TODO Auto-generated method stub
-
-		this.obtenerUbicacion(muestra.getUbicacion());
-		this.zonasPorUbicacion.get(muestra.getUbicacion()).stream().forEach(zona -> zona.validacion(muestra));
-	}
+	
 
 	/**
 	 * SU FUNCION ES AGREGAR A LA LISTA GENERAL DE ZONA Y ACTUALIZAR EL MAP.
@@ -116,22 +109,33 @@ public class GestorDeUbicaciones {
 
 	public void sacarZona(ZonaCobertura zona) {
 		this.getTodasLasZonas().remove(zona);
+		// ACTUALIZA EL MAP POR LA LISTA DE UBICACIONES.
 		this.getZonasPorUbicacion().keySet().stream().forEach(ubicacion -> this.actualizarUbicacionConListaDeZonas(ubicacion));
+	}
+	
+	/**
+	 *  REGISTRA UNA UBICACION SI NO SE ENCUENTRA EN EL GESTOR.
+	 * 
+	 * @param lat LATITUD DE LA UBICACION
+	 * @param lon LONGITUD DE LA UBICACION
+	 * @return UNA UBICACION, SI NO EXISTE LA CREAMOS Y AGREGAMOS AL GESTOR COMO
+	 *         CLAVE DE LAS ZONAS.
+	 */
+	public void obtenerUbicacion(Ubicacion ubicacion) {
+		// TODO Auto-generated method stub
+		this.registrarUbicacion(ubicacion);
 	}
 
 	/**
-	 * SU RESPONSABILIDAD ES GESTIONAR UBICACIONES Y ZONAS Y AVISAR SI HAY ALGUN
-	 * EVENTO EN ALGUNA UBICACION.
-	 * 
-	 * @param zonasPorUbicacion
-	 * @param todasLasZonas
+	 * AGREGA UNA UBICACION AL MAP SI NO EXISTE, CON LAS ZONAS QUE LA CUBREN.	 * 
+	 * @param ubicacion
 	 */
-	public GestorDeUbicaciones(Map<Ubicacion, List<ZonaCobertura>> zonasPorUbicacion,
-			List<ZonaCobertura> todasLasZonas) {
-		super();
-		this.zonasPorUbicacion = zonasPorUbicacion;
-		this.todasLasZonas = todasLasZonas;
+	public void registrarUbicacion(Ubicacion ubicacion) {
+		if (!this.getZonasPorUbicacion().containsKey(ubicacion)) {
+			this.actualizarUbicacionConListaDeZonas(ubicacion);
+		}
 	}
+ 
 
 	// GETTERS Y SETTERS
 	public Map<Ubicacion, List<ZonaCobertura>> getZonasPorUbicacion() {
