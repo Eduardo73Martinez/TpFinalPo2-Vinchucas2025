@@ -63,12 +63,6 @@ class SoloVotadasTest {
 		assertTrue(filtro.buscar(listaDeMuestras).containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar(listaDeMuestras)));
 	}
 
-	@Test
-	void esDelTipoEsperadoTest() {
-		//verify:
-		assertEquals(filtro.esDelTipoEsperado(muestra1Stub),true);
-		assertEquals(filtro.esDelTipoEsperado(muestra2Stub),true);
-		assertEquals(filtro.esDelTipoEsperado(muestra3Stub),false);
-	}
+
 
 }

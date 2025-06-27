@@ -1,20 +1,15 @@
 package ar.edu.unq.po2.integrador.buscador;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 
 public class CreadoEn extends FechaDeCreacion {
-	public List<Muestra> buscar(List<Muestra> lista){
-		//PROPOSITO:devuelve las muestras que fueron creadas el dia de la fecha ingresada
-		return lista.stream()
-		.filter (muestra->muestra.getFechaCreacion().isEqual(fechaIngresada))
-		.collect(Collectors.toList());
+	protected boolean esMuestraValida (Muestra muestra) {
+		return muestra.getFechaCreacion().isEqual(fechaIngresada);
 	}
-	
 	public CreadoEn (LocalDate fechaIngresada){
 		super (fechaIngresada);
 		

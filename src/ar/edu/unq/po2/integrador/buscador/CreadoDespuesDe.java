@@ -1,18 +1,14 @@
 package ar.edu.unq.po2.integrador.buscador;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 
 public class CreadoDespuesDe extends FechaDeCreacion {
-	public List<Muestra> buscar(List<Muestra> lista){
-		//PROPOSITO:devuelve las muestras que fueron creadas despues de la fecha ingresada
-		return lista.stream()
-		.filter (muestra->muestra.getFechaCreacion().isAfter(fechaIngresada))
-		.collect(Collectors.toList());
+	protected boolean esMuestraValida (Muestra muestra) {
+		return muestra.getFechaCreacion().isAfter(fechaIngresada);
 	}
 	
 	public CreadoDespuesDe (LocalDate fechaIngresada){

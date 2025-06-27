@@ -1,19 +1,16 @@
 package ar.edu.unq.po2.integrador.buscador;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 public class UltimaVotacionDespuesDe extends FechaUltimaVotacion {
 	
 	
-	public List<Muestra> buscar(List<Muestra> lista){
-		//PROPOSITO:devuelve las muestras que fueron votadas despues de la fecha ingresada
-		return lista.stream()
-		.filter (muestra->muestra.getFechaUltimaVotacion().isAfter(fechaIngresada))
-		.collect(Collectors.toList());
+	public boolean esMuestraValida (Muestra muestra){
+		//PROPOSITO:devuelve true si la muestra fue votada, si no lo es da false
+		return muestra.getFechaUltimaVotacion().isAfter(fechaIngresada);
 	}
 	
 	public UltimaVotacionDespuesDe (LocalDate fechaIngresada){
