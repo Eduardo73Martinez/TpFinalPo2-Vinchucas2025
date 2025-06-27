@@ -30,6 +30,9 @@ public class OpinionBasicos extends NoVerificada {
 		}else {
 				return muestra.getVinchuca().getValor();
 			}
+		//si hay dos opiniones diferentes y una mayoritaria da opinion mayoritaria,
+		//si hay 2 opiniones distintas pero no mayoritaria es no definido. 
+		//si no hay nada de esto devuelve la vinchuca sin calcular
 	}
 	
 	public void verificar(Muestra muestra) {
