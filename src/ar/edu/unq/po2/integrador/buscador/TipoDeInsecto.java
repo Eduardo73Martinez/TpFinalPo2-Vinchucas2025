@@ -1,7 +1,6 @@
 package ar.edu.unq.po2.integrador.buscador;
 
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
@@ -10,15 +9,10 @@ public class TipoDeInsecto extends Simple {
 	
 	IOpinable vinchuca;
 	
-	public List<Muestra> buscar(List<Muestra> lista){
-		//PROPOSITO:devuelve las muestras que son del tipo de insecto ingresado
-		
-		return lista.stream()
-		.filter(muestra-> muestra.resultadoActual() == vinchuca.getValor() )
-		.collect (Collectors.toList());
-		
-		
-		
+	
+	public boolean esMuestraValida (Muestra muestra){
+		//PROPOSITO:devuelve true si la muestra fue votada, si no lo es da false
+		return muestra.resultadoActual() == vinchuca.getValor();
 	}
 	
 	private void setOpinable (IOpinable vinchuca) {

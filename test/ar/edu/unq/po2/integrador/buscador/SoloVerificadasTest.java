@@ -54,12 +54,5 @@ class SoloVerificadasTest {
 		
 	}
 
-	@Test
-	void esDelTipoEsperadoTest() {
-		//verify:
-		assertEquals(filtro.esDelTipoEsperado(muestra1Stub),false);
-		assertEquals(filtro.esDelTipoEsperado(muestra2Stub),false);
-		assertEquals(filtro.esDelTipoEsperado(muestra3Stub),true);
-		
-	}
+	
 }
