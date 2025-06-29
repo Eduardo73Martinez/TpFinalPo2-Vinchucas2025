@@ -74,6 +74,7 @@ public class Usuario {
 		Muestra nuevaMuestra = this.crearMuestra(t, latitud, longitud);
 		this.muestras.add(nuevaMuestra);
 		web.agregarMuestra(nuevaMuestra);
+		nuevaMuestra.notificarNuevaMuestra();	// NOTIFICA A LAS ZONAS QUE SE HAY UNA NUEVA MUESTRA.
 	}
 	
 	//Crea una nueva Muestra con el TipoVinchuca y coordenadas dados por parametro
