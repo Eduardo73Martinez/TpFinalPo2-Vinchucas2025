@@ -149,8 +149,8 @@ public class Muestra {
 	}
 
 	/**
-	 * AGREGA UNA ZONA A LA QUE PERTENECE LA MUESTRA
-	 * 
+	 * AGREGA UNA ZONA A LA LISTA DE LA MUESTRA
+	 * VERIFICA SI TIENE COBERTURA ANTES DE AGREGAR.
 	 * @param zona
 	 */
 	public void agregarZona(ZonaCobertura zona) {
@@ -161,7 +161,7 @@ public class Muestra {
 	}
 
 	/**
-	 * QUITA UNA ZONA DE LA LISTA DE MUESTRAS
+	 * QUITA UNA ZONA DE LA LISTA
 	 * 
 	 * @param zona
 	 */
@@ -171,11 +171,11 @@ public class Muestra {
 			zona.quitarMuestraEnZona(this);
 		}
 	}
-
+	//SUBTAREA: DA TRUE SI LA ZONA ESTÁ EN LA LISTA.
 	private Boolean estaLaZona(ZonaCobertura zona) {
 		return this.zonasSuscriptas.contains(zona);
 	}
-
+	//SUBTAREA:	REMUEVE UNA ZONA
 	private void removerZona(ZonaCobertura zona) {
 		this.zonasSuscriptas.remove(zona);
 	}
@@ -194,11 +194,11 @@ public class Muestra {
 		this.getZonasSuscriptas().stream().forEach(zona -> zona.validacion(this));
 	}
 	
-
+	//GET ZONAS
 	public List<ZonaCobertura> getZonasSuscriptas() {
 		return zonasSuscriptas;
 	}
-
+	//SET ZONAS
 	public void setZonasSuscriptas(List<ZonaCobertura> zonasSuscriptas) {
 		this.zonasSuscriptas = zonasSuscriptas;
 	}
