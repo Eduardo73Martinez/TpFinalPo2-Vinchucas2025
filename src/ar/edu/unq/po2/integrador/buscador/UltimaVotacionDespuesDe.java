@@ -10,7 +10,7 @@ public class UltimaVotacionDespuesDe extends FechaUltimaVotacion {
 	
 	public boolean esMuestraValida (Muestra muestra){
 		//PROPOSITO:devuelve true si la muestra fue votada, si no lo es da false
-		return muestra.getFechaUltimaVotacion().isAfter(fechaIngresada);
+		return fechaUltimaVotacion(muestra).isAfter(fechaIngresada);
 	}
 	
 	public UltimaVotacionDespuesDe (LocalDate fechaIngresada){

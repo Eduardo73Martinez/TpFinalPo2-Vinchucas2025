@@ -16,6 +16,9 @@ public abstract class FechaUltimaVotacion extends Simple{
 	}
 	
 	
+	protected LocalDate fechaUltimaVotacion (Muestra muestra) {
+		return muestra.getFechaUltimaVotacion();
+	}
 	public FechaUltimaVotacion (LocalDate fechaIngresada){
 		
 		setFechaIngresada (fechaIngresada);

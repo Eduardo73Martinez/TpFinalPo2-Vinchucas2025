@@ -8,7 +8,7 @@ public class SoloVerificadas extends PorVerificacion {
 
 	public  boolean esMuestraValida (Muestra muestra){
 		//PROPOSITO:devuelve true si la muestra fue verificada, si no lo es da false
-		return muestra.getVerificacion() instanceof Verificada;
+		return verificacion (muestra) instanceof Verificada;
 	}
 	public SoloVerificadas (){
 		

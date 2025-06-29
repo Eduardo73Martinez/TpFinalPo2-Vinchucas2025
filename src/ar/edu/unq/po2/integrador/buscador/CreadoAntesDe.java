@@ -9,7 +9,7 @@ public class CreadoAntesDe extends FechaDeCreacion{
 
 	
 	protected boolean esMuestraValida (Muestra muestra) {
-		return muestra.getFechaCreacion().isBefore(fechaIngresada);
+		return fechaCreacion(muestra).isBefore(fechaIngresada);
 	}
 	
 	public CreadoAntesDe (LocalDate fechaIngresada){

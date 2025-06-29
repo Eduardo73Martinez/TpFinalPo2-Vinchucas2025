@@ -8,7 +8,7 @@ import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 public class CreadoEn extends FechaDeCreacion {
 	protected boolean esMuestraValida (Muestra muestra) {
-		return muestra.getFechaCreacion().isEqual(fechaIngresada);
+		return fechaCreacion(muestra).isEqual(fechaIngresada);
 	}
 	public CreadoEn (LocalDate fechaIngresada){
 		super (fechaIngresada);

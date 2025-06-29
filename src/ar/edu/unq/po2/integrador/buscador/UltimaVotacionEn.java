@@ -8,7 +8,7 @@ class UltimaVotacionEn extends FechaUltimaVotacion {
 
 	public boolean esMuestraValida (Muestra muestra){
 		//PROPOSITO:devuelve true si la muestra fue votada, si no lo es da false
-		return muestra.getFechaUltimaVotacion().isEqual(fechaIngresada);
+		return fechaUltimaVotacion(muestra).isEqual(fechaIngresada);
 	}
 	
 	public UltimaVotacionEn (LocalDate fechaIngresada){

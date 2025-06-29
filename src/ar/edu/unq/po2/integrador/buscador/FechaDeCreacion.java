@@ -15,6 +15,9 @@ public abstract class FechaDeCreacion extends Simple {
 		//PROPOSITO:setea la fecha
 		this.fechaIngresada = fechaIngresada;
 	}
+	protected LocalDate fechaCreacion (Muestra muestra) {
+		return muestra.getFechaCreacion();
+	}
 	
 	public FechaDeCreacion (LocalDate fechaIngresada){
 		
