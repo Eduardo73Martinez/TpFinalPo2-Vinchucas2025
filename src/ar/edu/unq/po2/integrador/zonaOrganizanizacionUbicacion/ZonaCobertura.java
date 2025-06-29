@@ -69,6 +69,15 @@ public class ZonaCobertura {
 			this.cargarMuestra(muestra);
 		}
 	}
+	/***
+	 * QUITAMOS LA MUESTRA NUEVO METODO. 
+	 * @param muestra
+	 */
+	public void quitarMuestraEnZona(Muestra muestra) {
+		if (this.getMuestras().contains(muestra)) {
+			this.getMuestras().remove(muestra);
+		}
+	}
 
 	public List<ZonaCobertura> intersecciones(List<ZonaCobertura> zonaDeCoberturas) {
 		return zonaDeCoberturas.stream().filter(zona -> zona.interseccionConZona(this)).toList();
@@ -109,6 +118,11 @@ public class ZonaCobertura {
 		this.radio = radioN;
 	}
 
+	/**
+	 * CARGA LA MUESTRA . LO HACEMOS PRIVADO PARA NO CONFUNDIR CON EL CORGARMUESTRA EN ZONA.
+	 * QUE VERIFICA LAS COBERTURAS ANTES DE AGREGAR.
+	 * @param muestra
+	 */
 	public void cargarMuestra(Muestra muestra) {
 		// TODO Auto-generated method stub
 		this.muestras.add(muestra);
