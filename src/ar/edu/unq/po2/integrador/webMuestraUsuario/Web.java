@@ -3,18 +3,14 @@ package ar.edu.unq.po2.integrador.webMuestraUsuario;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.integrador.buscador.SoloVotadas;
 import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.*;
 
 public class Web {
-	Long proximoId = 0l;
-	List<Muestra> muestras = new ArrayList<Muestra>();
-	List<Usuario> usuarios = new ArrayList<Usuario>();
-	GestorDeUbicaciones gestorUbs;
-	
-	//Devuelve el gestor de ubicaciones
-	public GestorDeUbicaciones getGestorUbicaciones() {
-		return gestorUbs;
-	}
+	private Long proximoId = 0l;
+	private List<Muestra> muestras = new ArrayList<Muestra>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<ZonaCobertura> zonasCobertura = new ArrayList<ZonaCobertura>();
 	
 	//Devuelve la lista con todas las muestras
 	public List<Muestra> todasLasMuestras() {
@@ -26,15 +22,25 @@ public class Web {
 		return usuarios;
 	}
 	
+	//Devuelve la lista con todasLasZonas
+	public List<ZonaCobertura> todasLasZonas(){
+		return zonasCobertura;
+	}
+	
 	//Devuelve el id que tendra el proximo usuario
 	public Long getProximoId() {
 		return proximoId;
 	}
 
-	//Agrega una muestra dada a la lista de muestras y notifica al gestor de ubicaciones
+	//Agrega una muestra dada a la lista de muestras y envia la notificacion a las zonas
 	public void agregarMuestra(Muestra nuevaMuestra) {
 		muestras.add(nuevaMuestra);
 		this.notificarNuevaMuestra(nuevaMuestra);
+	}
+	
+	//Notifica la lista de zonas de la creacion de la muestra dada
+	protected void notificarNuevaMuestra(Muestra muestra) {
+		zonasCobertura.stream().forEach(z->z.notificarNuevaMuestra(muestra));
 	}
 	
 	//Quita la muestra dada de la lista de muestras (si no existe en la lista, no hace nada)
@@ -68,23 +74,27 @@ public class Web {
 		usuarios.stream().forEach(u->u.convertirEnEspecialista());
 	}
 	
-	//Envia la ubicacion dada al gestor de ubicaciones y retorna una ubicacion verificada
-	public void registrarEnElGestor(Ubicacion ubicacion) {
-		gestorUbs.obtenerUbicacion(ubicacion);
+	//Agrega la zona dada a la lista de zonas y le envia todas las muestras sin validar
+	public void agregarZona(ZonaCobertura zona) {
+		zonasCobertura.add(zona);
+		this.enviarMuestrasSinValidar(zona);
 	}
 	
-	//Notifica al gestor de ubicaciones de la creacion de la muestra dada
-	protected void notificarNuevaMuestra(Muestra muestra) {
-		gestorUbs.notificarNuevaMuestra(muestra);
+	//Envia a la zona dada las muestras sin validar que existen en la web
+	private void enviarMuestrasSinValidar(ZonaCobertura zona) {
+		SoloVotadas filtro = new SoloVotadas();
+		List <Muestra> muestrasSinValidar = filtro.buscar(muestras);
+		muestrasSinValidar.stream().forEach(m->zona.notificarNuevaMuestra(m));
 	}
 	
-	//Notifica al gestor de ubicaciones de la validacion de la muestra dada
-	public void notificarNuevaValidacion(Muestra muestra) {
-		gestorUbs.notificarNuevaValidacion(muestra);
+	//Quita la zona dada a la lista de zonas (si no existe, no hace nada)
+	public void quitarZona(ZonaCobertura zona) {
+		if (this.zonasCobertura.contains(zona)) {
+			zonasCobertura.remove(zona);
+		}
 	}
 	
-	public Web(GestorDeUbicaciones gestorUbs) {
-		this.gestorUbs = gestorUbs;
+	public Web() {
 	}
 
 }

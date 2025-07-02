@@ -26,13 +26,11 @@ public class VerificadaTest {
 	void setUp () {
 		
 		//sut:
-		verificada = new Verificada (TipoVinchuca.VINCHUCA_INFESTANS); //en realidad no es necesario hacer setUp en
-													   //esta clase especifica, pero para no cambiar 
-													   //tanto el test si la cambio aun asi lo hago
+		verificada = new Verificada(); 
 		
 		//setUp:
 		when (basicoStub.getNivel()).thenReturn (Nivel.BASICO);
-	
+		when (muestraDummy.getVinchuca()).thenReturn(TipoVinchuca.VINCHUCA_INFESTANS);
 		
 	}
 	

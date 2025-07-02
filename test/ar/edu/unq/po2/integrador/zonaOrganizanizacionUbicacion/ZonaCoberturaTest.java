@@ -45,11 +45,11 @@ class ZonaCoberturaTest {
 		muestras.add(muestra2);
 
 		epicentro = mock(Ubicacion.class);
-		zonaDeCobertura = new ZonaCobertura("Area 1", epicentro, radioEnKilometros, muestras, organizaciones);
+		zonaDeCobertura = new ZonaCobertura("Area 1", epicentro, radioEnKilometros);
 
 		// OTRA UBICACION Y ZONA PARA TESTEAR INTERSECCIONES.
 
-		zona2 = new ZonaCobertura("zona 2", ubicacion2, radioEnKilometros, muestras, organizaciones);
+		zona2 = new ZonaCobertura("zona 2", ubicacion2, radioEnKilometros);
 
 	}
 
@@ -84,6 +84,8 @@ class ZonaCoberturaTest {
 	@Test
 	void testGetMuestrasReportadas() {
 		muestras.add(muestra3);
+		zonaDeCobertura.cargarMuestra(muestra1);
+		zonaDeCobertura.cargarMuestra(muestra2);
 		zonaDeCobertura.cargarMuestra(muestra3);
 		assertEquals(muestras.size(), zonaDeCobertura.getMuestras().size());
 	}
@@ -114,27 +116,12 @@ class ZonaCoberturaTest {
 	}
 
 	@Test
-	void testValidacionSinCovertura() {
-		//VALIDAR ES EQUIVALENTE A RESULTADO ACTUAL EN EL CODIGO DE LUCIO.
-		when(epicentro.distanciaCon(ubicacion2)).thenReturn(9999.9);
-
-		
-		when(muestra4.getUbicacion()).thenReturn(ubicacion2);
-		
-		zonaDeCobertura.validacion(muestra4);
-		
-		verify(organizacion1, never()).notifyMeValidation(zonaDeCobertura, muestra4);
-	}
-
-	@Test
-	void testValidacionConCovertura() {
-		//VALIDAR ES EQUIVALENTE A RESULTADO ACTUAL EN EL CODIGO DE LUCIO.
+	void testValidacion() {
+		zonaDeCobertura.sucribeOrganizacion(organizacion1);
 		when(epicentro.distanciaCon(ubicacion2)).thenReturn(299.9);
-
-		
 		when(muestra4.getUbicacion()).thenReturn(ubicacion2);
 		
-		zonaDeCobertura.validacion(muestra4);
+		zonaDeCobertura.notificarValidacion(muestra4);
 		
 		verify(organizacion1).notifyMeValidation(zonaDeCobertura, muestra4);
 	}
@@ -162,12 +149,12 @@ class ZonaCoberturaTest {
 	}
 
 	@Test
-	void testCargarMuestraEnZonaPorCovertura() {
-		
+	void testCargarMuestraEnZonaPorCobertura() {
+		zonaDeCobertura.sucribeOrganizacion(organizacion1);
 		when(epicentro.distanciaCon(ubicacion2)).thenReturn(150.9);
 		when(muestra4.getUbicacion()).thenReturn(ubicacion2);
 		
-		zonaDeCobertura.cargarMuestraEnZona(muestra4);
+		zonaDeCobertura.notificarNuevaMuestra(muestra4);
 		
 		verify(organizacion1).notifyMeCarga(zonaDeCobertura, muestra4);
 	}
@@ -178,17 +165,35 @@ class ZonaCoberturaTest {
 		when(epicentro.distanciaCon(ubicacion2)).thenReturn(9999.9);		
 		when(muestra4.getUbicacion()).thenReturn(ubicacion2);
 		
-		zonaDeCobertura.cargarMuestraEnZona(muestra4);
+		zonaDeCobertura.notificarNuevaMuestra(muestra4);
 		
 		verify(organizacion1, never()).notifyMeCarga(zonaDeCobertura, muestra4);
+	}
+	
+	@Test
+	void quitarMuestraQueExisteEnZona() {
+		zonaDeCobertura.cargarMuestra(muestra1);
+		
+		zonaDeCobertura.quitarMuestraEnZona(muestra1);
+		
+		assertFalse(zonaDeCobertura.getMuestras().contains(muestra1));
+	}
+
+	@Test
+	void quitarMuestraQueNoExisteEnZona() {
+		zonaDeCobertura.cargarMuestra(muestra1);
+		
+		zonaDeCobertura.quitarMuestraEnZona(muestra2);
+		
+		assertTrue(zonaDeCobertura.getMuestras().contains(muestra1));
 	}
 
 	@Test
 	void testHayIntersecciones() {
-		ZonaCobertura z1 = new ZonaCobertura("z1", epicentro, 32.0, muestras, organizaciones);
-		ZonaCobertura z2= new ZonaCobertura("z2", epicentro, 10.4, muestras, organizaciones);
-		ZonaCobertura z3= new ZonaCobertura("z3", epicentro, 4.5, muestras, organizaciones);
-		ZonaCobertura z4 = new ZonaCobertura("z4", epicentro, 45.6, muestras, organizaciones);
+		ZonaCobertura z1 = new ZonaCobertura("z1", epicentro, 32.0);
+		ZonaCobertura z2= new ZonaCobertura("z2", epicentro, 10.4);
+		ZonaCobertura z3= new ZonaCobertura("z3", epicentro, 4.5);
+		ZonaCobertura z4 = new ZonaCobertura("z4", epicentro, 45.6);
 		
 		List<ZonaCobertura> zonas= new ArrayList<>(); zonas.add(z1);zonas.add(z2);zonas.add(z3);zonas.add(z4);
 		

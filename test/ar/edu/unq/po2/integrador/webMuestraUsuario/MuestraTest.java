@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.verificacion.*;
 import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.Ubicacion;
+import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.ZonaCobertura;
 
 class MuestraTest {
 	
@@ -44,6 +45,9 @@ class MuestraTest {
 	Ubicacion ubicacion_2;
 	Ubicacion ubicacion_3;
 	
+	ZonaCobertura zona_1;
+	ZonaCobertura zona_2;
+	
 	List<Ubicacion> listaDeUbicaciones;
 	List<Ubicacion> miLista;
 	List<Ubicacion> misUbicacionesCercanas;
@@ -73,7 +77,7 @@ class MuestraTest {
 		when(miUsuario.getId()).thenReturn(1l);
 		
 		//SUT:
-		miMuestra = new Muestra(miWeb, miUsuario, miVinchuca, miFoto, miUbicacion);
+		miMuestra = new Muestra(miUsuario, miVinchuca, miFoto, miUbicacion);
 		
 		
 		//DOC: 
@@ -94,6 +98,9 @@ class MuestraTest {
 		
 		opinion_1 = mock(Opinion.class);
 		opinion_2 = mock(Opinion.class);
+		
+		zona_1 = mock(ZonaCobertura.class);
+		zona_2 = mock(ZonaCobertura.class);
 		
 		nuevaVerificacion = mock(Verificacion.class);
 		resultadoVerificacion = mock(IOpinable.class);
@@ -134,16 +141,6 @@ class MuestraTest {
 		listaDeOpiniones.add(opinion_2);
 		when(otroUsuario.getId()).thenReturn(2l);
 	}
-
-	@Test
-	void testGetFoto() {
-		assertEquals(miFoto,miMuestra.getFoto());
-	}
-	
-	@Test
-	void testGetVinchuca() {
-		assertEquals(miVinchuca,miMuestra.getVinchuca());
-	}
 	
 	@Test
 	void testGetFechaCreacion() {
@@ -151,8 +148,32 @@ class MuestraTest {
 	}
 	
 	@Test
+	void testGetFechaUltimaVotacion() {
+		assertEquals(miMuestra.getFechaUltimaVotacion(), LocalDate.now());
+	}
+
+	@Test
+	void testGetFoto() {
+		assertEquals(miFoto,miMuestra.getFoto());
+	}
+	
+	@Test
+	void testGetOpiniones() {
+		//Exercise
+		List<Opinion> opiniones = miMuestra.getOpiniones();
+		//Verify
+		assertTrue(opiniones.size()==1);
+		assertEquals(opiniones.getFirst().getValorOpinion().getValor(), miVinchuca.getValor());
+	}
+	
+	@Test
 	void testGetPersona() {
 		assertEquals(miUsuario,miMuestra.getPersona());
+	}
+	
+	@Test
+	void testGetVinchuca() {
+		assertEquals(miVinchuca,miMuestra.getVinchuca());
 	}
 	
 	@Test
@@ -164,24 +185,9 @@ class MuestraTest {
 	void testGetVerificacion() {
 		assertTrue(miMuestra.getVerificacion() instanceof OpinionBasicos);
 	}
-
-	@Test
-	void testGetOpiniones() {
-		//Exercise
-		List<Opinion> opiniones = miMuestra.getOpiniones();
-		//Verify
-		assertTrue(opiniones.size()==1);
-		assertEquals(opiniones.getFirst().getValorOpinion().getValor(), miVinchuca.getValor());
-	}
-	
-	@Test
-	void testGetFechaUltimaVotacion() {
-		assertEquals(miMuestra.getFechaUltimaVotacion(), LocalDate.now());
-	}
 	
 	@Test
 	void testAgregarOpinion() {
-		
 		//Exercise
 		miMuestra.agregarOpinion(opinion_1);
 		miMuestra.agregarOpinion(opinion_2);
@@ -193,12 +199,54 @@ class MuestraTest {
 		assertTrue(miMuestra.getOpiniones().contains(opinion_2));
 	}
 	
+	@Test
+	void testGetZonasSuscriptas() {
+		//SetUp
+		miMuestra.suscribirZona(zona_1);
+		
+		//Exercise
+		List<ZonaCobertura> suscriptas = miMuestra.getZonasSuscriptas();
+		
+		//Verify
+		assertTrue(suscriptas.contains(zona_1));
+		assertEquals(suscriptas.size(),1);
+	}
+	
+	@Test
+	void testQuitarZonaQueNoExiste() {
+		//SetUp
+		miMuestra.suscribirZona(zona_1);
+		
+		//Exercise
+		miMuestra.quitarZona(zona_2);
+		
+		//Verify
+		assertTrue(miMuestra.getZonasSuscriptas().contains(zona_1));
+		assertEquals(miMuestra.getZonasSuscriptas().size(),1);
+		
+	}
+
+	@Test
+	void testQuitarZonaQueSiExiste() {
+		//SetUp
+		miMuestra.suscribirZona(zona_1);
+		miMuestra.suscribirZona(zona_2);
+		
+		
+		//Exercise
+		miMuestra.quitarZona(zona_2);
+		
+		//Verify
+		assertTrue(miMuestra.getZonasSuscriptas().contains(zona_1));
+		assertEquals(miMuestra.getZonasSuscriptas().size(),1);
+		
+	}
     @Test
     void testSetVerificacion() {
     	//Exercise    	
     	miMuestra.setVerificacion(nuevaVerificacion);
     	//Verify
-    	assertEquals(miMuestra.estado,nuevaVerificacion);
+    	assertEquals(miMuestra.getVerificacion(),nuevaVerificacion);
     }
 
     

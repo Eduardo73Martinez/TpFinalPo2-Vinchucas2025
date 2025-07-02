@@ -9,11 +9,11 @@ import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.*;
 
 public class Usuario {
 	 
-	Web web;
-	Long id;
-	Nivel nivel;
-	List<Opinion> opiniones = new ArrayList<Opinion>();
-	List<Muestra> muestras = new ArrayList<Muestra>();
+	private Web web;
+	private Long id;
+	private Nivel nivel;
+	private List<Opinion> opiniones = new ArrayList<Opinion>();
+	private List<Muestra> muestras = new ArrayList<Muestra>();
 	
 	//Devuelve el Id del usuario
 	public Long getId() {
@@ -63,7 +63,7 @@ public class Usuario {
 	//Si el usuario no puede votar, no hace nada.
 	public void opinar(Muestra m, IOpinable vo) {
 		if (m.puedeOpinar(this)) {
-			Opinion miOpinion = new Opinion(id, this.nivel, vo);
+			Opinion miOpinion = new Opinion(this, m, vo);
 			m.agregarOpinion(miOpinion);
 			this.opiniones.add(miOpinion);
 		}
@@ -74,15 +74,13 @@ public class Usuario {
 		Muestra nuevaMuestra = this.crearMuestra(t, latitud, longitud);
 		this.muestras.add(nuevaMuestra);
 		web.agregarMuestra(nuevaMuestra);
-		nuevaMuestra.notificarNuevaMuestra();	// NOTIFICA A LAS ZONAS QUE SE HAY UNA NUEVA MUESTRA.
 	}
 	
 	//Crea una nueva Muestra con el TipoVinchuca y coordenadas dados por parametro
 	protected Muestra crearMuestra(TipoVinchuca t,Double latitud, Double longitud) {
 		Foto foto = new Foto();
 		Ubicacion ubicacion = new Ubicacion(latitud,longitud);
-		web.registrarEnElGestor(ubicacion);
-		Muestra nuevaMuestra = new Muestra(web,this,t,foto,ubicacion);
+		Muestra nuevaMuestra = new Muestra(this,t,foto,ubicacion);
 		return nuevaMuestra;
 	}
 	

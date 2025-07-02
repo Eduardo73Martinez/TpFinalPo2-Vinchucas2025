@@ -18,7 +18,7 @@ public class OpinionExpertos extends NoVerificada{
 		if (hayOpinionMayoritariaDeDosOMasExpertos (muestra)) {
 				
 				IOpinable opinionMayoritariaExpertos = opinionMayoritaria (getIOpinableDeExpertos (muestra));
-				Verificada verif = new Verificada (opinionMayoritariaExpertos);
+				Verificada verif = new Verificada();
 				muestra.setVerificacion(verif);
 				muestra.verificar (opinionMayoritariaExpertos);
 		} 

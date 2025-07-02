@@ -10,17 +10,16 @@ import ar.edu.unq.po2.integrador.verificacion.*;
 import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.*;
 
 public class Muestra {
-	Web web;
-	Usuario autor;
-	IOpinable vinchuca;
-	Foto foto;
-	Ubicacion ubicacion;
-	LocalDate fechaCreacion;
-	LocalDate fechaUltimaVotacion;
-	Verificacion estado;
+	private Usuario autor;
+	private IOpinable vinchuca;
+	private Foto foto;
+	private Ubicacion ubicacion;
+	private LocalDate fechaCreacion;
+	private LocalDate fechaUltimaVotacion;
+	private Verificacion estado;
 
-	List<Opinion> opiniones = new ArrayList<Opinion>();
-	private List<ZonaCobertura> zonasSuscriptas;
+	private List<Opinion> opiniones = new ArrayList<Opinion>();
+	private List<ZonaCobertura> zonasSuscriptas = new ArrayList<ZonaCobertura>();
 
 	// Devuelve un string con el resultado actual de la verificacion de la Muestra
 	public String resultadoActual() {
@@ -66,6 +65,11 @@ public class Muestra {
 	public Verificacion getVerificacion() {
 		return this.estado;
 	}
+	
+	//Devuelve una lista con las zonas que estan suscriptas en la muestra
+	public List<ZonaCobertura> getZonasSuscriptas() {
+		return zonasSuscriptas;
+	}
 
 	// Setea el estado de verificacion actual de la muestra
 	public void setVerificacion(Verificacion v) {
@@ -84,9 +88,13 @@ public class Muestra {
 	 * estado cuando la muestra queda verificada
 	 */
 	public void verificar(IOpinable o) {
-		web.notificarNuevaValidacion(this);
 		this.notificarVerificacion();
 		this.vinchuca = o;
+	}
+	
+	//NOTIFICA A LAS ZONAS QUE ESTA MUESTRA SE VERIFICO/VALIDÓ.
+	protected void notificarVerificacion() {
+		this.getZonasSuscriptas().stream().forEach(zona -> zona.notificarValidacion(this));
 	}
 
 	// Devuelve una lista con aquellas muestras de la Web dada, que sean cercanas a
@@ -144,20 +152,16 @@ public class Muestra {
 
 	// Indica si ya existe una opinion del usuario dado
 	private boolean yaVoto(Usuario u) {
-		List<Long> idVotantes = this.opiniones.stream().map(o -> o.getIdUsuario()).toList();
+		List<Long> idVotantes = this.opiniones.stream().map(o -> o.getUsuario().getId()).toList();
 		return idVotantes.contains(u.getId());
 	}
 
 	/**
-	 * AGREGA UNA ZONA A LA LISTA DE LA MUESTRA
-	 * VERIFICA SI TIENE COBERTURA ANTES DE AGREGAR.
+	 * AGREGA UNA ZONA A LA LISTA DE LA MUESTRA.
 	 * @param zona
 	 */
-	public void agregarZona(ZonaCobertura zona) {
-		if (zona.tieneCoberturaLaMuestra(this)) {
-			zona.cargarMuestraEnZona(this);
-			this.zonasSuscriptas.add(zona);
-		}
+	public void suscribirZona(ZonaCobertura zona) {
+		this.zonasSuscriptas.add(zona);
 	}
 
 	/**
@@ -171,47 +175,26 @@ public class Muestra {
 			zona.quitarMuestraEnZona(this);
 		}
 	}
+	
 	//SUBTAREA: DA TRUE SI LA ZONA ESTÁ EN LA LISTA.
 	private Boolean estaLaZona(ZonaCobertura zona) {
 		return this.zonasSuscriptas.contains(zona);
 	}
+	
 	//SUBTAREA:	REMUEVE UNA ZONA
 	private void removerZona(ZonaCobertura zona) {
 		this.zonasSuscriptas.remove(zona);
 	}
 	
-	/***
-	 * NOTIFICA A LAS ZONAS QUE DE ESTA MUESTRA A LAS ZONAS QUE LA CUBREN.
-	 */
-	public void notificarNuevaMuestra() {
-		this.getZonasSuscriptas().stream().forEach(zona -> zona.cargarMuestraEnZona(this));
-	}
-	
-	/***
-	 * NOTIFICA A LAS ZONAS QUE ESTA MUESTRA SE VERIFICO/VALIDÓ.
-	 */
-	public void notificarVerificacion() {
-		this.getZonasSuscriptas().stream().forEach(zona -> zona.validacion(this));
-	}
-	
-	//GET ZONAS
-	public List<ZonaCobertura> getZonasSuscriptas() {
-		return zonasSuscriptas;
-	}
-	//SET ZONAS
-	public void setZonasSuscriptas(List<ZonaCobertura> zonasSuscriptas) {
-		this.zonasSuscriptas = zonasSuscriptas;
-	}
 
-	public Muestra(Web w, Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
-		this.web = w;
+	public Muestra(Usuario u, TipoVinchuca t, Foto f, Ubicacion ub) {
 		this.autor = u;
 		this.vinchuca = t;
 		this.foto = f;
 		this.estado = new OpinionBasicos();
 		this.ubicacion = ub;
 		this.fechaCreacion = LocalDate.now();
-		this.agregarOpinion(new Opinion(u.getId(), u.getNivel(), t));
+		this.agregarOpinion(new Opinion(u, this, t));
 	}
 
 }

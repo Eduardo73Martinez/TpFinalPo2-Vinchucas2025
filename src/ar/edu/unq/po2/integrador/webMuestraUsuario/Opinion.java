@@ -4,14 +4,20 @@ import java.time.LocalDate;
 
 public class Opinion {
 	
-	Long idUsuario;
-	IOpinable valorOpinion;
-	Nivel nivelUsuario;
-	LocalDate fecha;
+	private Usuario usuario;
+	private Muestra muestra;
+	private IOpinable valorOpinion;
+	private Nivel nivelUsuario;
+	private LocalDate fecha;
 	
-	//Devuelve el Id del Usuario que dejo la opinion
-	public Long getIdUsuario() {
-		return this.idUsuario;
+	//Devuelve el Usuario que dejo la opinion
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+	
+	//Devuelve la Muestra opinada
+	public Muestra getMuestra() {
+		return muestra;
 	}
 	
 	//Devuelve el IOpinable correspondiente a la opinion
@@ -29,9 +35,10 @@ public class Opinion {
 		return this.fecha;
 	}
 	
-	public Opinion(Long idUsuario, Nivel nivel, IOpinable vo) {
-		this.idUsuario = idUsuario;
-		this.nivelUsuario = nivel;
+	public Opinion(Usuario usuario, Muestra muestra, IOpinable vo) {
+		this.usuario = usuario;
+		this.muestra = muestra;
+		this.nivelUsuario = usuario.getNivel();
 		this.fecha = LocalDate.now();
 		this.valorOpinion = vo;
 	}

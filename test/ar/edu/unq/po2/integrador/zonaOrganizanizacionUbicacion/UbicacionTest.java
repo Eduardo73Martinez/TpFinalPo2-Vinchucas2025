@@ -16,9 +16,7 @@ class UbicacionTest {
 	private Ubicacion ubicacion3;
 
 	private Muestra muestra1;
-	private Muestra muestra2;
-	private Muestra muestra3;
-	private Muestra[] arrayMuestras = { muestra1, muestra2, muestra3 };
+	
 	private ArrayList<Ubicacion> ubicacionesCercanas = new ArrayList<Ubicacion>();
 
 	@BeforeEach
@@ -27,9 +25,7 @@ class UbicacionTest {
 		ubicacion2 = new Ubicacion(66.5, 46.4);
 		ubicacion3 = new Ubicacion(30.4, 50.3);
 		muestra1 = mock(Muestra.class);
-		muestra2 = mock(Muestra.class);
-		muestra3 = mock(Muestra.class);
-
+		
 		ubicacionesCercanas.add(ubicacion2);
 		ubicacionesCercanas.add(ubicacion3);
 

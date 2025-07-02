@@ -11,8 +11,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.GestorDeUbicaciones;
-import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.Ubicacion;
+import ar.edu.unq.po2.integrador.verificacion.*;
+import ar.edu.unq.po2.integrador.zonaOrganizanizacionUbicacion.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,8 +26,16 @@ public class WebTest {
 	
 	List<Usuario> listaDeUsuarios;
 	
+	ZonaCobertura zona_1;
+	ZonaCobertura zona_2;
+	
+	List<ZonaCobertura> listaDeZonas;
+	
 	Muestra muestra_1;
 	Muestra muestra_2;
+	
+	Verificada verificada;
+	OpinionBasicos noVerificada;
 	
 	Ubicacion ubicacion_1;
 	
@@ -37,8 +45,6 @@ public class WebTest {
 	List<LocalDate> listaFechas5ViejasY5Nuevas;
 	List<LocalDate> listaFechas25Nuevas;
 	
-	GestorDeUbicaciones gestorUbs_1;
-	
 	TipoVinchuca vinchuca;
 	
 	Double lat;
@@ -47,22 +53,28 @@ public class WebTest {
 	@BeforeEach 
 	void setUp() throws Exception{
 		//DOC:
-		gestorUbs_1 = mock(GestorDeUbicaciones.class);
 		
 		//SUT:
-		web = new Web(gestorUbs_1);
+		web = new Web();
 		
 		//DOC:
 		usuario_1 = mock(Usuario.class);
 		usuario_2 = mock(Usuario.class);
 		usuario_3 = mock(Usuario.class);
 		
+		zona_1 = mock(ZonaCobertura.class);
+		zona_2 = mock(ZonaCobertura.class);
+		
 		muestra_1 = mock(Muestra.class);
 		muestra_2 = mock(Muestra.class);
+		
+		verificada = mock(Verificada.class);
+		noVerificada = mock(OpinionBasicos.class);
 		
 		ubicacion_1 = mock(Ubicacion.class);
 		
 		listaDeUsuarios = Arrays.asList(usuario_1,usuario_2,usuario_3);
+		listaDeZonas = Arrays.asList(zona_1,zona_2);
 		
 		vinchuca = TipoVinchuca.VINCHUCA_GUASAYANA;
 		
@@ -85,12 +97,6 @@ public class WebTest {
 			listaFechas25Nuevas.add(LocalDate.now());
 			i++;
 		}
-	}
-	
-	@Test
-	void testGestGestorDeUbicaciones() {
-		//Exercise y Verify
-		assertEquals(web.getGestorUbicaciones(), gestorUbs_1);
 	}
 	
 	@Test 
@@ -118,6 +124,21 @@ public class WebTest {
 		assertEquals(usuariosObtenidos.size(),1);
 		assertEquals(usuariosObtenidos.getFirst().getId(),0l);
 		assertEquals(web.getProximoId(),1l);
+	}
+	
+	@Test
+	void testTodasLasZonas() {
+		//SetUp
+		web.agregarZona(zona_1);
+		web.agregarZona(zona_2);
+		
+		//Exercise
+		List<ZonaCobertura> zonas = web.todasLasZonas();
+		
+		//Verify
+		assertEquals(zonas.size(),2);
+		assertTrue(zonas.contains(zona_1));
+		assertTrue(zonas.contains(zona_2));
 	}
 
 	@Test
@@ -225,33 +246,59 @@ public class WebTest {
 		assertEquals(web.todosLosUsuarios().getLast().getNivel(), Nivel.ESPECIALISTA);
 	}
 	
-	@Test
-	void testRefistrarEnElGestor() {
-		
-		//Exercise
-		web.registrarEnElGestor(ubicacion_1);
-		
-		//Verify
-		verify(gestorUbs_1).obtenerUbicacion(ubicacion_1);
-	}
 	
 	@Test
 	void testNotificarNuevaMuestra() {
+		//SetUp
+		web.agregarZona(zona_1);
+		web.agregarZona(zona_2);
 		
 		//Exercise
 		web.notificarNuevaMuestra(muestra_1);
 		
 		//Verify
-		verify(gestorUbs_1).notificarNuevaMuestra(muestra_1);
+		verify(zona_1).notificarNuevaMuestra(muestra_1);
+		verify(zona_2).notificarNuevaMuestra(muestra_1);
 	}
-
+	
 	@Test
-	void testNotificarNuevaValidacion() {
+	void testAgregarZona() {
+		//SetUp
+		web.agregarMuestra(muestra_1);
+		web.agregarMuestra(muestra_2);
+		when(muestra_1.getVerificacion()).thenReturn(noVerificada);
+		when(muestra_2.getVerificacion()).thenReturn(verificada);
 		
 		//Exercise
-		web.notificarNuevaValidacion(muestra_1);
+		web.agregarZona(zona_1);
 		
 		//Verify
-		verify(gestorUbs_1).notificarNuevaValidacion(muestra_1);
+		verify(zona_1).notificarNuevaMuestra(muestra_1);
+		verify(zona_1,never()).notificarNuevaMuestra(muestra_2);
 	}
+	
+	@Test
+	void testQuitarZonaQueExiste() {
+		//SetUp
+		web.agregarZona(zona_1);
+		
+		//Exercise
+		web.quitarZona(zona_1);
+		
+		//Verify
+		assertFalse(web.todasLasZonas().contains(zona_1));
+	}
+	
+	@Test
+	void testQuitarZonaQueNoExiste() {
+		//SetUp
+		web.agregarZona(zona_1);
+		
+		//Exercise
+		web.quitarZona(zona_2);
+		
+		//Verify
+		assertTrue(web.todasLasZonas().contains(zona_1));
+	}
+
 }
