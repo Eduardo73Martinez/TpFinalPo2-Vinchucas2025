@@ -6,21 +6,18 @@ import java.time.LocalDate;
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 
-public abstract class FechaUltimaVotacion extends Simple{
-	LocalDate fechaIngresada;
+public abstract class FechaUltimaVotacion extends Fechas{
+	
 	
 	abstract boolean esMuestraValida (Muestra muestra);
-	private void setFechaIngresada (LocalDate fechaIngresada) {
-		//PROPOSITO:setea la fecha
-		this.fechaIngresada = fechaIngresada;
-	}
 	
 	
-	protected LocalDate fechaUltimaVotacion (Muestra muestra) {
+	
+	protected LocalDate fechaDeMuestraParaEsteTipo (Muestra muestra) {
 		return muestra.getFechaUltimaVotacion();
 	}
 	public FechaUltimaVotacion (LocalDate fechaIngresada){
 		
-		setFechaIngresada (fechaIngresada);
+		super (fechaIngresada);
 	}
 }

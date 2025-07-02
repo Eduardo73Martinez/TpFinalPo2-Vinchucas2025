@@ -8,7 +8,7 @@ import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 public class CreadoDespuesDe extends FechaDeCreacion {
 	protected boolean esMuestraValida (Muestra muestra) {
-		return fechaCreacion(muestra).isAfter(fechaIngresada);
+		return fechaDespuesDe (muestra);
 	}
 	
 	public CreadoDespuesDe (LocalDate fechaIngresada){
