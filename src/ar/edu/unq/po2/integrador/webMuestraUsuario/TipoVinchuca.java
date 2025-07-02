@@ -4,7 +4,7 @@ public enum TipoVinchuca implements IOpinable{
 
 	VINCHUCA_INFESTANS("Vinchuca Infestans"), VINCHUCA_SORDIDA("Vinchuca Sordida"), VINCHUCA_GUASAYANA("Vinchuca Guasayana");
 	
-	String valor;
+	private String valor;
 	
 	//Devuelve el String asociado al TipoVinchuca
 	public String getValor() {
