@@ -1,23 +1,15 @@
 package ar.edu.unq.po2.integrador.buscador;
 
 import java.time.LocalDate;
-
-
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
 
-public abstract class FechaUltimaVotacion extends Fechas{
+public class FechaUltimaVotacion implements EstrategiaFecha{
 	
-	
-	abstract boolean esMuestraValida (Muestra muestra);
-	
-	
-	
-	protected LocalDate fechaDeMuestraParaEsteTipo (Muestra muestra) {
+	public LocalDate fechaDeMuestraParaEsteTipo (Muestra muestra) {
 		return muestra.getFechaUltimaVotacion();
 	}
-	public FechaUltimaVotacion (LocalDate fechaIngresada){
+	public FechaUltimaVotacion(){
 		
-		super (fechaIngresada);
 	}
 }

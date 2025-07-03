@@ -14,17 +14,18 @@ import org.junit.jupiter.api.Test;
 import ar.edu.unq.po2.integrador.webMuestraUsuario.Muestra;
 
 
-class CreadoEnTest {
+class DespuesDeTest {
 
-	
 	//doc:
+	
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
+
+	EstrategiaFecha estrategia = mock(EstrategiaFecha.class);
 	
 	//sut:
-	CreadoEn filtro;
-	
+	DespuesDe filtro ;
 	//setUp:
 	List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
 	
@@ -32,27 +33,30 @@ class CreadoEnTest {
 	void setUp () {
 		
 		//sut:
-		filtro =  new CreadoEn( LocalDate.of(2000,11,26));
+		filtro = new DespuesDe( LocalDate.of(2000,11,26), estrategia);
 		
 		//setUp:
-		when (muestra1Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,11,26));
-		when (muestra2Stub.getFechaCreacion()).thenReturn (LocalDate.of(2001,11,26));
-		when (muestra3Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,01,01));
+		when (estrategia.fechaDeMuestraParaEsteTipo(muestra1Stub)).thenReturn(LocalDate.of(2000,11,26));
+		when (estrategia.fechaDeMuestraParaEsteTipo(muestra2Stub)).thenReturn(LocalDate.of(2001,11,26));
+		when (estrategia.fechaDeMuestraParaEsteTipo(muestra3Stub)).thenReturn(LocalDate.of(2000,01,01));
 		
 		listaDeMuestras.add(muestra1Stub);
 		listaDeMuestras.add(muestra2Stub);
 		listaDeMuestras.add(muestra3Stub);
 		
+		
 	}
 	@Test
 	void buscarTest() {
-		//setUp:
-		List <Muestra> listaFinal = new ArrayList<Muestra>();
-		listaFinal.add(muestra1Stub); //solo debe ser la muestra 1 al ser la unica que es igual en fecha de ultima votacion a la fecha ingresada
+		
+		//exercise:
+		List <Muestra> listaFinal = filtro.buscar(listaDeMuestras);
+		//solo debe ser la lista 2 al ser la unica que va despues
 		//verify:
-		assertTrue(filtro.buscar(listaDeMuestras).containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar(listaDeMuestras)));
+		assertFalse(listaFinal.contains(muestra1Stub));
+		assertTrue(listaFinal.contains(muestra2Stub));
+		assertFalse(listaFinal.contains(muestra3Stub));
 		
 	}
-
 
 }

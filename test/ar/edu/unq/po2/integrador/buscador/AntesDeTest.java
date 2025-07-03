@@ -13,16 +13,18 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
-class CreadoAntesDeTest {
+class AntesDeTest {
 
 	//doc:
-	
 	Muestra muestra1Stub = mock (Muestra.class);
 	Muestra muestra2Stub = mock (Muestra.class);
 	Muestra muestra3Stub = mock (Muestra.class);
 	
+	EstrategiaFecha estrategia = mock(EstrategiaFecha.class);
+	
 	//sut:
-	CreadoAntesDe filtro;
+	
+	AntesDe filtro;
 	
 	//setUp:
 	List <Muestra> listaDeMuestras = new ArrayList<Muestra>();
@@ -31,13 +33,12 @@ class CreadoAntesDeTest {
 	void setUp () {
 		
 		//sut:
-		filtro = new CreadoAntesDe( LocalDate.of(2000,11,26));
+		filtro = new AntesDe(LocalDate.of(2000,11,26),estrategia);
 		
 		//setUp:
-		
-		when (muestra1Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,11,26));
-		when (muestra2Stub.getFechaCreacion()).thenReturn (LocalDate.of(2001,11,26));
-		when (muestra3Stub.getFechaCreacion()).thenReturn (LocalDate.of(2000,01,01));
+		when(estrategia.fechaDeMuestraParaEsteTipo(muestra1Stub)).thenReturn (LocalDate.of(2000,11,26));
+		when(estrategia.fechaDeMuestraParaEsteTipo(muestra2Stub)).thenReturn (LocalDate.of(2001,11,26));
+		when(estrategia.fechaDeMuestraParaEsteTipo(muestra3Stub)).thenReturn (LocalDate.of(2000,01,01));
 		
 		listaDeMuestras.add(muestra1Stub);
 		listaDeMuestras.add(muestra2Stub);
@@ -45,14 +46,16 @@ class CreadoAntesDeTest {
 	
 		
 	}
+	
 	@Test
 	void buscarTest() {
-		//setUp:
-		List <Muestra> listaFinal = new ArrayList<Muestra>();
-		listaFinal.add(muestra3Stub); //solo debe ser la lista 2 al ser la unica que va antes
+		//exercise:
+		List<Muestra> listaFinal = filtro.buscar(listaDeMuestras);
+		//solo debe ser la muestra 3 al ser la unica que va antes
 		//verify:
-		assertTrue(filtro.buscar(listaDeMuestras).containsAll(listaFinal) && listaFinal.containsAll(filtro.buscar(listaDeMuestras)));
+		assertTrue(listaFinal.contains(muestra3Stub));
+		assertFalse(listaFinal.contains(muestra1Stub));
+		assertFalse(listaFinal.contains(muestra2Stub));
 	
-		 
 	}
 }

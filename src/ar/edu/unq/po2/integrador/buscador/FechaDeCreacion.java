@@ -5,19 +5,12 @@ import java.time.LocalDate;
 
 import ar.edu.unq.po2.integrador.webMuestraUsuario.*;
 
-
-public abstract class FechaDeCreacion extends Fechas {
+public class FechaDeCreacion implements EstrategiaFecha {
 	
-	abstract boolean esMuestraValida (Muestra muestra);
-
-	
-	
-	protected LocalDate fechaDeMuestraParaEsteTipo (Muestra muestra) {
+	public LocalDate fechaDeMuestraParaEsteTipo (Muestra muestra) {
 		return muestra.getFechaCreacion();
 	}
 	
-	public FechaDeCreacion (LocalDate fechaIngresada){
-		
-		super (fechaIngresada);
+	public FechaDeCreacion (){
 	}
 }
